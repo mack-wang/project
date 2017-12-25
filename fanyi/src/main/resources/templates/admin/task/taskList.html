@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(vipTasks.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            VIP任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom:14px;">
+                <a th:classappend="${param.type}==null?'active':''"
+                   th:href="@{${curUrl}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==0?'active':''"
+                   th:href="@{${curUrl}(type=0)}"
+                   class="ui button">口译</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==1?'active':''"
+                   th:href="@{${curUrl}(type=1)}"
+                   class="ui button">笔译</a>
+            </div>
+            <br>
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:href="@{${curUrl}}"
+                   class="ui button">全部任务</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==0?'active':''"
+                   th:href="@{${url}(off=0)}"
+                   class="ui button">正在进行</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==0?'active':''"
+                   th:href="@{${url}(off=1)}"
+                   class="ui button">已关闭任务</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==1?'active':''"
+                   th:href="@{${url}(off=2)}"
+                        class="ui button">完成翻译</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==6?'active':''"
+                   th:href="@{${url}(off=6)}"
+                   class="ui button">已确认收稿</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==2?'active':''"
+                   th:href="@{${url}(off=3)}"
+                        class="ui button">已经账单未付款</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==3?'active':''"
+                   th:href="@{${url}(off=4)}"
+                        class="ui button">已付款</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==4?'active':''"
+                   th:href="@{${url}(off=5)}"
+                        class="ui button">待发送月结账单</a>
+            </div>
+
+
+            <div class="ui action input">
+                <input type="text" placeholder="请输入">
+                <select class="ui compact selection dropdown">
+                    <option selected value="id">编号</option>
+                    <option value="phone">手机号</option>
+                    <option value="username">用户名</option>
+                </select>
+                <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+            </div>
+
+            <table class="ui selectable table padded">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        头像
+                    </th>
+                    <th>昵称</th>
+                    <th>翻译标题</th>
+                    <th>截止时间/口译时间   </th>
+                    <th>金额</th>
+                    <th>结款类型</th>
+                    <th>任务状态</th>
+                    <th>翻译内容</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="task,taskStat:${vipTasks}">
+                    <td><img th:src="${task.user.attribute.avatar}" alt="" class="ui mini image"></td>
+                    <td ><a th:href="@{/profile/user?view=}+${task.user.username}" th:text="${task.user.attribute.nickname}"></a></td>
+                    <td>
+                        <div th:text="${task.title}"></div>
+                        <div>
+                            <span th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></span>
+                            <span th:text="${task.type}==0?'口译':'笔译'"></span>
+                            <span th:text="'编号：'+${#strings.append(#dates.format(task.createdAt,'yyyyMMdd'),task.id)}"></span>
+                        </div>
+                    </td>
+                    <td >
+                        <span th:if="${task.type}==1" th:text="${#dates.format(task.endTime,'yyyy-MM-dd HH:mm')}"></span>
+                        <div th:if="${task.type}==0" th:text="${#dates.format(task.startDate,'yyyy-MM-dd HH:mm')}"></div>
+                        <div th:if="${task.type}==0" th:text="${#dates.format(task.endDate,'yyyy-MM-dd HH:mm')}"></div>
+                    </td>
+                    <td th:text="${task.price}"></td>
+                    <td th:text="${task.user.vip.type}==0?'次结':'月结'"></td>
+                    <td>
+                        <div th:include="layout/vipTask::vipTask (${task.off})" th:remove="tag"></div>
+                    </td>
+                    <td><a th:href="${task.vipAttachment}">下载附件</a></td>
+                    <td><a th:href="@{/admin/vip/task/detail?id=}+${task.id}">操作</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${vipTasks.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+
+            <div th:include="layout/page::page (${vipTasks},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

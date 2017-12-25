@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>首页</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!--优先调用最高版本IE浏览器和webkit浏览器-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1"/>-->
+    <link th:href="@{/semantic/semantic.min.css}" rel="stylesheet"/>
+    <link th:href="@{/modules/layer/theme/default/layer.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/font/fanyi/fanyi.css}" rel="stylesheet"/>
+    <link th:href="@{/css/swiper-3.4.2.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.cookie.js}" type="text/javascript"></script>
+    <script th:src="@{/semantic/semantic.min.js}" type="text/javascript"></script>
+    <script th:src="@{/modules/layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/js/swiper-3.4.2.min.js}" type="text/javascript"></script>
+</head>
+<body style="background-color: #f5f5f5;">
+<a th:href="@{/index}" class="ui basic button bigMargin"><i class="ui angle left icon"></i>翻易首页</a>
+<div class="ui main container yiContainer" style="margin: 50px auto;">
+    <div class="yiHeader" th:text="#{register}">
+    </div>
+    <div class="yiNote" th:text="#{chooseRegisterType}">
+    </div>
+    <div class="ui two link centered cards">
+        <div class="ui card" style="width: 30%;">
+            <div class="content">
+                <div class="header"><i class="ui black huge fanyi-employer icon"></i><span
+                        th:text="#{iAmClient}"></span></div>
+                <div class="description" th:text="#{clientNote}">
+                </div>
+            </div>
+            <a class="ui blue bottom attached button" th:href="@{/register/client}" th:text="#{register}" style="font-size: 18px;">
+            </a>
+        </div>
+        <div class="ui card" style="width: 30%;">
+            <div class="content">
+                <div class="header"><i class="ui black huge fanyi-translator icon"></i><span
+                        th:text="#{iAmUser}"></span></div>
+                <div class="description" th:text="#{userNote}">
+                </div>
+
+            </div>
+            <a class="ui blue bottom attached button" th:href="@{/register/user}" th:text="#{register}" style="font-size: 18px;">
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/basic.js}" type="text/javascript"></script>
+<script th:src="@{/js/web.js}" type="text/javascript"></script>
+</html>

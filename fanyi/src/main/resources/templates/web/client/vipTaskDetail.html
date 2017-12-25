@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            VIP任务详情
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/vip}"><i class="ui left angle icon"></i>VIP服务</a> / VIP任务详情
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <table class="ui large  table">
+                <thead>
+                <tr>
+                    <th class="two wide">VIP任务详情</th>
+                    <th class="seven wide"></th>
+                    <th class="seven wide"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        标题
+                    </td>
+                    <td th:text="${task.title}">
+                    </td>
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        翻译语言
+                    </td>
+                    <td th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}+(${task.type}==0?'口译':'笔译')">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        结算方式
+                    </td>
+                    <td th:text="${task.user.vip.type}==0?'次结':'月结'">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        创建时间
+                    </td>
+                    <td th:text="${#dates.format(task.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td class="right aligned"></td>
+                </tr>
+                <tr th:if="${task.type}==1">
+                    <td>
+                        截稿时间
+                    </td>
+                    <td th:text="${#dates.format(task.endTime,'yyyy-MM-dd HH:mm')}"></td>
+                    <td class="right aligned"></td>
+                </tr>
+                <tr>
+                    <td>
+                        任务状态
+                    </td>
+                    <td>
+                        <span th:if="${task.off}==0">正在进行</span>
+                        <span th:if="${task.off}==1">已关闭任务</span>
+                        <span th:if="${task.off}==2">完成翻译</span>
+                        <span th:if="${task.off}==3">已出账单未付款</span>
+                        <span th:if="${task.off}==4">已付款</span>
+                        <span th:if="${task.off}==5">待发送月结账单</span>
+                        <span th:if="${task.off}==6">确认收稿</span>
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        单价（元/千字 或 元/小时）
+                    </td>
+                    <td th:text="'￥'+${task.unitPrice}">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                <tr th:if="${task.type}==1">
+                    <td>
+                        翻译字数
+                    </td>
+                    <td th:text="${task.word}+'字'">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                <tr th:if="${task.type}==0">
+                    <td>
+                        口译时长
+                    </td>
+                    <td th:text="${task.hour}+'小时'">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        翻译内容
+                    </td>
+                    <td>
+                        <a th:href="${task.vipAttachment}">下载附件</a>
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        翻译稿件
+                    </td>
+                    <td>
+                        <a th:href="${task.vipTask}" th:text="'下载第'+${task.version}+'版'"></a>
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        总额
+                    </td>
+                    <td th:text="${task.price}+'元'">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+            <!--成功通知-->
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

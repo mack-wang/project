@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(articles.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            文章管理
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+
+
+            <div class="ui selection dropdown">
+                <input type="hidden" name="gender">
+                <i class="dropdown icon"></i>
+                <div class="default text">文章目录</div>
+                <div class="menu">
+                    <a th:href="${curUrl}" class="item">全部目录</a>
+                    <a th:each="catalog:${catalogs}"
+                       th:href="@{${curUrl}(catalogId=${catalog.id})}"
+                       th:text="${catalog.catalog}" class="item"></a>
+                </div>
+            </div>
+
+            <div class="ui action input">
+                <input type="text" name="title" placeholder="请输入">
+                <div th:attr="data-value=${curUrl}" id="marketSearchButton" type="submit" class="ui button">搜索</div>
+            </div>
+
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>目录</th>
+                    <th>标题</th>
+                    <th>状态</th>
+                    <th>置顶</th>
+                    <th>修改</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article:${articles}">
+                    <td th:text="${article.id}"></td>
+                    <td th:text="${article.catalog.catalog}"></td>
+                    <td th:text="${article.title}"></td>
+                    <td>
+                        <div class="ui checkbox articleOff">
+                            <input type="checkbox" th:attr="checked=${article.off}==1?'checked':'false'" th:value="${article.id}">
+                            <label>关闭</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui checkbox articleTop">
+                            <input type="checkbox" th:attr="checked=${article.top}==1?'checked':'false'" th:value="${article.id}">
+                            <label>置顶</label>
+                        </div>
+                    </td>
+                    <td><a th:href="@{/admin/article/update?id=}+${article.id}" class="edit article">修改</a></td>
+                    <td><a th:href="@{/admin/article/delete?id=}+${article.id}" class="delete article">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${articles.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+            <div th:include="layout/page::page (${articles},${url})" th:remove="tag"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

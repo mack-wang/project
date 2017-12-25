@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            新建VIP任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>新建VIP任务</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">选择VIP客户</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">填写VIP任务</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="viptaskAddForm" th:action="@{/admin/viptask/add}"
+                                  class="ui form"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">VIP客户</div>
+                                    <div class="fourteen wide column">
+                                        <div class="ui segment clearShadow">
+                                            <div class="ui feed">
+                                                <div class="event">
+                                                    <div class="label">
+                                                        <img th:src="${vip.user.attribute.avatar}">
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="summary">
+                                                            <a class="user" th:text="${vip.user.attribute.nickname}">
+                                                            </a>
+                                                        </div>
+                                                        <div class="meta" th:text="${vip.user.attribute.phone}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        任务标题
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="title" placeholder="任务标题">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">翻译语言</div>
+                                    <div class="fourteen wide column">
+                                        <div class="ui selection dropdown languageGroup">
+                                            <input type="hidden" name="languageGroup">
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">翻译语言</div>
+                                            <div class="menu">
+                                                <div th:each="group:${languageGroups}" class="item"
+                                                     th:attr="data-value=${group.id}"
+                                                     th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        翻译内容
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <a id="vipAttachment">
+                                                <i class="iu upload icon"></i>点击添加文件
+                                            </a>
+                                            <span>(允许上传1个100M以下的附件，建议打包上传)</span>
+                                            <input type="file" name="vipAttachment" class="hide"/>
+                                            <input type="hidden" name="path"/>
+                                        </div>
+                                        <div id="vipAttachmentBox" class="ui message">
+                                            <span></span><span>未上传附件</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">翻译类型</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown quality" name="type">
+                                                <option value="1">笔译</option>
+                                                <option value="0">口译</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        翻译单价
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="unitPrice" placeholder="单位（元）">
+                                        </div>
+                                        <div class="ui message">
+                                            <div class="ui list">
+                                                <div class="item">合同单价</div>
+                                                <div class="item" th:each="price:${vip.vipPrices}"
+                                                     th:text="${price.languageGroup.originLanguages.name}
+                                        +'->'+${price.languageGroup.translateLanguages.name}
+                                        +(${price.translateType}=='translate'?'笔译':'口译')
+                                        +${price.price}
+                                        +(${price.priceType}=='word'?'元/千字':'')
+                                        +(${price.priceType}=='page'?'元/页':'')
+                                        +(${price.priceType}=='hour'?'元/小时':'')
+                                        +(${price.priceType}=='day'?'元/天':'')"
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        翻译字数
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="word" placeholder="翻译字数">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        截稿时间
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="timeStart">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="endTime" placeholder="翻译截稿时间选择">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="two wide column">
+                                        翻译时长
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="hour" placeholder="翻译时长(口译才填)">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        口译开始
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="rangestart">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="startDate" placeholder="口译开始时间选择(口译才填)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        口译结束
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="rangeend">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="endDate" placeholder="口译结束时间选择(口译才填)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="two wide column">
+                                        总额
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="price" placeholder="总额(元)">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <input type="hidden" name="username" th:value="${vip.user.username}">
+                                       <button class="ui blue button submit">提交</button>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

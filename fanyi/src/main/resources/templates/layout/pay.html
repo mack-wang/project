@@ -1,0 +1,17 @@
+
+<div th:fragment="pay(money,price)">
+    <div id="payInput" class="hide bigMargin">
+        <div id="payDetail" style="margin-bottom: 20px;">
+            <div>余额：￥<span th:text="${money}"></span></div>
+            <div>待支付金额：￥<span th:text="${price}"></span></div>
+            <div class="hide">余额不足 <a th:href="@{/balance}">点击充值</a></div>
+        </div>
+        <input id="beginBtn" type="password" maxlength="1" autocomplete="off"><!-
+        -><input type="password" maxlength="1" autocomplete="off"><!-
+        -><input type="password" maxlength="1" autocomplete="off"><!-
+        -><input type="password" maxlength="1" autocomplete="off"><!-
+        -><input type="password" maxlength="1" autocomplete="off"><!-
+        -><input type="password" maxlength="1" autocomplete="off">
+        <a id="clearPayPassword" style="display: block">清空密码</a>
+    </div>
+</div>

@@ -1,0 +1,3202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="fanyi@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="fanyi">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="cubeworld"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sys"/>
+    <schema id="8" parent="1" name="testjoin"/>
+    <schema id="9" parent="1" name="luhu"/>
+    <table id="10" parent="2" name="account"/>
+    <table id="11" parent="2" name="accounting"/>
+    <table id="12" parent="2" name="address"/>
+    <table id="13" parent="2" name="admin_check_certificate"/>
+    <table id="14" parent="2" name="admin_check_certificate_message"/>
+    <table id="15" parent="2" name="article"/>
+    <table id="16" parent="2" name="article_content"/>
+    <table id="17" parent="2" name="attachment"/>
+    <table id="18" parent="2" name="attribute"/>
+    <table id="19" parent="2" name="balance"/>
+    <table id="20" parent="2" name="base_message"/>
+    <table id="21" parent="2" name="bill"/>
+    <table id="22" parent="2" name="bill_vip_tasks"/>
+    <table id="23" parent="2" name="catalog"/>
+    <table id="24" parent="2" name="certificate"/>
+    <table id="25" parent="2" name="certificate_info"/>
+    <table id="26" parent="2" name="certificate_info_skilled_fields"/>
+    <table id="27" parent="2" name="certificate_info_skilled_usages"/>
+    <table id="28" parent="2" name="certificate_kind"/>
+    <table id="29" parent="2" name="certificate_paper"/>
+    <table id="30" parent="2" name="certificate_picture"/>
+    <table id="31" parent="2" name="company"/>
+    <table id="32" parent="2" name="customer_service"/>
+    <table id="33" parent="2" name="education"/>
+    <table id="34" parent="2" name="file_clean"/>
+    <table id="35" parent="2" name="illegal"/>
+    <table id="36" parent="2" name="invite"/>
+    <table id="37" parent="2" name="invoice"/>
+    <table id="38" parent="2" name="invoice_request"/>
+    <table id="39" parent="2" name="language_group"/>
+    <table id="40" parent="2" name="languages"/>
+    <table id="41" parent="2" name="mh_city"/>
+    <table id="42" parent="2" name="persistent_logins"/>
+    <table id="43" parent="2" name="price"/>
+    <table id="44" parent="2" name="price_range"/>
+    <table id="45" parent="2" name="process"/>
+    <table id="46" parent="2" name="product"/>
+    <table id="47" parent="2" name="quality"/>
+    <table id="48" parent="2" name="question"/>
+    <table id="49" parent="2" name="report_illegal"/>
+    <table id="50" parent="2" name="role"/>
+    <table id="51" parent="2" name="signature_request"/>
+    <table id="52" parent="2" name="skilled_field"/>
+    <table id="53" parent="2" name="skilled_usage"/>
+    <table id="54" parent="2" name="slide_image"/>
+    <table id="55" parent="2" name="sms"/>
+    <table id="56" parent="2" name="sms_notify"/>
+    <table id="57" parent="2" name="task"/>
+    <table id="58" parent="2" name="task_content"/>
+    <table id="59" parent="2" name="task_interpret"/>
+    <table id="60" parent="2" name="task_user"/>
+    <table id="61" parent="2" name="task_user_educations"/>
+    <table id="62" parent="2" name="ticket"/>
+    <table id="63" parent="2" name="translate_price"/>
+    <table id="64" parent="2" name="user"/>
+    <table id="65" parent="2" name="user_info"/>
+    <table id="66" parent="2" name="user_roles"/>
+    <table id="67" parent="2" name="vip"/>
+    <table id="68" parent="2" name="vip_price"/>
+    <table id="69" parent="2" name="vip_task"/>
+    <table id="70" parent="2" name="vip_vip_prices"/>
+    <table id="71" parent="2" name="web"/>
+    <column id="72" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="73" parent="10" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="74" parent="10" name="money">
+      <Position>3</Position>
+      <DataType>decimal(12,2)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="75" parent="10" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="76" parent="10" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="77" parent="10" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="78" parent="10" name="FK7m8ru44m93ukyb61dfxw0apf6">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="79" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="80" parent="10" name="FK7m8ru44m93ukyb61dfxw0apf6">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="81" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="82" parent="11" name="ename">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="83" parent="11" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="84" parent="11" name="short_name">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="85" parent="11" name="type">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <key id="86" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="87" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="88" parent="12" name="address">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="89" parent="12" name="name">
+      <Position>3</Position>
+      <DataType>varchar(12)|0</DataType>
+    </column>
+    <column id="90" parent="12" name="phone">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="91" parent="12" name="area_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="92" parent="12" name="city_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="93" parent="12" name="province_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="94" parent="12" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="95" parent="12" name="created_at">
+      <Position>9</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="96" parent="12" name="updated_at">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="97" parent="12" name="FKagjpgsak25nrialx0slvhog6c">
+      <ColNames>area_id</ColNames>
+    </index>
+    <index id="98" parent="12" name="FKda8tuywtf0gb6sedwk7la1pgi">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="99" parent="12" name="FKf8kog7fp9yl20owy8snsvwjof">
+      <ColNames>province_id</ColNames>
+    </index>
+    <index id="100" parent="12" name="FKqshkbectvcqyyg8sohxao8pdt">
+      <ColNames>city_id</ColNames>
+    </index>
+    <key id="101" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="102" parent="12" name="FKagjpgsak25nrialx0slvhog6c">
+      <ColNames>area_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="103" parent="12" name="FKqshkbectvcqyyg8sohxao8pdt">
+      <ColNames>city_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="104" parent="12" name="FKf8kog7fp9yl20owy8snsvwjof">
+      <ColNames>province_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="105" parent="12" name="FKda8tuywtf0gb6sedwk7la1pgi">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="106" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="107" parent="13" name="certificate_check">
+      <Position>2</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="108" parent="13" name="company_check">
+      <Position>3</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="109" parent="13" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="110" parent="13" name="real_name_check">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="111" parent="13" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="112" parent="13" name="message_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="113" parent="13" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="114" parent="13" name="modified_by">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="115" parent="13" name="FKgby64698vfj07qyed3ltg1cas">
+      <ColNames>message_id</ColNames>
+    </index>
+    <index id="116" parent="13" name="FKrfevi6ca6exp0yemi9hjlrmq">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="117" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="118" parent="13" name="FKgby64698vfj07qyed3ltg1cas">
+      <ColNames>message_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>admin_check_certificate_message</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="119" parent="13" name="FKrfevi6ca6exp0yemi9hjlrmq">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="120" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="121" parent="14" name="certificate_message">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="122" parent="14" name="company_message">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="123" parent="14" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="124" parent="14" name="real_name_message">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="125" parent="14" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="126" parent="14" name="modified_by">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="127" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="128" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="129" parent="15" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="130" parent="15" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="131" parent="15" name="off">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="132" parent="15" name="top">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="133" parent="15" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="134" parent="15" name="article_content_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="135" parent="15" name="catalog_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="136" parent="15" name="view">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="137" parent="15" name="title">
+      <Position>10</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="138" parent="15" name="FK6js45bp43i0bgjiaw570tv4yo">
+      <ColNames>article_content_id</ColNames>
+    </index>
+    <index id="139" parent="15" name="FKqqixhl5g4t64f6e9x97cc1cls">
+      <ColNames>catalog_id</ColNames>
+    </index>
+    <key id="140" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="141" parent="15" name="FK6js45bp43i0bgjiaw570tv4yo">
+      <ColNames>article_content_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>article_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="142" parent="15" name="FKqqixhl5g4t64f6e9x97cc1cls">
+      <ColNames>catalog_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>catalog</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="143" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="144" parent="16" name="content">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="145" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="146" parent="17" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="147" parent="17" name="chars">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="148" parent="17" name="client_words">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="149" parent="17" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="150" parent="17" name="has_count">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="151" parent="17" name="pages">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="152" parent="17" name="path">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="153" parent="17" name="size">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="154" parent="17" name="suffix_name">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="155" parent="17" name="type">
+      <Position>10</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="156" parent="17" name="updated_at">
+      <Position>11</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="157" parent="17" name="words">
+      <Position>12</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="158" parent="17" name="task_id">
+      <Position>13</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="159" parent="17" name="process_id">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="160" parent="17" name="FKliwb3s1jmhbcrq2upsyo2cftn">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="161" parent="17" name="FKbwtrmu6myfscd933drvr3xe8b">
+      <ColNames>process_id</ColNames>
+    </index>
+    <key id="162" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="163" parent="17" name="FKliwb3s1jmhbcrq2upsyo2cftn">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="164" parent="17" name="FKbwtrmu6myfscd933drvr3xe8b">
+      <ColNames>process_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>process</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="165" parent="18" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="166" parent="18" name="avatar">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="167" parent="18" name="email">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="168" parent="18" name="nickname">
+      <Position>4</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="169" parent="18" name="phone">
+      <Position>5</Position>
+      <DataType>varchar(11)|0</DataType>
+    </column>
+    <column id="170" parent="18" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="171" parent="18" name="score">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="172" parent="18" name="words">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="173" parent="18" name="task_done">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="174" parent="18" name="FKg15fcmqovwuhq6bg4w1gcfkj2">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="175" parent="18" name="UK_2nccejeqkifo1xklxfjnsvq58">
+      <ColNames>phone</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="176" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="177" parent="18" name="UK_2nccejeqkifo1xklxfjnsvq58">
+      <ColNames>phone</ColNames>
+      <UnderlyingIndexName>UK_2nccejeqkifo1xklxfjnsvq58</UnderlyingIndexName>
+    </key>
+    <foreign-key id="178" parent="18" name="FKg15fcmqovwuhq6bg4w1gcfkj2">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="179" parent="19" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="180" parent="19" name="balance">
+      <Position>2</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="181" parent="19" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="182" parent="19" name="updated_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="183" parent="19" name="variation">
+      <Position>5</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="184" parent="19" name="accounting_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="185" parent="19" name="task_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="186" parent="19" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="187" parent="19" name="bill_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="188" parent="19" name="product_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="189" parent="19" name="ticket_id">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="190" parent="19" name="FK1c5euin7u5g5sof8rntm5jobj">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="191" parent="19" name="FK5alq49p112j6qwiho4xhq75fx">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="192" parent="19" name="FK5ief21ybkhs4enbei6dmiesuc">
+      <ColNames>accounting_id</ColNames>
+    </index>
+    <index id="193" parent="19" name="FKma6pgh8ilbr6o0fpowabfg4x">
+      <ColNames>bill_id</ColNames>
+    </index>
+    <index id="194" parent="19" name="FKpkfa661affx2g1087o5y1xuty">
+      <ColNames>product_id</ColNames>
+    </index>
+    <index id="195" parent="19" name="FK9ykkklra63qffnl72rg06gufa">
+      <ColNames>ticket_id</ColNames>
+    </index>
+    <key id="196" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="197" parent="19" name="FK5ief21ybkhs4enbei6dmiesuc">
+      <ColNames>accounting_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>accounting</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="198" parent="19" name="FK1c5euin7u5g5sof8rntm5jobj">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="199" parent="19" name="FK5alq49p112j6qwiho4xhq75fx">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="200" parent="19" name="FKma6pgh8ilbr6o0fpowabfg4x">
+      <ColNames>bill_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>bill</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="201" parent="19" name="FKpkfa661affx2g1087o5y1xuty">
+      <ColNames>product_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>product</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="202" parent="19" name="FK9ykkklra63qffnl72rg06gufa">
+      <ColNames>ticket_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>ticket</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="203" parent="20" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="204" parent="20" name="content">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="205" parent="20" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="206" parent="20" name="date">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="207" parent="20" name="receiver">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="208" parent="20" name="sender">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="209" parent="20" name="to_type">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="210" parent="20" name="type">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="211" parent="20" name="reading">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="212" parent="20" name="user_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="213" parent="20" name="FKfdsx28573woqu66j7gcrx0e04">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="214" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="215" parent="20" name="FKfdsx28573woqu66j7gcrx0e04">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="216" parent="21" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="217" parent="21" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="218" parent="21" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="219" parent="21" name="pay">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="220" parent="21" name="price">
+      <Position>5</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="221" parent="21" name="type">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="222" parent="21" name="updated_at">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="223" parent="21" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="224" parent="21" name="month">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="225" parent="21" name="send">
+      <Position>10</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <index id="226" parent="21" name="FKqhq5aolak9ku5x5mx11cpjad9">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="227" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="228" parent="21" name="FKqhq5aolak9ku5x5mx11cpjad9">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="229" parent="22" name="bill_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="230" parent="22" name="vip_tasks_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="231" parent="22" name="FKodoka1sb2vqbnj9o3ifu16vfn">
+      <ColNames>bill_id</ColNames>
+    </index>
+    <index id="232" parent="22" name="UK_l9kqi87yltbtdbo5417imd5io">
+      <ColNames>vip_tasks_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="233" parent="22" name="UK_l9kqi87yltbtdbo5417imd5io">
+      <ColNames>vip_tasks_id</ColNames>
+      <UnderlyingIndexName>UK_l9kqi87yltbtdbo5417imd5io</UnderlyingIndexName>
+    </key>
+    <foreign-key id="234" parent="22" name="FKodoka1sb2vqbnj9o3ifu16vfn">
+      <ColNames>bill_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>bill</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="235" parent="22" name="FK9qfr9u3lhrcmdmhewxwlim0aq">
+      <ColNames>vip_tasks_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>vip_task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="236" parent="23" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="237" parent="23" name="catalog">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="238" parent="23" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="239" parent="23" name="modified_by">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="240" parent="23" name="off">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="241" parent="23" name="top">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="242" parent="23" name="updated_at">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="243" parent="23" name="ecatalog">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="244" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="245" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="246" parent="24" name="address">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="247" parent="24" name="id_card_back">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="248" parent="24" name="id_card_front">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="249" parent="24" name="id_number">
+      <Position>5</Position>
+      <DataType>varchar(18)|0</DataType>
+    </column>
+    <column id="250" parent="24" name="name">
+      <Position>6</Position>
+      <DataType>varchar(12)|0</DataType>
+    </column>
+    <column id="251" parent="24" name="area_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="252" parent="24" name="city_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="253" parent="24" name="province_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="254" parent="24" name="user_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="255" parent="24" name="FK1nftc23o498i8ce54ahtqlbdc">
+      <ColNames>area_id</ColNames>
+    </index>
+    <index id="256" parent="24" name="FK5r3gnmalkua0phl9hftcxljgm">
+      <ColNames>province_id</ColNames>
+    </index>
+    <index id="257" parent="24" name="FKlg7bl717ocpgj3nkkssaiglmg">
+      <ColNames>city_id</ColNames>
+    </index>
+    <index id="258" parent="24" name="FKp2ure8wwndmepxyj2ey8r3lb2">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="259" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="260" parent="24" name="FK1nftc23o498i8ce54ahtqlbdc">
+      <ColNames>area_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="261" parent="24" name="FKlg7bl717ocpgj3nkkssaiglmg">
+      <ColNames>city_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="262" parent="24" name="FK5r3gnmalkua0phl9hftcxljgm">
+      <ColNames>province_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="263" parent="24" name="FKp2ure8wwndmepxyj2ey8r3lb2">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="264" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="265" parent="25" name="translate_year">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="266" parent="25" name="language_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="267" parent="25" name="user_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="268" parent="25" name="FK5hyypbf8s1t6ce5upl5dyj19l">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="269" parent="25" name="FKoe3tvnxmphjsta3ajbbk99gb2">
+      <ColNames>language_id</ColNames>
+    </index>
+    <key id="270" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="271" parent="25" name="FKoe3tvnxmphjsta3ajbbk99gb2">
+      <ColNames>language_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>languages</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="272" parent="25" name="FK5hyypbf8s1t6ce5upl5dyj19l">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="273" parent="26" name="certificate_info_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="274" parent="26" name="skilled_fields_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="275" parent="26" name="FKlxakew7juktbr9afvm6ob87g9">
+      <ColNames>skilled_fields_id</ColNames>
+    </index>
+    <index id="276" parent="26" name="FKnqyuwv1lrlhsn63cseyat57j5">
+      <ColNames>certificate_info_id</ColNames>
+    </index>
+    <foreign-key id="277" parent="26" name="FKnqyuwv1lrlhsn63cseyat57j5">
+      <ColNames>certificate_info_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>certificate_info</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="278" parent="26" name="FKlxakew7juktbr9afvm6ob87g9">
+      <ColNames>skilled_fields_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>skilled_field</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="279" parent="27" name="certificate_info_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="280" parent="27" name="skilled_usages_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="281" parent="27" name="FK2403a6k1fpwdp609a2mlm0lqu">
+      <ColNames>skilled_usages_id</ColNames>
+    </index>
+    <index id="282" parent="27" name="FKlmxbioehvi4bwcxkwdv8ahm0r">
+      <ColNames>certificate_info_id</ColNames>
+    </index>
+    <foreign-key id="283" parent="27" name="FKlmxbioehvi4bwcxkwdv8ahm0r">
+      <ColNames>certificate_info_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>certificate_info</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="284" parent="27" name="FK2403a6k1fpwdp609a2mlm0lqu">
+      <ColNames>skilled_usages_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>skilled_usage</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="285" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="286" parent="28" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="287" parent="28" name="weight">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <key id="288" parent="28" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="289" parent="29" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="290" parent="29" name="other_certificate">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="291" parent="29" name="type">
+      <Position>3</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="292" parent="29" name="certificate_kind_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="293" parent="29" name="user_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="294" parent="29" name="FKixh9tsojcfbyms35ji10oe0tt">
+      <ColNames>certificate_kind_id</ColNames>
+    </index>
+    <index id="295" parent="29" name="FKph7ekbc6q6cfdfvak3qblife1">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="296" parent="29" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="297" parent="29" name="FKixh9tsojcfbyms35ji10oe0tt">
+      <ColNames>certificate_kind_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>certificate_kind</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="298" parent="29" name="FKph7ekbc6q6cfdfvak3qblife1">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="299" parent="30" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="300" parent="30" name="path">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="301" parent="30" name="user_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="302" parent="30" name="FK2tgl92o9g0i7a13mjfhycafb0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="303" parent="30" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="304" parent="30" name="FK2tgl92o9g0i7a13mjfhycafb0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="305" parent="31" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="306" parent="31" name="address">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="307" parent="31" name="contact_name">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="308" parent="31" name="contact_phone">
+      <Position>4</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="309" parent="31" name="license">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="310" parent="31" name="name">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="311" parent="31" name="area_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="312" parent="31" name="city_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="313" parent="31" name="province_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="314" parent="31" name="user_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="315" parent="31" name="FKdy4v2yb46hefqicjpyj7b7e4s">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="316" parent="31" name="FKfy79ncts64j1jabdud1wad0v9">
+      <ColNames>province_id</ColNames>
+    </index>
+    <index id="317" parent="31" name="FKophiuxd5cqxgwv66uahub0saf">
+      <ColNames>area_id</ColNames>
+    </index>
+    <index id="318" parent="31" name="FKx7nxy5y75i9mvm00ti4qe4st">
+      <ColNames>city_id</ColNames>
+    </index>
+    <key id="319" parent="31" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="320" parent="31" name="FKophiuxd5cqxgwv66uahub0saf">
+      <ColNames>area_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="321" parent="31" name="FKx7nxy5y75i9mvm00ti4qe4st">
+      <ColNames>city_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="322" parent="31" name="FKfy79ncts64j1jabdud1wad0v9">
+      <ColNames>province_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="323" parent="31" name="FKdy4v2yb46hefqicjpyj7b7e4s">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="324" parent="32" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="325" parent="32" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="326" parent="32" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="327" parent="32" name="online">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="328" parent="32" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="329" parent="32" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="330" parent="32" name="FKfq68hnvjx1yfsd3ucwng1foit">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="331" parent="32" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="332" parent="32" name="FKfq68hnvjx1yfsd3ucwng1foit">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="333" parent="33" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="334" parent="33" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="335" parent="33" name="degree">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="336" parent="33" name="graduate_year">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="337" parent="33" name="major">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="338" parent="33" name="number">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="339" parent="33" name="school">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="340" parent="33" name="start_year">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="341" parent="33" name="updated_at">
+      <Position>9</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="342" parent="33" name="user_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="343" parent="33" name="FKaw3ebf3585a1ndgqnk6k6hosc">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="344" parent="33" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="345" parent="33" name="FKaw3ebf3585a1ndgqnk6k6hosc">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="346" parent="34" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="347" parent="34" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="348" parent="34" name="folder">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="349" parent="34" name="size">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <column id="350" parent="34" name="counts">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="351" parent="34" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="352" parent="35" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="353" parent="35" name="ename">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="354" parent="35" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="355" parent="35" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="356" parent="36" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="357" parent="36" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="358" parent="36" name="updated_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="359" parent="36" name="invite_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="360" parent="36" name="user_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="361" parent="36" name="FKox56syma79xv2fmrldrueiafx">
+      <ColNames>invite_id</ColNames>
+    </index>
+    <index id="362" parent="36" name="FKr46ka3f3bcudgfu67beggb6r8">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="363" parent="36" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="364" parent="36" name="FKox56syma79xv2fmrldrueiafx">
+      <ColNames>invite_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="365" parent="36" name="FKr46ka3f3bcudgfu67beggb6r8">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="366" parent="37" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="367" parent="37" name="account">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="368" parent="37" name="address">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="369" parent="37" name="bank">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="370" parent="37" name="created_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="371" parent="37" name="phone">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="372" parent="37" name="tax">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="373" parent="37" name="title">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="374" parent="37" name="type">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="375" parent="37" name="updated_at">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="376" parent="37" name="user_id">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="377" parent="37" name="deleted">
+      <Position>12</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <index id="378" parent="37" name="FKjunvl5maki3unqdvljk31kns3">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="379" parent="37" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="380" parent="37" name="FKjunvl5maki3unqdvljk31kns3">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="381" parent="38" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="382" parent="38" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="383" parent="38" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="384" parent="38" name="result">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="385" parent="38" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="386" parent="38" name="address_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="387" parent="38" name="invoice_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="388" parent="38" name="task_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="389" parent="38" name="user_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="390" parent="38" name="vip_task_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="391" parent="38" name="tracking_number">
+      <Position>11</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="392" parent="38" name="FK3wchxu81l23m5t2cepwvrxan0">
+      <ColNames>address_id</ColNames>
+    </index>
+    <index id="393" parent="38" name="FKa8s4dgqt2dlet755c5fyg4d6g">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="394" parent="38" name="FKdddo9kxubvd4kfsiu0m2qopc0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="395" parent="38" name="FKic0gv75m2xmwsfwulw36tw3dr">
+      <ColNames>invoice_id</ColNames>
+    </index>
+    <index id="396" parent="38" name="FKly2ub30hty475c9yhrp9gx0pr">
+      <ColNames>vip_task_id</ColNames>
+    </index>
+    <key id="397" parent="38" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="398" parent="38" name="FK3wchxu81l23m5t2cepwvrxan0">
+      <ColNames>address_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>address</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="399" parent="38" name="FKic0gv75m2xmwsfwulw36tw3dr">
+      <ColNames>invoice_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>invoice</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="400" parent="38" name="FKa8s4dgqt2dlet755c5fyg4d6g">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="401" parent="38" name="FKdddo9kxubvd4kfsiu0m2qopc0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="402" parent="38" name="FKly2ub30hty475c9yhrp9gx0pr">
+      <ColNames>vip_task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>vip_task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="403" parent="39" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="404" parent="39" name="origin_language_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="405" parent="39" name="translate_language_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="406" parent="39" name="FK11xpvuv6clw9qja5smxv2hx7j">
+      <ColNames>translate_language_id</ColNames>
+    </index>
+    <index id="407" parent="39" name="FK1w1vu3ehsb6tp4d13f9t5ib2a">
+      <ColNames>origin_language_id</ColNames>
+    </index>
+    <key id="408" parent="39" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="409" parent="39" name="FK1w1vu3ehsb6tp4d13f9t5ib2a">
+      <ColNames>origin_language_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>languages</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="410" parent="39" name="FK11xpvuv6clw9qja5smxv2hx7j">
+      <ColNames>translate_language_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>languages</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="411" parent="40" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="412" parent="40" name="ename">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="413" parent="40" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="414" parent="40" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="415" parent="41" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="416" parent="41" name="city">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="417" parent="41" name="level">
+      <Position>3</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="418" parent="41" name="name">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="419" parent="41" name="pid">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="420" parent="41" name="usetype">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <key id="421" parent="41" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="422" parent="42" name="series">
+      <Position>1</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="423" parent="42" name="last_used">
+      <Position>2</Position>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+    </column>
+    <column id="424" parent="42" name="token">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="425" parent="42" name="username">
+      <Position>4</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <key id="426" parent="42" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>series</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="427" parent="43" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="428" parent="43" name="price">
+      <Position>2</Position>
+      <DataType>decimal(5,3)|0</DataType>
+    </column>
+    <column id="429" parent="43" name="language_group_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="430" parent="43" name="quality_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="431" parent="43" name="FKk1afknobv42ywvo0aiv64k2ys">
+      <ColNames>language_group_id</ColNames>
+    </index>
+    <index id="432" parent="43" name="FKmpfirhrmp66qmq5h7q107nsxe">
+      <ColNames>quality_id</ColNames>
+    </index>
+    <key id="433" parent="43" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="434" parent="43" name="FKk1afknobv42ywvo0aiv64k2ys">
+      <ColNames>language_group_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>language_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="435" parent="43" name="FKmpfirhrmp66qmq5h7q107nsxe">
+      <ColNames>quality_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>quality</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="436" parent="44" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="437" parent="44" name="end">
+      <Position>2</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="438" parent="44" name="start">
+      <Position>3</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <key id="439" parent="44" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="440" parent="45" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="441" parent="45" name="client_comment">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="442" parent="45" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="443" parent="45" name="star">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="444" parent="45" name="template_comment">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="445" parent="45" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="446" parent="45" name="task_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="447" parent="45" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="448" parent="45" name="process">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="449" parent="45" name="advice_id">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="450" parent="45" name="translate_id">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="451" parent="45" name="checked">
+      <Position>12</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="452" parent="45" name="invoice_request_id">
+      <Position>13</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="453" parent="45" name="signature_request_id">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="454" parent="45" name="attachment">
+      <Position>15</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="455" parent="45" name="FK8csd6vnx7i9i4tigtd74uf9pj">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="456" parent="45" name="FKd42csxf9dsrt78hurq3ckin6p">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="457" parent="45" name="FKjnq7hsmgy1y7vj9xyycg7ks4t">
+      <ColNames>translate_id</ColNames>
+    </index>
+    <index id="458" parent="45" name="FKo1gq8nbbdibrd8nepi8v38rgq">
+      <ColNames>advice_id</ColNames>
+    </index>
+    <index id="459" parent="45" name="FK215xpwsw6nimm8jk4jyjfjoqw">
+      <ColNames>invoice_request_id</ColNames>
+    </index>
+    <index id="460" parent="45" name="FKnxf8ytmlbii1epgb9i2cie3kv">
+      <ColNames>signature_request_id</ColNames>
+    </index>
+    <key id="461" parent="45" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="462" parent="45" name="FK8csd6vnx7i9i4tigtd74uf9pj">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="463" parent="45" name="FKd42csxf9dsrt78hurq3ckin6p">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="464" parent="45" name="FKo1gq8nbbdibrd8nepi8v38rgq">
+      <ColNames>advice_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="465" parent="45" name="FKjnq7hsmgy1y7vj9xyycg7ks4t">
+      <ColNames>translate_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="466" parent="45" name="FK215xpwsw6nimm8jk4jyjfjoqw">
+      <ColNames>invoice_request_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>invoice_request</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="467" parent="45" name="FKnxf8ytmlbii1epgb9i2cie3kv">
+      <ColNames>signature_request_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>signature_request</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="468" parent="46" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="469" parent="46" name="attach">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="470" parent="46" name="create_ip">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="471" parent="46" name="created_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="472" parent="46" name="out_trade_no">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="473" parent="46" name="pay_type">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="474" parent="46" name="pay_way">
+      <Position>7</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="475" parent="46" name="price">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="476" parent="46" name="status">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="477" parent="46" name="updated_at">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="478" parent="46" name="user_id">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="479" parent="46" name="account">
+      <Position>12</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="480" parent="46" name="out_biz_no">
+      <Position>13</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="481" parent="46" name="FK979liw4xk18ncpl87u4tygx2u">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="482" parent="46" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="483" parent="46" name="FK979liw4xk18ncpl87u4tygx2u">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="484" parent="47" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="485" parent="47" name="equality">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="486" parent="47" name="level">
+      <Position>3</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="487" parent="47" name="quality">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="488" parent="47" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="489" parent="48" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="490" parent="48" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="491" parent="48" name="email">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="492" parent="48" name="question">
+      <Position>4</Position>
+      <DataType>varchar(500)|0</DataType>
+    </column>
+    <column id="493" parent="48" name="respond">
+      <Position>5</Position>
+      <DataType>varchar(500)|0</DataType>
+    </column>
+    <column id="494" parent="48" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="495" parent="48" name="modified_by">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="496" parent="48" name="result">
+      <Position>8</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <key id="497" parent="48" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="498" parent="49" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="499" parent="49" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="500" parent="49" name="updated_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="501" parent="49" name="illegal_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="502" parent="49" name="task_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="503" parent="49" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="504" parent="49" name="result">
+      <Position>7</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="505" parent="49" name="modified_by">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="506" parent="49" name="FK3jyophsh6rpil5jqpwd3djryy">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="507" parent="49" name="FK6uxkgovuvc2st64d2vq9sp3au">
+      <ColNames>illegal_id</ColNames>
+    </index>
+    <index id="508" parent="49" name="FKs2qp54lmqnrr6vtbjlkc494u8">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="509" parent="49" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="510" parent="49" name="FK6uxkgovuvc2st64d2vq9sp3au">
+      <ColNames>illegal_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>illegal</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="511" parent="49" name="FK3jyophsh6rpil5jqpwd3djryy">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="512" parent="49" name="FKs2qp54lmqnrr6vtbjlkc494u8">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="513" parent="50" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="514" parent="50" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="515" parent="50" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="516" parent="51" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="517" parent="51" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="518" parent="51" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="519" parent="51" name="result">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="520" parent="51" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="521" parent="51" name="address_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="522" parent="51" name="task_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="523" parent="51" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="524" parent="51" name="vip_task_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="525" parent="51" name="tracking_number">
+      <Position>10</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="526" parent="51" name="FK5rj3xc3tgguksakr5jlovl4dl">
+      <ColNames>vip_task_id</ColNames>
+    </index>
+    <index id="527" parent="51" name="FKa6hp6gmkm4osck1jiqcek6qfg">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="528" parent="51" name="FKqs1y7n55xay3ir2373f4ig4fa">
+      <ColNames>address_id</ColNames>
+    </index>
+    <index id="529" parent="51" name="FKsnlnu6twprjmcpe1coy0v0ywi">
+      <ColNames>task_id</ColNames>
+    </index>
+    <key id="530" parent="51" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="531" parent="51" name="FKqs1y7n55xay3ir2373f4ig4fa">
+      <ColNames>address_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>address</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="532" parent="51" name="FKsnlnu6twprjmcpe1coy0v0ywi">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="533" parent="51" name="FKa6hp6gmkm4osck1jiqcek6qfg">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="534" parent="51" name="FK5rj3xc3tgguksakr5jlovl4dl">
+      <ColNames>vip_task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>vip_task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="535" parent="52" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="536" parent="52" name="skilled_field">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="537" parent="52" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="538" parent="53" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="539" parent="53" name="skilled_usage">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="540" parent="53" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="541" parent="54" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="542" parent="54" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="543" parent="54" name="link">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="544" parent="54" name="modified_by">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="545" parent="54" name="path">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="546" parent="54" name="updated_at">
+      <Position>6</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="547" parent="54" name="off">
+      <Position>7</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <key id="548" parent="54" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="549" parent="55" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="550" parent="55" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="551" parent="55" name="phone">
+      <Position>3</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="552" parent="55" name="sms">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="553" parent="55" name="content">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="554" parent="55" name="template_id">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="555" parent="55" name="success">
+      <Position>7</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <key id="556" parent="55" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="557" parent="56" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="558" parent="56" name="content">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="559" parent="56" name="created_at">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="560" parent="56" name="phone">
+      <Position>4</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="561" parent="56" name="sms">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="562" parent="56" name="success">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="563" parent="56" name="template_id">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="564" parent="56" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="565" parent="56" name="used">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="566" parent="56" name="account">
+      <Position>10</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="567" parent="56" name="FKad270ypohym31iw1mfb203f6k">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="568" parent="56" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="569" parent="56" name="FKad270ypohym31iw1mfb203f6k">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="570" parent="57" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="571" parent="57" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="572" parent="57" name="emergency">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="573" parent="57" name="joins">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="574" parent="57" name="off">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="575" parent="57" name="price">
+      <Position>6</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="576" parent="57" name="task_end_time">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="577" parent="57" name="title">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="578" parent="57" name="top">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="579" parent="57" name="top_time">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="580" parent="57" name="translate_end_time">
+      <Position>11</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="581" parent="57" name="type">
+      <Position>12</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="582" parent="57" name="updated_at">
+      <Position>13</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="583" parent="57" name="brief_id">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="584" parent="57" name="field_id">
+      <Position>15</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="585" parent="57" name="interpret_id">
+      <Position>16</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="586" parent="57" name="language_group_id">
+      <Position>17</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="587" parent="57" name="quality_id">
+      <Position>18</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="588" parent="57" name="content_id">
+      <Position>19</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="589" parent="57" name="request_id">
+      <Position>20</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="590" parent="57" name="usage_id">
+      <Position>21</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="591" parent="57" name="user_id">
+      <Position>22</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="592" parent="57" name="words">
+      <Position>23</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="593" parent="57" name="attachment_words">
+      <Position>24</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="594" parent="57" name="pv">
+      <Position>25</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="595" parent="57" name="notify">
+      <Position>26</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="596" parent="57" name="total_words">
+      <Position>27</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="597" parent="57" name="FK1pl1qxbu2xfh7fc430qx5h6ne">
+      <ColNames>language_group_id</ColNames>
+    </index>
+    <index id="598" parent="57" name="FK2hsytmxysatfvt0p1992cw449">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="599" parent="57" name="FK6374hfq9l4fokopwgk13cpyb8">
+      <ColNames>field_id</ColNames>
+    </index>
+    <index id="600" parent="57" name="FKbv3gvebioa6d4odmgd1bdt120">
+      <ColNames>quality_id</ColNames>
+    </index>
+    <index id="601" parent="57" name="FKckebwbh1xlsmsmlp9grkwe3ed">
+      <ColNames>usage_id</ColNames>
+    </index>
+    <index id="602" parent="57" name="FKf2v2ag484n4c7gokt95scl4m1">
+      <ColNames>request_id</ColNames>
+    </index>
+    <index id="603" parent="57" name="FKg3kvikk34k0w6bwr1kqrypdca">
+      <ColNames>content_id</ColNames>
+    </index>
+    <index id="604" parent="57" name="FKh1sywhmdn5wcnuacoaeuts1e2">
+      <ColNames>brief_id</ColNames>
+    </index>
+    <index id="605" parent="57" name="FKtet5l7hx1iqi4h0jn7jtbqsa3">
+      <ColNames>interpret_id</ColNames>
+    </index>
+    <key id="606" parent="57" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="607" parent="57" name="FKh1sywhmdn5wcnuacoaeuts1e2">
+      <ColNames>brief_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="608" parent="57" name="FK6374hfq9l4fokopwgk13cpyb8">
+      <ColNames>field_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>skilled_field</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="609" parent="57" name="FKtet5l7hx1iqi4h0jn7jtbqsa3">
+      <ColNames>interpret_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_interpret</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="610" parent="57" name="FK1pl1qxbu2xfh7fc430qx5h6ne">
+      <ColNames>language_group_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>language_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="611" parent="57" name="FKbv3gvebioa6d4odmgd1bdt120">
+      <ColNames>quality_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>quality</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="612" parent="57" name="FKg3kvikk34k0w6bwr1kqrypdca">
+      <ColNames>content_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="613" parent="57" name="FKf2v2ag484n4c7gokt95scl4m1">
+      <ColNames>request_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_content</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="614" parent="57" name="FKckebwbh1xlsmsmlp9grkwe3ed">
+      <ColNames>usage_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>skilled_usage</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="615" parent="57" name="FK2hsytmxysatfvt0p1992cw449">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="616" parent="58" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="617" parent="58" name="content">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="618" parent="58" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="619" parent="59" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="620" parent="59" name="end_time">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="621" parent="59" name="start_time">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="622" parent="59" name="type">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="623" parent="59" name="work_time">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="624" parent="59" name="address">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="625" parent="59" name="area_id">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="626" parent="59" name="city_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="627" parent="59" name="province_id">
+      <Position>9</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="628" parent="59" name="FK4kol5ukrc13yapou0rn1via2y">
+      <ColNames>area_id</ColNames>
+    </index>
+    <index id="629" parent="59" name="FKf3eqkw0pv7h4rufq0lgipw7k2">
+      <ColNames>city_id</ColNames>
+    </index>
+    <index id="630" parent="59" name="FKk3pn3k3su167u1wqm8l1tf3v0">
+      <ColNames>province_id</ColNames>
+    </index>
+    <key id="631" parent="59" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="632" parent="59" name="FK4kol5ukrc13yapou0rn1via2y">
+      <ColNames>area_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="633" parent="59" name="FKf3eqkw0pv7h4rufq0lgipw7k2">
+      <ColNames>city_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="634" parent="59" name="FKk3pn3k3su167u1wqm8l1tf3v0">
+      <ColNames>province_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="635" parent="60" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="636" parent="60" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="637" parent="60" name="selected">
+      <Position>3</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="638" parent="60" name="updated_at">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="639" parent="60" name="task_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="640" parent="60" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="641" parent="60" name="price">
+      <Position>7</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="642" parent="60" name="attribute_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="643" parent="60" name="FKd1fn28rqhh1ku21jx7hcksvh9">
+      <ColNames>task_id</ColNames>
+    </index>
+    <index id="644" parent="60" name="FKs46ejm4kitq56yd498a3fnr19">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="645" parent="60" name="FK1e2vc5o13h333wxiko1eb68yt">
+      <ColNames>attribute_id</ColNames>
+    </index>
+    <key id="646" parent="60" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="647" parent="60" name="FKd1fn28rqhh1ku21jx7hcksvh9">
+      <ColNames>task_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="648" parent="60" name="FKs46ejm4kitq56yd498a3fnr19">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="649" parent="60" name="FK1e2vc5o13h333wxiko1eb68yt">
+      <ColNames>attribute_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>attribute</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="650" parent="61" name="task_user_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="651" parent="61" name="educations_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="652" parent="61" name="FK1dywt3oogr0p6ykknq1p564m3">
+      <ColNames>task_user_id</ColNames>
+    </index>
+    <index id="653" parent="61" name="UK_9h5du9frkxhkscqx701bfg948">
+      <ColNames>educations_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="654" parent="61" name="UK_9h5du9frkxhkscqx701bfg948">
+      <ColNames>educations_id</ColNames>
+      <UnderlyingIndexName>UK_9h5du9frkxhkscqx701bfg948</UnderlyingIndexName>
+    </key>
+    <foreign-key id="655" parent="61" name="FK1dywt3oogr0p6ykknq1p564m3">
+      <ColNames>task_user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>task_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="656" parent="61" name="FKfd09y42s5p7rvibcs6bmedam2">
+      <ColNames>educations_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>education</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="657" parent="62" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="658" parent="62" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="659" parent="62" name="end_time">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="660" parent="62" name="etitle">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="661" parent="62" name="limitation">
+      <Position>5</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="662" parent="62" name="price">
+      <Position>6</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="663" parent="62" name="title">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="664" parent="62" name="type">
+      <Position>8</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="665" parent="62" name="updated_at">
+      <Position>9</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="666" parent="62" name="used">
+      <Position>10</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="667" parent="62" name="user_id">
+      <Position>11</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="668" parent="62" name="FKdvt57mcco3ogsosi97odw563o">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="669" parent="62" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="670" parent="62" name="FKdvt57mcco3ogsosi97odw563o">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="671" parent="63" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="672" parent="63" name="price">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="673" parent="63" name="price_type">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="674" parent="63" name="translate_type">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="675" parent="63" name="language_group_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="676" parent="63" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="677" parent="63" name="FKb0ak395y3423lexyqgtjoym1o">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="678" parent="63" name="FKjbc1l8ait60wab3bq7uq5h4ag">
+      <ColNames>language_group_id</ColNames>
+    </index>
+    <key id="679" parent="63" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="680" parent="63" name="FKjbc1l8ait60wab3bq7uq5h4ag">
+      <ColNames>language_group_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>language_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="681" parent="63" name="FKb0ak395y3423lexyqgtjoym1o">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="682" parent="64" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="683" parent="64" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="684" parent="64" name="current_role">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="685" parent="64" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="686" parent="64" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="687" parent="64" name="username">
+      <Position>6</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="688" parent="64" name="open_id">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="689" parent="64" name="UK_sb8bbouer5wak8vyiiy4pf2bx">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="690" parent="64" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="691" parent="64" name="UK_sb8bbouer5wak8vyiiy4pf2bx">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>UK_sb8bbouer5wak8vyiiy4pf2bx</UnderlyingIndexName>
+    </key>
+    <column id="692" parent="65" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="693" parent="65" name="introduce">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="694" parent="65" name="name">
+      <Position>3</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="695" parent="65" name="sex">
+      <Position>4</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="696" parent="65" name="city_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="697" parent="65" name="user_id">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="698" parent="65" name="FKjyxrsowljlget1h4g4iw3nusc">
+      <ColNames>city_id</ColNames>
+    </index>
+    <index id="699" parent="65" name="FKn8pl63y4abe7n0ls6topbqjh2">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="700" parent="65" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="701" parent="65" name="FKjyxrsowljlget1h4g4iw3nusc">
+      <ColNames>city_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>mh_city</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="702" parent="65" name="FKn8pl63y4abe7n0ls6topbqjh2">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="703" parent="66" name="user_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="704" parent="66" name="roles_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="705" parent="66" name="FK55itppkw3i07do3h7qoclqd4k">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="706" parent="66" name="FKj9553ass9uctjrmh0gkqsmv0d">
+      <ColNames>roles_id</ColNames>
+    </index>
+    <foreign-key id="707" parent="66" name="FK55itppkw3i07do3h7qoclqd4k">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="708" parent="66" name="FKj9553ass9uctjrmh0gkqsmv0d">
+      <ColNames>roles_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>role</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="709" parent="67" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="710" parent="67" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="711" parent="67" name="modified_by">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="712" parent="67" name="path">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="713" parent="67" name="type">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="714" parent="67" name="updated_at">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="715" parent="67" name="user_id">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="716" parent="67" name="end_time">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="717" parent="67" name="FKnic4dg6yfbh4v8eb39u6apd1e">
+      <ColNames>user_id</ColNames>
+    </index>
+    <key id="718" parent="67" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="719" parent="67" name="FKnic4dg6yfbh4v8eb39u6apd1e">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="720" parent="68" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="721" parent="68" name="price">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="722" parent="68" name="price_type">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="723" parent="68" name="translate_type">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="724" parent="68" name="language_group_id">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="725" parent="68" name="FK7cbgdm2cp232uu3l91uf3ljmi">
+      <ColNames>language_group_id</ColNames>
+    </index>
+    <key id="726" parent="68" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="727" parent="68" name="FK7cbgdm2cp232uu3l91uf3ljmi">
+      <ColNames>language_group_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>language_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="728" parent="69" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="729" parent="69" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="730" parent="69" name="end_time">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="731" parent="69" name="hour">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="732" parent="69" name="modified_by">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="733" parent="69" name="off">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="734" parent="69" name="price">
+      <Position>7</Position>
+      <DataType>decimal(12,2)|0</DataType>
+    </column>
+    <column id="735" parent="69" name="title">
+      <Position>8</Position>
+      <DataType>varchar(64)|0</DataType>
+    </column>
+    <column id="736" parent="69" name="type">
+      <Position>9</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="737" parent="69" name="unit_price">
+      <Position>10</Position>
+      <DataType>decimal(9,2)|0</DataType>
+    </column>
+    <column id="738" parent="69" name="updated_at">
+      <Position>11</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="739" parent="69" name="version">
+      <Position>12</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <column id="740" parent="69" name="vip_attachment">
+      <Position>13</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="741" parent="69" name="vip_task">
+      <Position>14</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="742" parent="69" name="word">
+      <Position>15</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="743" parent="69" name="admin_id">
+      <Position>16</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="744" parent="69" name="language_group_id">
+      <Position>17</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="745" parent="69" name="user_id">
+      <Position>18</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="746" parent="69" name="bill_id">
+      <Position>19</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="747" parent="69" name="invoice_request_id">
+      <Position>20</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="748" parent="69" name="signature_request_id">
+      <Position>21</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="749" parent="69" name="end_date">
+      <Position>22</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="750" parent="69" name="start_date">
+      <Position>23</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="751" parent="69" name="done_time">
+      <Position>24</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="752" parent="69" name="FKifj2d8eiqv753wvxdyharv7pq">
+      <ColNames>admin_id</ColNames>
+    </index>
+    <index id="753" parent="69" name="FKouynn00cxlfmtdjag8sv2ekp">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="754" parent="69" name="FKptjgta2y524xyqm5wr8vldtas">
+      <ColNames>language_group_id</ColNames>
+    </index>
+    <index id="755" parent="69" name="FKd3i7n2ajsbetcyo68vob3xfx3">
+      <ColNames>bill_id</ColNames>
+    </index>
+    <index id="756" parent="69" name="FK5aq7k08p6nw6wrj31mfm08mgw">
+      <ColNames>invoice_request_id</ColNames>
+    </index>
+    <index id="757" parent="69" name="FKhyv92ur8t3v5k8wv3hr0mrwvt">
+      <ColNames>signature_request_id</ColNames>
+    </index>
+    <key id="758" parent="69" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="759" parent="69" name="FKifj2d8eiqv753wvxdyharv7pq">
+      <ColNames>admin_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="760" parent="69" name="FKptjgta2y524xyqm5wr8vldtas">
+      <ColNames>language_group_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>language_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="761" parent="69" name="FKouynn00cxlfmtdjag8sv2ekp">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="762" parent="69" name="FKd3i7n2ajsbetcyo68vob3xfx3">
+      <ColNames>bill_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>bill</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="763" parent="69" name="FK5aq7k08p6nw6wrj31mfm08mgw">
+      <ColNames>invoice_request_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>invoice_request</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="764" parent="69" name="FKhyv92ur8t3v5k8wv3hr0mrwvt">
+      <ColNames>signature_request_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>signature_request</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="765" parent="70" name="vip_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="766" parent="70" name="vip_prices_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="767" parent="70" name="FK7br2ol527pvhisg1dtaooupih">
+      <ColNames>vip_id</ColNames>
+    </index>
+    <index id="768" parent="70" name="UK_a1jt0ngs5y1mi79tckpn6f5n5">
+      <ColNames>vip_prices_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="769" parent="70" name="UK_a1jt0ngs5y1mi79tckpn6f5n5">
+      <ColNames>vip_prices_id</ColNames>
+      <UnderlyingIndexName>UK_a1jt0ngs5y1mi79tckpn6f5n5</UnderlyingIndexName>
+    </key>
+    <foreign-key id="770" parent="70" name="FK7br2ol527pvhisg1dtaooupih">
+      <ColNames>vip_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>vip</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="771" parent="70" name="FKgi90o204sgnxv2esyfjekqr0k">
+      <ColNames>vip_prices_id</ColNames>
+      <RefSchemaName>fanyi</RefSchemaName>
+      <RefTableName>vip_price</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="772" parent="71" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="773" parent="71" name="created_at">
+      <Position>2</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="774" parent="71" name="market_picture">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="775" parent="71" name="modified_by">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="776" parent="71" name="updated_at">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="777" parent="71" name="link">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="778" parent="71" name="wechat_picture">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="779" parent="71" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            企业认证
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/admin/certificate}"><i class="ui left angle icon"></i>认证审核</a> / 企业认证
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <table class="ui fixed table">
+                <thead>
+                <tr>
+                    <th class="two wide">企业认证信息</th>
+                    <th class="seven wide"></th>
+                    <th class="seven wide"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        企业名称
+                    </td>
+                    <td th:text="${company.name}"></td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        营业执照
+                    </td>
+                    <td>
+                        <img class="showImage" th:src="${company.license}"
+                             alt="" style="height: 140px;">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        企业地址
+                    </td>
+                    <td th:text="${company.province.name}+${company.city.name}+${company.area.name}+${company.address}"></td>
+                    <td class="right aligned"></td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        联系人姓名
+                    </td>
+                    <td th:text="${company.contactName}"></td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        联系方式
+                    </td>
+                    <td th:text="${company.contactPhone}"></td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        认证结果
+                    </td>
+                    <td th:if="${check.companyCheck}==0"><i class="ui large blue clock icon"></i>审核中（1～3个工作日）
+                    </td>
+                    <td th:if="${check.companyCheck}==1"><i class="ui large  green check circle icon"></i>审核通过
+                    </td>
+                    <td th:if="${check.companyCheck}==2"><i class="ui large  red remove circle icon"></i>审核失败（原因：<span th:text="${check.message.companyMessage}"></span>）
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui segment clearShadow" th:if="${check.companyCheck}==0">
+                <form id="checkRealNameForm" th:action="@{/admin/certificate/company}" class="ui form" method="post">
+                    <div class="field taskComment">
+                        <label for="">审核不通过理由</label>
+                        <div class="ui compact basic button">企业名称与营业执照不符</div>
+                        <div class="ui compact basic button">营业执照模糊无法识别</div>
+                        <div class="ui compact basic button">企业地址与营业执照不符</div>
+                        <div class="ui compact basic button">资质证书照片模糊</div>
+                        <div class="ui compact basic button">联系电话不实</div>
+                    </div>
+                    <div class="field">
+                        <label for="">其他</label>
+                        <input type="text" name="reason" placeholder="请输入不通过理由(选填)">
+                    </div>
+                    <input type="hidden" name="reasons">
+                    <input type="hidden" name="id" th:value="${check.id}">
+                    <a class="ui basic blue button submitButton">审核不通过</a>
+                    <a th:href="@{/admin/certificate/company/success?id=}+${check.id}" class="ui blue button">审核通过</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

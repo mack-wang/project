@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header" th:text="${session.user.currentRole}=='ROLE_USER'?'译员认证':'客户认证'">
+        </div>
+
+        <div class="ui divider"></div>
+        <!--译员实名认证表单-->
+        <!--如果已经提交过了，这表单就不再显示-->
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th th:text="${session.user.currentRole}=='ROLE_USER'?'译员认证':'客户认证'"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible">
+                        <div class="ui container" style="width: 800px;">
+                            <div style="text-align: center;margin: 20px;">
+                                <div class="ui compact buttons">
+                                    <a class="ui blue button">第一步：实名认证</a>
+                                    <a class="ui button" th:text="${session.user.currentRole}=='ROLE_USER'?'第二步：资质认证':'第二步：企业认证(选填)'"></a>
+                                </div>
+                            </div>
+                            <form id="nameCertificateForm" th:action="@{/user/name/certificate}" class="ui form"
+                                  method="post"
+                                  enctype="multipart/form-data">
+                                <div class="ui two column grid">
+                                    <div class="two wide column">姓名</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="name" placeholder="身份证上姓名"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">居住地址</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div id="areaField" class="ui three item menu clearShadow">
+                                                <div class="ui pointing dropdown link item authProvince">
+                                                    <span class="text">省份</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                                <div class="ui pointing dropdown link item authCity">
+                                                    <span class="text">城市</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                                <div class="ui pointing dropdown link item authArea">
+                                                    <span class="text">区域</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">详细地址</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="address" placeholder="具体街道和门牌"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">身份证号</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="idNumber" placeholder="身份证号码"/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="two wide column">证件照片</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui segment clearShadow">
+                                                <p>示例照片</p>
+                                                <img th:src="@{/img/fanyi/idPhoto1.png}" alt="" style="width: 49%;">
+                                                <img th:src="@{/img/fanyi/idPhoto2.png}" alt="" style="width: 49%;">
+                                            </div>
+                                            <div id="idField" class="ui segment clearShadow">
+                                                <p>上传照片</p>
+                                                <div style="width: 48%;display: inline-block;text-align: center;">
+                                                    <img th:src="@{/img/fanyi/idCard.png}"
+                                                         alt="" style="width: 100%;">
+                                                    <a id="idCardFrontButton">上传身份证正面照片</a>
+                                                </div>
+                                                <div style="width: 48%;display: inline-block;margin-left: 6px;text-align: center;">
+                                                    <img th:src="@{/img/fanyi/idCard.png}"
+                                                         alt="" style="width: 100%;">
+                                                    <a id="idCardBackButton">上传身份证背面照片</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button id="nameCertificateSubmit" class="ui blue button">提交</button>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <input type="file" name="idCardFront" class="hide"
+                                       accept="image/gif,image/jpeg,image/jpg,image/png">
+                                <input type="file" name="idCardBack" class="hide"
+                                       accept="image/gif,image/jpeg,image/jpg,image/png">
+                                <input type="text" name="province" class="hide">
+                                <input type="text" name="city" class="hide">
+                                <input type="text" name="area" class="hide">
+
+
+
+
+                            </form>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

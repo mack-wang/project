@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/wechatLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <!--获取当前页面的除去page的url的参数-->
+    <div th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  url=${@removeParam.apply('page')}">
+        <div class="ui three item inverted menu clearRadius clearMargin">
+            <a th:href="@{/wechat/auth/market}" class="active item">
+                翻易大厅
+            </a>
+            <a th:href="@{/wechat/auth/mytask}" class="item">
+                我的任务
+            </a>
+            <a th:href="@{/wechat/auth/info}" class="item">
+                个人中心
+            </a>
+        </div>
+        <div style="overflow: hidden;position: relative;margin-bottom: -20px;">
+            <a>
+                <img th:if="${web.wechatPicture}!=null"  th:src="${web.wechatPicture}" style="width: 100%;" alt="">
+            </a>
+        </div>
+
+        <div class="ui one column grid " style="margin-bottom:30px;background-color: white;">
+            <div class="column" style="padding-bottom: 0;">
+                <div class="ui four item menu clearShadow clearRadius">
+                    <div class="ui dropdown item">
+                        <span class="text">筛选</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a th:href="@{/wechat/auth/market}"
+                               class="item">
+                                全部
+                            </a>
+                            <a th:href="@{${@removeParam.apply('type')}(type=1)}"
+                               class="item">
+                                笔译
+                            </a>
+                            <a th:href="@{${@removeParam.apply('type')}(type=0)}"
+                               class="item">
+                                口译
+                            </a>
+                            <a th:href="@{${cUrl}(quality=1)}" class="item">
+                                标准
+                            </a>
+                            <a th:href="@{${cUrl}(quality=2)}" class="item">
+                                专业
+                            </a>
+                            <a th:href="@{${cUrl}(emergency=1)}" class="item">
+                                加急
+                            </a>
+                            <a th:href="@{${cUrl}(emergency=0)}" class="item">
+                                不加急
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ui dropdown item">
+                        <span class="text">语言</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item"
+                               th:each="group:${languageGroup}"
+                               th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"
+                               th:href="@{${@removeParam.apply('group')}(group=${group.id})}"
+                               th:classappend="${param.group}!=null and ${param.group[param.group.length-1]}==${group.id}?'active selected':''"
+                            ></a>
+                        </div>
+                    </div>
+
+                    <div class="ui dropdown item">
+                        <span class="text">领域</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item">全部</a>
+                            <a class="item"
+                               th:each="field:${skilledFields}"
+                               th:href="@{${url}(field=${field.id})}"
+                               th:text="${field.skilledField}"
+                            ></a>
+                        </div>
+                    </div>
+                    <div class="ui dropdown item">
+                        <span class="text">用途</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item">全部</a>
+                            <a class="item"
+                               th:each="usage:${skilledUsages}"
+                               th:href="@{${url}(usage=${usage.id})}"
+                               th:text="${usage.skilledUsage}"
+                            >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column" style="margin: auto 14px;">
+                <div class="ui small fluid action input" style="margin: 0 8px;">
+                    <input type="text" placeholder="关键词">
+                    <button id="marketSearchButton" class="ui button"
+                            th:attr="data-value=${@removeParam.apply('title')}">搜索
+                    </button>
+                </div>
+            </div>
+
+            <div th:each="task,taskStat:${tasks.content}" th:remove="tag">
+                <div class="column">
+                    <div class="ui two column grid wechatFeed" style="padding: 14px;background: white;">
+                        <!--标题-->
+                        <div class="ten wide column">
+                            <a th:href="@{'/wechat/auth/task/detail?id='+${task.id}}">
+                                <i th:if="${task.emergency}==1" class="ui red fanyi-hurry icon"
+                                   style="font-size: 18px;margin:0;"></i>
+                                <i th:if="${task.top}==1" class="ui red fanyi-top icon"
+                                   style="font-size: 18px;margin:0;"></i>
+                                <span th:text="${task.title}"></span>
+                            </a>
+                        </div>
+                        <!--日期-->
+                        <div class="six wide column">
+                            <span th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></span>
+                            <span th:text="${task.type}==1?'笔译':'口译'"></span>
+
+                        </div>
+
+                        <!--字数-->
+                        <div class="ten wide column">
+
+
+                        <span th:if="${task.type}==1"
+                              th:text="'截稿时间：'+${#dates.format(task.translateEndTime,'yyyy-MM-dd HH:mm')}">
+                    </span>
+                            <span th:if="${task.type}==0"
+                                  th:text="'开始时间：'+${#dates.format(task.interpret.startTime,'yyyy-MM-dd HH:mm')}">
+                    </span>
+
+                            <div th:if="${task.type}==1">
+                                <a href="" th:text="${task.words}+${task.attachmentWords}+'字'"></a>
+                            </div>
+                            <div th:if="${task.type}==0">
+                                无
+                            </div>
+
+                        </div>
+
+                        <div class="six wide column">
+                            <a th:href="@{'/wechat/auth/task/detail?id='+${task.id}}"
+                               class="ui mini blue button floatRight" style="margin-top: 20px;">查看</a>
+                        </div>
+
+                        <div class="ten wide column">
+                            <!--昵称-->
+                            <span th:text="${task.user.attribute.nickname}" style="opacity: 0.6"></span>
+                            <!--认证情况-->
+                            <div th:include="layout/role2::role2 (${task.user.roles})" th:remove="tag"></div>
+                        </div>
+                        <div class="six wide column">
+
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 100%;height: 8px;background: #eee;"></div>
+
+            </div>
+
+
+            <div class="column" style="margin: auto 14px;">
+                <div class="ui info message" th:if="${tasks.totalElements}==0">未搜索到相关结果</div>
+
+                <div th:include="layout/simplePage::simplePage (${tasks},${url})" th:remove="tag"></div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

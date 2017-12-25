@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(services.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            客服管理
+        </div>
+        <div class="ui divider"></div>
+
+        <div style="margin:30px;">
+
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>头像</th>
+                    <th>账号</th>
+                    <th>昵称</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="service:${services}">
+                    <td>
+                        <img th:src="${service.user.attribute.avatar}" class="ui mini image" alt="">
+                    </td>
+                    <td th:text="${service.user.username}"></td>
+                    <td th:text="${service.user.attribute.nickname}"></td>
+                    <td th:text="${service.online}==1?'已经在线':'已经下线'"></td>
+                    <td th:if="${service.online}==0"<a th:href="@{/admin/customer/service/online?id=}+${service.id}">上线</a></td>
+                    <td th:if="${service.online}==1"><a th:href="@{/admin/customer/service/offline?id=}+${service.id}">下线</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${services.totalElements}==0">未搜索到相关结果</div>
+
+            <div th:include="layout/page::page (${services},${url})" th:remove="tag"></div>
+            <form class="ui form" th:action="@{/admin/customer/service/add}" method="post">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="username" placeholder="管理员账号">
+                    </div>
+                    <button class="ui blue button submit">添加新客服</button>
+                </div>
+                <div class="ui error message"></div>
+            </form>
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

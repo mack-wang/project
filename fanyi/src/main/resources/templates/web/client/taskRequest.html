@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            发布任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>任务编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">翻译内容</div>
+                                        <div class="description">翻译语言和内容</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">任务要求</div>
+                                        <div class="description">翻译要求和类别</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">发布任务</div>
+                                        <div class="description">确定价格和日期</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="taskTranslateTwoForm" th:action="@{/task/translate/two/form}"
+                                  class="ui form"
+                                  method="post">
+                                <div class="ui two column grid">
+                                    <div class="two wide column">
+                                        内容摘要
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="field">
+                                            <textarea rows="2" name="brief" placeholder="请输入内容摘要" th:text="${#strings.length(session.translateOneForm.translateContent[0])}>137?${#strings.substring(session.translateOneForm.translateContent[0],0,137)}+'…':${session.translateOneForm.translateContent[0]}"></textarea>
+                                        </div>
+                                        <div style="opacity:0.5;">*最多140字，若涉及敏感内容，可不填</div>
+                                    </div>
+
+
+                                    <div class="two wide column">
+                                        *翻译要求
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="field">
+                                            <textarea rows="12" name="translateRequest"  placeholder="请输入翻译要求,例如译员学历，证书等级，翻译稿件文本的格式等"></textarea>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="two wide column">领域</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown skilledField" name="skilledField">
+                                                <option value="">领域选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">用途</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown skilledUsage" name="skilledUsage">
+                                                <option value="">用途选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">质量等级</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown quality" name="quality">
+                                                <option th:each="quality:${qualities}"
+                                                        th:value="${quality.level}"
+                                                        th:text="${quality.quality}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button class="ui blue button">提交</button>
+                                        <a th:href="@{/task/translate/reset}" class="ui basic button">重新编辑</a>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

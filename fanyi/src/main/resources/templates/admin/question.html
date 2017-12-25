@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(questions.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            留言回复
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:classappend="${param.result}==null?'active':''"
+                   th:href="@{${curUrl}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.result}!=null and ${param.result[0]}==0?'active':''"
+                   th:href="@{${curUrl}(result=0)}"
+                   class="ui button">未回复</a>
+                <a th:classappend="${param.result}!=null and ${param.result[0]}==1?'active':''"
+                   th:href="@{${curUrl}(result=1)}"
+                   class="ui button">已回复</a>
+                <a th:classappend="${param.result}!=null and ${param.result[0]}==2?'active':''"
+                   th:href="@{${curUrl}(result=2)}"
+                   class="ui button">已关闭</a>
+            </div>
+            <table class="ui selectable table padded questionTable">
+                <thead>
+                <tr>
+                    <th>咨询者邮箱</th>
+                    <th>创建时间</th>
+                    <th class="four wide">咨询问题</th>
+                    <th class="four wide">回复留言</th>
+                    <th>处理结果</th>
+                    <th>回复留言</th>
+                    <th>关闭留言</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="question:${questions}">
+                    <td th:text="${question.email}"></td>
+                    <td th:text="${#dates.format(question.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <div th:include="layout/content::content (${question.question})" th:remove="tag"></div>
+                    </td>
+                    <td>
+                        <div th:if="${question.result}==1" th:include="layout/content::content (${question.respond})" th:remove="tag"></div>
+                        <form th:if="${question.result}==0" th:action="@{/admin/question/close}" class="ui form" method="post">
+                            <div class="field">
+                                <textarea rows="5" name="respond" placeholder="请输入回复，上限400字"></textarea>
+                            </div>
+                            <input type="hidden" name="id" th:value="${question.id}">
+                        </form>
+                    </td>
+                    <td>
+                        <span th:if="${question.result}==0">未回复</span>
+                        <span th:if="${question.result}==1">已回复</span>
+                        <span th:if="${question.result}==2">关闭留言</span>
+                    </td>
+                    <td><a class="questionRespond" th:if="${question.result}==0" style="cursor: pointer;">回复</a></td>
+                    <td><a th:if="${question.result}==0" th:href="@{/admin/question/cancel?id=}+${question.id}" style="cursor: pointer;">关闭</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${questions.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+
+            <div th:include="layout/page::page (${questions},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

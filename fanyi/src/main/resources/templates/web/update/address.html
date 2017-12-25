@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        修改邮寄信息
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home}"><i class="ui left angle icon"></i>个人详情</a> / 修改邮寄信息
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;">
+        <form id="updateUserAddressForm" th:action="@{/update/user/address}" method="post" class="ui form" style="width: 600px;">
+            <div class="field">
+                <label for="">姓名</label>
+                <input type="text" name="name" placeholder="收件人姓名">
+            </div>
+            <div class="field">
+                <label for="">手机号</label>
+                <input type="text" name="phone" placeholder="收件人手机号">
+            </div>
+            <div class="field">
+                <div id="areaField" class="ui three item menu clearShadow">
+                    <div class="ui pointing dropdown link item authProvince">
+                        <span class="text">省份</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    <div class="ui pointing dropdown link item authCity">
+                        <span class="text">城市</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                        </div>
+                    </div>
+                    <div class="ui pointing dropdown link item authArea">
+                        <span class="text">区域</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="provinceCityAreaId" class="hide">
+            </div>
+            <div class="field">
+                <label for="">具体地址</label>
+                <input type="text" name="address" placeholder="具体街道和门牌"/>
+            </div>
+            <div class="ui basic button submitButton">确定</div>
+            <div style="margin-top: 20px;"><div th:include="layout/message::message (${message})" th:remove="tag"></div></div>
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>

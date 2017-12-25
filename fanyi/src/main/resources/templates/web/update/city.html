@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        修改城市
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home}"><i class="ui left angle icon"></i>个人详情</a> / 设置所在城市
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;">
+        选择城市：
+        <select id="updateProvince" class="ui dropdown province">
+            <option>省份</option>
+        </select>
+        <select id="updateCity" class="ui dropdown city">
+            <option>城市</option>
+        </select>
+        <div class="ui basic button" id="updateCityButton">确定</div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            微信广告
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>微信广告</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+
+                            <form id="webAdForm" th:action="@{/admin/web/wechat/update}"
+                                  class="ui form"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">
+                                        微信广告图
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <img th:src="${web.wechatPicture}" class="ui fullWidth image" style="margin-bottom: 14px;" alt="">
+                                        <div class="field">
+                                            <div id="uploadBox" class="ui message">
+                                                <a id="uploadApi" class="ui basic compact button">
+                                                    <i class="iu upload icon"></i>上传微信广告图
+                                                </a>
+                                                <span>未上传文件</span>
+                                                <span></span>
+                                                <input id="inputFile" type="file" name="file" class="hide"/>
+                                                <input type="hidden" name="path" th:value="${web.wechatPicture}!=null?${web.wechatPicture}:''"/>
+                                                <input type="hidden" name="folder" value="ad2"/>
+                                            </div>
+                                            <div style="margin-top: 14px;">建议尺寸1310px*207px。</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button class="ui blue button">提交</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

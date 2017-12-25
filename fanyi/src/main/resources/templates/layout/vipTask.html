@@ -1,0 +1,9 @@
+<div th:fragment="vipTask(off)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <span th:if="${off}==0">正在进行</span>
+    <span th:if="${off}==1">已关闭任务</span>
+    <span th:if="${off}==2">完成翻译</span>
+    <span th:if="${off}==3">已出账单未付款</span>
+    <span th:if="${off}==4">已付款</span>
+    <span th:if="${off}==5">待发送月结账单</span>
+    <span th:if="${off}==6">已确认收稿</span>
+</div>

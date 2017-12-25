@@ -1,0 +1,25 @@
+<div th:fragment="rank(score)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--那我现在就先按，信用分数=任务数*5分+评价数星数*1分，20分-星 100分-钻 500分 皇冠  2500分5皇冠 封顶。-->
+    <div th:if="${score}<20"
+         th:remove="tag">
+        <i class="ui heart icon clearMargin" style="opacity: 0.3;"></i>
+    </div>
+    <div th:if="${score}>=20 and ${score}<100"
+         th:with="hearts=${T(Math).floor(score/20)}"
+         th:remove="tag">
+        <i class="ui red heart icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, hearts)}"></i>
+    </div>
+    <div th:if="${score}>=100 and ${score<500}"
+         th:with="diamonds=${T(Math).floor(score/100)}, hearts=${T(Math).floor((score%100)/20)}"
+         th:remove="tag">
+        <i class="ui blue fanyi-diamond icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, diamonds)}"></i>
+        <i class="ui red heart icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, hearts)}"></i>
+    </div>
+    <div th:if="${score}>=500 and ${score<=2500}"
+         th:with="crowns=${T(Math).floor(score/500)}, diamonds=${T(Math).floor((score%500)/100)}, hearts=${T(Math).floor(((score%500)%100)/20)}"
+         th:remove="tag">
+        <i class="ui blue fanyi-crown icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, crowns)}"></i>
+        <i class="ui blue fanyi-diamond icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, diamonds)}"></i>
+        <i class="ui red heart icon clearMargin" th:if="!${iStat.first}" th:each="i,iStat:${#numbers.sequence(0, hearts)}"></i>
+    </div>
+</div>

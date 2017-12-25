@@ -1,0 +1,9 @@
+
+<div th:fragment="message(message)">
+<div th:if="${message?.status} == 1" class="ui success message visible">
+    <span th:text="${message.content}"></span>
+</div>
+<div th:if="${message?.status} == 0" class="ui error message visible">
+    <span th:text="${message.content}"></span>
+</div>
+</div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(bills.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            结算账单
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:href="@{${curUrl}}"
+                   class="ui button">全部账单</a>
+                <a th:classappend="${param.pay}!=null and ${param.pay[0]}==0?'active':''"
+                   th:href="@{${curUrl}(pay=0)}"
+                   class="ui button">未支付账单</a>
+                <a th:classappend="${param.pay}!=null and ${param.pay[0]}==1?'active':''"
+                   th:href="@{${curUrl}(pay=1)}"
+                   class="ui button">已支付账单</a>
+                <a th:classappend="${param.send}!=null and ${param.send[0]}==0?'active':''"
+                   th:href="@{${curUrl}(send=0)}"
+                   class="ui button">未发送账单</a>
+                <a th:classappend="${param.send}!=null and ${param.send[0]}==1?'active':''"
+                   th:href="@{${curUrl}(send=1)}"
+                   class="ui button">已发送账单</a>
+            </div>
+            <div class="ui basic buttons">
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==0?'active':''"
+                   th:href="@{${@removeParam.apply('type')}(type=0)}"
+                   class="ui button">次结账单</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==1?'active':''"
+                   th:href="@{${@removeParam.apply('type')}(type=1)}"
+                   class="ui button">月结账单</a>
+            </div>
+
+            <div class="ui action input">
+                <input type="text" placeholder="请输入">
+                <select class="ui compact selection dropdown">
+                    <option selected value="month">月份数</option>
+                    <option value="phone">手机号</option>
+                    <option value="username">用户名</option>
+                </select>
+                <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+            </div>
+            <div>月份数格式：4位年份+2位月份，例如201708</div>
+
+            <table class="ui selectable  table padded market">
+                <thead>
+                <tr>
+                    <th>
+                        头像
+                    </th>
+                    <th class="one wide">
+                        昵称
+                    </th>
+                    <th class="one wide">
+                        金额
+                    </th>
+                    <th class="three wide">
+                        关联任务
+                    </th>
+                    <th>类型</th>
+                    <th>创建时间</th>
+                    <th>
+                        是否发送
+                    </th>
+                    <th>
+                        是否支付
+                    </th>
+                    <th>
+                        账单详情
+                    </th>
+                    <th>
+                        发送账单
+                    </th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="bill,billStat:${bills}">
+                    <td><img th:src="${bill.user.attribute.avatar}" alt="" class="ui mini image"></td>
+                    <td><a th:href="@{/profile/user?view=}+${bill.user.username}"
+                           th:text="${bill.user.attribute.nickname}"></a></td>
+                    <td>
+                        <div class="ui header">
+                            <a th:text="'￥'+${bill.price}"></a>
+                        </div>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/vip/task/list?bill=}+${bill.id}"
+                           th:text="'查看此账单对应的'+${#lists.size(bill.vipTasks)}+'个任务'"></a>
+                    </td>
+                    <td th:text="${bill.type}==0?'日结':'月结'"></td>
+                    <td th:text="${#dates.format(bill.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${bill.send}==0?'未发送':'已发送'"></td>
+                    <td th:text="${bill.pay}==0?'未支付':'已支付'"></td>
+                    <td><a th:href="@{/admin/bill/detail?id=}+${bill.id}" target="_blank">查看账单</a></td>
+                    <td>
+                        <div class="ui checkbox sendBillCheckbox" th:if="${bill.type}==1 and ${bill.send}==0" th:attr="data-value=${bill.id}">
+                            <input type="checkbox" name="sendBillInput">
+                            <label>选择</label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a th:href="@{/admin/monthBill/make}" class="ui blue button">发送全部月账单</a>
+            <a id="sendBillButton" class="ui blue button">发送已选择月账单</a>
+            <form th:action="@{/admin/selected/bill/send}" method="post">
+                <input type="hidden" name="ids">
+            </form>
+
+            <div class="ui info message" th:if="${bills.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+            <div th:include="layout/page::page (${bills},${url})" th:remove="tag"></div>
+
+
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            任务进度
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/task/process}"><i class="ui left angle icon"></i>我的任务</a> / 任务进度
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>正在翻译</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;margin-bottom: 40px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">选择译员</div>
+                                    </div>
+                                </div>
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">正在翻译</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">审核稿件</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">评价任务</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui tiny header">
+                                译员翻译内容
+                            </div>
+                            <div th:if="${process.translate}!=null">
+                                <div th:include="layout/content::content (${process.translate.content})"
+                                     th:remove="tag"></div>
+                            </div>
+                            <div th:if="${process.translate}==null">
+                                见附件
+                            </div>
+
+                            <div class="ui tiny header">
+                                译员翻译附件
+                            </div>
+                            <div th:if="!${attachments.empty}">
+                                <table class="ui table">
+                                    <tbody>
+                                    <!--用switch来输出i-->
+                                    <tr th:each="attachment:${attachments}">
+                                        <td>
+                                            <div th:include="layout/attachment::attachment(${attachment.suffixName})"
+                                                 th:remove="tag"></div>
+                                            <span th:with="fileName=${#strings.arraySplit(attachment.path,'/')}"
+                                                  th:text="${fileName[fileName.length-1]}"></span>
+                                        </td>
+                                        <td>大小：
+                                            <span th:if="${attachment.size}<1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/1024,0,1)}+'KB'"></span>
+                                            <span th:if="${attachment.size}>1024*1024 and ${attachment.size}<1024*1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/(1024*1024),0,1)}+'MB'"></span>
+                                        </td>
+                                        <td>字数：<span th:text="${attachment.clientWords}"></span>字</td>
+                                        <td>页数：<span th:text="${attachment.pages}"></span>页</td>
+                                        <td><a th:href="${attachment.path}">下载</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div th:if="${attachments.empty}">
+                                无附件，见翻译内容
+                            </div>
+
+
+                            <div th:if="${process.checked}==2" class="ui info message">
+                                译员已经按照您的意见修改完毕，请审核
+                            </div>
+
+
+                            <div class="ui tiny header">
+                                修改意见
+                            </div>
+                            <form id="translateAdviceForm" th:action="@{/task/translate/advice}" class="ui form"
+                                  method="post">
+                                <div class="field">
+                                    <textarea name="advice" rows="8" placeholder="请输入或者粘贴您修改意见"
+                                              th:text="${process.checked}==0?${process.advice.content}:''">
+                                    </textarea>
+                                    <input type="hidden" name="id" th:value="${process.task.id}">
+                                </div>
+
+
+                                <div class="field">
+                                    <div id="uploadBox" class="ui message">
+                                        <a id="uploadAdvice" class="ui basic compact button">
+                                            <i class="iu upload icon"></i>上传修改意见的附件
+                                        </a>
+                                        <span>
+                                            <span th:if="${process.attachment}==null or ${process.checked}!=0">未上传文件</span>
+                                            <a th:if="${process.attachment}!=null and ${process.checked}==0" th:href="${process.attachment}">下载附件</a>
+                                        </span>
+                                        <span></span>
+                                        <input id="inputAdvice" type="file" name="file" class="hide"/>
+                                        <input type="hidden" name="path"/>
+                                    </div>
+                                    <div style="margin-top: 14px;">可以上传1个100M以下的附件</div>
+                                </div>
+
+                                <div th:if="${process.checked}==0" class="ui info message">
+                                    您的修改意见已经提交，译员正在修改中
+                                </div>
+
+                                <a class="ui basic blue button submit">提交修改意见</a>
+
+                                <a th:href="@{/chat?to=}+${process.user.username}" class="ui button">聊一聊</a>
+                            </form>
+                            <div class="ui tiny header">
+                                使用返现券
+                            </div>
+                            <form class="ui form" th:action="@{/task/pass}" method="post">
+                                <div class="field">
+                                    <div class="ui selection dropdown ticket">
+                                        <input type="hidden" name="ticket">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text"
+                                             th:text="${#lists.size(tickets)}==0?'没有返现券':'可使用返现券'"></div>
+                                        <div class="menu">
+                                            <div class="item">不使用返现券</div>
+                                            <div class="item"
+                                                 th:if="${tickets}!=null" th:each="ticket:${tickets}"
+                                                 th:attr="data-value=${ticket.id}"
+                                                 th:text="${ticket.title}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" th:value="${process.task.id}">
+                                <input type="hidden" name="password">
+                                <div id="taskPassButton" class="ui blue button">审核通过</div>
+                            </form>
+                            <div th:include="layout/message::message (${message})"
+                                 th:remove="tag"></div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="payInput" class="hide bigMargin">
+                <input id="beginBtn" type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off">
+                <a id="clearPayPassword" style="display: block">清空密码</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

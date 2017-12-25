@@ -1,0 +1,13 @@
+<div th:fragment="role2(roles)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--/* 对外显示发布任务客户的认证情况 */-->
+    <div th:each="role:${roles}" th:remove="tag">
+        <label th:if="${role.name}=='ROLE_AUTH_REALNAME'"
+               style="color:#0070C9;margin-left: 14px;">
+            <i class="address card icon" style="margin: 0;"></i>实名认证
+        </label>
+        <label th:if="${role.name}=='ROLE_AUTH_COMPANY'"
+               style="color:#0070C9;margin-left: 14px;">
+            <i class="address card icon" style="margin: 0;"></i>认证企业
+        </label>
+    </div>
+</div>

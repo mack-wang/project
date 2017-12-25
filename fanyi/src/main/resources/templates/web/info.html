@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="ui main container yiContainer">
+        <div class="yiHeader" th:text="${info.title}">
+        </div>
+        <div class="yiNote" th:text="${info.etraInfo}">
+        </div>
+        <div class="ui text container">
+            <div style="margin-top: 20px;"><div th:include="layout/message::message (${info})" th:remove="tag"></div></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

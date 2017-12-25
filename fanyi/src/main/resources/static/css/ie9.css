@@ -1,0 +1,22 @@
+/*修复首页菜单的问题*/
+.indexMenu > a{
+    padding: 24px !important;
+}
+
+.right.menu{
+    float: right!important;
+    padding-top: 18px;
+}
+
+.right.menu>.item{
+    padding: 24px;
+}
+
+.yiContainer > .cards {
+    text-align: center;
+}
+
+.yiContainer > .cards > .card{
+    display: inline-block;
+}
+

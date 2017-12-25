@@ -1,0 +1,615 @@
+html, body {
+    line-height: 1.6;
+    font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif !important;
+    color: #222;
+    font-size: 14px;
+}
+
+.ui.vertical.menu .item > i.icon {
+    float: none;
+}
+
+/*原子类集中管理*/
+.tinyPadding {
+    padding: 4px !important;
+}
+
+.smallPadding {
+    padding: 8px !important;
+}
+
+.normalPadding {
+    padding: 12px !important;
+}
+
+.largePadding {
+    padding: 16px !important;
+}
+
+.bigPadding {
+    padding: 20px !important;
+}
+
+.hugePadding {
+    padding: 50px !important;
+}
+
+.enormousPadding {
+    padding: 100px !important;
+}
+
+.tinyMargin {
+    margin: 4px !important;
+}
+
+.smallMargin {
+    margin: 8px !important;
+}
+
+.normalMargin {
+    margin: 12px !important;
+}
+
+.largeMargin {
+    margin: 16px !important;
+}
+
+.bigMargin {
+    margin: 20px !important;
+}
+
+.hugeMargin {
+    margin: 50px !important;
+}
+
+.enormousMargin {
+    margin: 100px !important;
+}
+
+.textCenter {
+    text-align: center !important;
+}
+
+.clearRadius {
+    border-radius: 0 !important;
+}
+
+.clearShadow {
+    box-shadow: none !important;
+}
+
+.clearBorder {
+    border: none !important;
+}
+
+.clearMargin {
+    margin: 0 !important;
+}
+
+.clearPadding {
+    padding: 0 !important;
+}
+
+.centerBlock {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.floatLeft {
+    float: left !important;
+}
+
+.floatRight {
+    float: right !important;
+}
+
+/*原子类集中管理end*/
+
+.indexMenu > a {
+    padding: 0 20px !important;
+}
+
+.yiContainer {
+    padding: 0;
+    margin: 114px 0 114px 0;
+    background: white;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    min-height: 600px;
+}
+
+.yiHeader {
+    width: 100%;
+    height: 50px;
+    background: #F9F9F9;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    padding-left: 20px;
+    line-height: 50px;
+    font-size: 16px;
+    color: gray;
+}
+
+.yiNote {
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    padding-top: 60px;
+    font-size: 16px;
+    color: #aaa !important;
+}
+
+.yiContainer > .cards > .card {
+    margin: 50px;
+}
+
+.yiContainer > .cards > .card > .content {
+    padding: 20px;
+}
+
+.yiContainer > .cards > .card > .content > .description {
+    line-height: 30px;
+    color: #888;
+    font-size: 14px;
+}
+
+.yiContainer > .cards > .card > .content > .header {
+    font-size: 20px !important;
+}
+
+.lightColor {
+    color: #aaa !important;
+}
+
+.register.user.container {
+    width: 400px;
+    margin: 50px auto;
+}
+
+.underLineA {
+    color: #0070C9;
+    text-decoration: underline;
+}
+
+.underLineA:hover {
+    color: #0070C9;
+    text-decoration: none;
+}
+
+.hide {
+    display: none !important;
+}
+
+.loginContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.loginContainer > .segment {
+    position: absolute;
+    left: 35%;
+    top: 10%;
+}
+
+.loginContainer > .segment > .columnOne {
+    width: 350px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px #ccc;;
+}
+
+.loginContainer > .segment > .columnOne > .menu > .item {
+    width: 50%;
+}
+
+.loginContainer > .segment > .columnOne > .attached.segment {
+    margin-bottom: 0;
+}
+
+.loginContainer > .segment > .columnOne > .tab.segment {
+    padding: 30px;
+}
+
+.homeMenu > .item {
+    padding: 30px !important;
+    font-size: 16px;
+}
+
+.home.grid > .column {
+    padding: 0 !important;
+}
+
+.home.header {
+    width: 100%;
+    height: 50px;
+    padding-left: 16px;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.labelFix {
+    border: 1px solid #ccc !important;
+    padding-top: 6px !important;
+    padding-bottom: 3px !important;
+    margin: 0 12px 12px 0 !important;
+    display: inline-block !important;
+}
+
+.ui.container.indexMenu > a {
+    font-size: 16px;
+}
+
+.ui.container.indexMenu > .right.menu {
+    line-height: 64px;
+    color: white;
+}
+
+.ui.container.indexMenu > .right.menu > a {
+    padding: 0 10px;
+    color: white;
+}
+
+#cropAvatar {
+    max-width: 100%;
+}
+
+.font12 {
+    font-size: 12px !important;
+}
+
+.font16 {
+    font-size: 16px !important;
+}
+
+.font18 {
+    font-size: 18px !important;
+}
+
+.font20 {
+    font-size: 20px !important;
+}
+
+.market.ui.table td.eight.wide {
+    line-height: 28px !important;
+}
+
+.market.ui.table td.eight.wide > div {
+    padding-bottom: 8px;
+}
+
+.attachment.segment > span {
+    padding-left: 20px;
+}
+
+#attachmentBox > tr > td:last-child > a {
+    padding-left: 8px;
+}
+
+#attachmentBox > tr > td:first-child{
+    line-height: 16px;
+}
+
+#attachmentBox > tr > td{
+    padding-left:10px;
+    padding-right: 10px;
+}
+
+.iconFix {
+    width: 30px !important;
+    font-size: 24px !important;
+}
+
+#payInput {
+    display: inline-block;
+}
+
+#payInput > input {
+    border: 1px solid #ddd;
+    width: 40px;
+    height: 40px;
+    outline: none;
+    font-family: inherit;
+    font-size: 28px;
+    font-weight: inherit;
+    text-align: center;
+    line-height: 45px;
+    color: #c2c2c2;
+    margin-left: -1px;
+    background: rgba(255, 255, 255, 0);
+}
+
+body .layui-layer-btn0 {
+    background-color: #0070C9 !important;
+    border-radius: 4px !important;
+}
+
+body .layui-layer-btn1 {
+    border-radius: 4px !important;
+}
+
+/*.activeA {*/
+/*border: 1px solid #0070C9;*/
+/*color:#0070C9;*/
+/*padding: 2px;*/
+/*}*/
+
+/*.activeB {*/
+/*border: 1px solid rgb(219, 40, 40);*/
+/*color:rgb(219, 40, 40);*/
+/*padding: 2px;*/
+/*}*/
+
+#chatContainer .grid {
+    margin: 0;
+}
+
+#chatContainer .column {
+    padding: 0;
+}
+
+.ui.feed.chatFriend > .event {
+    border-bottom: 1px solid #ddd;
+}
+
+.ui.feed.chatFriend > .event > .content {
+    margin-left: 4px;
+}
+
+.chatMessage.left {
+    text-align: right;
+}
+
+.chatMessage.right {
+    text-align: left;
+}
+
+.chatMessage > img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.chatMessage > .ui.message {
+    display: inline-block;
+    margin-bottom:1em!important;
+    width: 250px;
+    word-break: break-all;
+    text-align: left
+}
+
+.chatMessage > .ui.info.message {
+    margin-top:1em!important;
+}
+
+.chatMessage > .ui.message > p {
+    opacity: 0.5;
+}
+
+.chatFriend::-webkit-scrollbar {
+    width: 2px;
+}
+
+#chatRoom::-webkit-scrollbar {
+    width: 2px;
+}
+
+.ui.feed.chatFriend > .event:hover {
+    background-color: #eee;
+}
+
+.chatLeftBanner {
+    height: 43px;
+    background-color: #eee;
+    text-align: center;
+    line-height: 43px;
+    border-bottom: 1px solid #ddd;
+}
+
+.taskProcess > tbody > tr {
+    height: 100px;
+}
+
+.questionTable > tbody > tr {
+    height: 100px;
+}
+
+.celled.ui.table tr td {
+    border-top: 1px solid rgba(34, 36, 38, .1) !important;
+}
+
+.ui.image.icon {
+    vertical-align: baseline;
+}
+
+.ui.vertical.menu .myActive.item {
+    background: rgba(0, 0, 0, .05);
+}
+
+.fullWidth {
+    width: 100% !important;
+}
+
+.articleMenu > .item {
+    height: 50px;
+
+}
+
+.swiper-button-next {
+    opacity: 0.3;
+}
+
+.swiper-button-prev {
+    opacity: 0.3;
+}
+
+.navCards > .card > .content {
+    padding: 2em 1em !important;
+}
+
+.navCards > .card > .content > .header {
+    font-size: 36px !important;
+}
+
+.navCards > .card > .content > .description > a {
+    color: #555 !important;
+    padding-left: 10px;
+}
+
+.newProcess > thead > tr > th {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    color: #aaa !important;
+    font-weight: normal !important;
+}
+
+.newProcess > tbody > tr > td {
+    height: 62px;
+}
+
+.marketFilter a {
+    color: black;
+}
+
+.marketFilter a:hover {
+    color: #0070C9;
+}
+
+.marketFilter a.active {
+    color: #0070C9;
+}
+
+.selectA {
+    border: 1px solid gray;
+    color: gray;
+    padding: 2px;
+    margin: 4px;
+    display: inline-block;
+}
+
+.selectA:hover {
+    border: 1px solid #0070C9;
+    color: #0070C9;
+}
+
+.backTop {
+    height: 50px !important;
+    width: 50px !important;
+    opacity: 0.3 !important;
+    right: 40px !important;
+    bottom: 10% !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.backTop > div {
+    line-height: 16px !important;
+    padding-top: 5px !important;
+}
+
+.backTopButton {
+    height: 50px !important;
+    width: 50px !important;
+    opacity: 0.3 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    margin-top: 20px;
+}
+
+.backTopButton > div {
+    line-height: 16px !important;
+    padding-top: 5px !important;
+}
+
+.indexMenu > .right.menu > a:hover {
+    color: #cbd0d6 !important;
+}
+
+.indexMenu > .right.menu > div > span.text:hover {
+    color: #cbd0d6 !important;
+}
+
+@media screen and (min-width: 1025px) {
+    .indexTitle {
+        position: absolute;
+        top: 16%;
+        z-index: 1000;
+        color: white;
+        text-align: center;
+        width: 100%;
+    }
+
+    .indexTitle > p:nth-child(1) {
+        font-size: 60px;
+        text-shadow: 5px 2px 16px #000;
+        margin-bottom: 30px;
+    }
+
+    .indexTitle > p:nth-child(2) {
+        font-size: 30px;
+        text-shadow: 5px 2px 16px #000;
+        margin-bottom: 30px;
+    }
+
+    .indexTitle > p:nth-child(4) {
+        padding-left: 160px;
+        padding-top: 14px;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .indexTitle {
+        position: absolute;
+        top: 14%;
+        z-index: 1000;
+        color: white;
+        text-align: center;
+        width: 100%;
+    }
+
+    .indexTitle > p:nth-child(1) {
+        font-size: 50px;
+        text-shadow: 5px 2px 16px #000;
+        margin-bottom: 30px;
+    }
+
+    .indexTitle > p:nth-child(2) {
+        font-size: 20px;
+        text-shadow: 5px 2px 16px #000;
+        margin-bottom: 30px;
+    }
+
+    .indexTitle > p:nth-child(4) {
+        padding-left: 160px;
+        padding-top: 14px;
+    }
+
+    .iPadding>i{
+       display: block;
+    }
+}
+
+.editUnderline{
+    color:#0070C9;
+    text-decoration:underline;
+}
+
+.wechatMarket>.item{
+    height: 50px;
+}
+
+.wechatFeed.grid>.column{
+    padding: 4px 14px!important;
+}
+
+.columnPaddingLess.grid>.column{
+    padding: 8px;
+}
+.tdFirst>tbody>tr>td:first-child{
+    font-weight: normal!important;
+}
+
+.secondHeader.home{
+    padding-left: 16px;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(bills.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            结算账单
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/vip}"><i class="ui left angle icon"></i>VIP服务</a> / 结算账单
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:href="@{${curUrl}}"
+                   class="ui button">全部账单</a>
+                <a th:classappend="${param.pay}!=null and ${param.pay[0]}==0?'active':''"
+                   th:href="@{${curUrl}(pay=0)}"
+                   class="ui button">未支付账单</a>
+                <a th:classappend="${param.pay}!=null and ${param.pay[0]}==1?'active':''"
+                   th:href="@{${curUrl}(pay=1)}"
+                   class="ui button">已支付账单</a>
+            </div>
+
+            <table class="ui selectable  table padded market">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        金额
+                    </th>
+                    <th class="three wide">
+                        关联任务
+                    </th>
+                    <th>类型</th>
+                    <th>创建时间</th>
+                    <th>
+                        是否支付
+                    </th>
+                    <th>
+                        账单详情
+                    </th>
+                    <th>立即支付</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="bill,billStat:${bills}">
+                    <td>
+                        <div class="ui header">
+                            <a th:text="'￥'+${bill.price}"></a>
+                        </div>
+                    </td>
+                    <td>
+                        <a th:href="@{/vip?bill=}+${bill.id}"
+                           th:text="'查看此账单对应的'+${#lists.size(bill.vipTasks)}+'个任务'"></a>
+                    </td>
+                    <td th:text="${bill.type}==0?'日结':'月结'"></td>
+                    <td th:text="${#dates.format(bill.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${bill.pay}==0?'未支付':'已支付'"></td>
+                    <td><a th:href="@{/bill/detail?id=}+${bill.id}">查看账单</a></td>
+                    <td>
+                        <a th:if="${bill.pay}==1" class="ui button">已支付</a>
+                        <a th:if="${bill.pay}==0" class="ui blue button billPay"
+                           th:attr="data-value=${bill.price},data-id=${bill.id}"
+                        >立即支付</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--隐藏单个支付表单-->
+            <form id="billPayForm" th:action="@{/bill/pay}" method="post">
+                <input type="hidden" name="id">
+                <input type="hidden" name="password">
+            </form>
+            <form id="billAllPayForm" th:action="@{/bill/all/pay}" method="post">
+                <input type="hidden" name="password">
+            </form>
+
+            <a id="billAllPay" th:attr="data-value=${unpay[1]}" class="ui blue button">支付全部账单</a>
+            <span th:text="'您当前有'+${unpay[0]}+'笔账单，合计金额￥'+(${unpay[1]}==null?0:${unpay[1]})+'未结算'"></span>
+
+            <div class="ui info message" th:if="${bills.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+            <div th:include="layout/page::page (${bills},${url})" th:remove="tag"></div>
+
+            <div id="payInput" class="hide bigMargin">
+                <div id="payDetail" style="margin-bottom: 20px;">
+                    <div>余额：￥<span th:text="${account.money}"></span></div>
+                    <div>待支付金额：￥<span></span></div>
+                    <div class="hide">余额不足 <a th:href="@{/balance}">点击充值</a></div>
+                </div>
+                <input id="beginBtn" type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off">
+                <a id="clearPayPassword" style="display: block">清空密码</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

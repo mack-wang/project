@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(tasks.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            我的任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:classappend="${param.type}==null?'active':''"
+                   th:href="@{${curUrl}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==0?'active':''"
+                   th:href="@{${curUrl}(type=0)}"
+                   class="ui button">口译</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==1?'active':''"
+                   th:href="@{${curUrl}(type=1)}"
+                   class="ui button">笔译</a>
+            </div>
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:classappend="${param.process}!=null and ${param.process[0]}==0?'active':''"
+                   th:href="@{${curUrl}(process=0)}"
+                   class="ui button">已发布</a>
+                <a th:classappend="${param.process}!=null and ${param.process[0]}==1?'active':''"
+                   th:href="@{${curUrl}(process=1)}"
+                   class="ui button">翻译中</a>
+                <a th:classappend="${param.process}!=null and ${param.process[0]}==2?'active':''"
+                   th:href="@{${curUrl}(process=2)}"
+                   class="ui button">待审核</a>
+                <a th:classappend="${param.process}!=null and ${param.process[0]}==3?'active':''"
+                   th:href="@{${curUrl}(process=3)}"
+                   class="ui button">待评论</a>
+            </div>
+
+            <table class="ui selectable  table padded market">
+                <thead>
+                <tr>
+                    <th class="three wide">订单标题</th>
+                    <th class="three wide">翻译语言</th>
+                    <th class="one wide">字数</th>
+                    <th class="two wide">报价</th>
+                    <th class="two wide">状态</th>
+                    <th class="three wide">修改 | 申请发票 | 申请盖章</th>
+                    <th class="two wide">翻译进度</th>
+                </tr>
+                </thead>
+            </table>
+
+            <table style="margin-top: 14px;" class="ui table padded market newProcess"
+                   th:each="task,taskStat:${tasks.content}">
+                <thead>
+                <tr>
+                    <th class="three wide" th:text="${#dates.format(task.createdAt,'yyyy-MM-dd HH:mm')}"></th>
+                    <th class="three wide"
+                        th:text="'订单号:'+${#strings.append(#dates.format(task.createdAt,'yyyyMMdd'),task.id)}"></th>
+                    <th class="one wide"></th>
+                    <th class="two wide"></th>
+                    <th class="two wide"></th>
+                    <th class="three wide"></th>
+                    <th class="two wide"></th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr>
+                    <td>
+                        <a th:href="@{'/task/detail?id='+${task.id}}" th:text="${task.title}"></a>
+                    </td>
+                    <td th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></td>
+                    <td >
+                        <span th:if="${task.type}==1" th:text="${task.words}+${task.attachmentWords}+'字'"></span>
+                    </td>
+                    <td><a href="" th:text="${task.joins}"></a>位译员报价<br></td>
+                    <td>
+                            <span th:if="${task.off}==1" style="color:red">
+                                <i class="ui remove circle icon"></i>正常关闭
+                            </span>
+                        <span th:if="${task.off}==0 and ${task.taskEndTime.getTime()}>${#dates.createNow().getTime()}"
+                              style="color:#0070C9">
+                                <i class="ui circle icon"></i>正在进行
+                            </span>
+                        <span th:if="${task.off}==0 and ${task.taskEndTime.getTime()}<${#dates.createNow().getTime()}"
+                              style="color:#0070C9">
+                                <i class="ui circle icon"></i>报价截止
+                            </span>
+                        <span th:if="${task.off}==2" style="color:green">
+                                <i class="ui edit icon"></i>正在翻译
+                            </span>
+                        <span th:if="${task.off}==3" style="color:green">
+                                <i class="ui check circle icon"></i>任务完成
+                            </span>
+                        <span th:if="${task.off}==4" style="color:red">
+                                <i class="ui warning circle icon"></i>举报关闭
+                            </span>
+                    </td>
+                    <div th:if="${task.off}==1 or ${task.off}==4" th:remove="tag">
+                        <td></td>
+                        <td></td>
+                    </div>
+                    <div th:if="${task.off}==0 or ${task.off}==2 or ${task.off}==3" th:remove="tag">
+                        <td th:with="invoice=(${task.process.invoiceRequest}==null?null:${task.process.invoiceRequest.result}),signature=(${task.process.signatureRequest}==null?null:${task.process.signatureRequest.result})">
+                            <a th:if="${task.off}==0" th:href="@{'/task/edit?id='+${task.id}}">修改</a>
+                            <div th:if="${task.off}==3" th:remove="tag">
+                                <a th:if="${invoice}==null" th:href="@{'/task/invoice?id='+${task.id}}">申请发票</a>
+                                <a th:if="${invoice}==0">已经申请</a>
+                                <a th:if="${invoice}==1" class="showInvoiceResult" th:attr="data-value=${task.process.invoiceRequest.trackingNumber}">查看结果</a>
+                                |
+                                <a th:if="${signature}==null" th:href="@{'/task/signature?id='+${task.id}}">申请盖章</a>
+                                <a th:if="${signature}==0">已经申请</a>
+                                <a th:if="${signature}==1" class="showSignatureResult" th:attr="data-value=${task.process.signatureRequest.trackingNumber}">查看结果</a>
+                            </div>
+                        </td>
+                        <td>
+                            <a th:href="@{'/process?id='+${task.id}}" class="ui blue button">
+                                <span th:if="${task.process.process}==0">选择译员</span>
+                                <span th:if="${task.process.process}==1">正在翻译</span>
+                                <span th:if="${task.process.process}==2">审核稿件</span>
+                                <span th:if="${task.process.process}==3">评价任务</span>
+                                <span th:if="${task.process.process}==4">已经评价</span>
+                            </a>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                申请盖章：申请翻译盖章件。
+            </div>
+
+
+            <div class="ui info message" th:if="${tasks.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+            <div th:include="layout/page::page (${tasks},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+</body>
+</html>

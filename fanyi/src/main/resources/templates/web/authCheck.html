@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        <div th:if="${path.content}=='phone'">修改手机</div>
+        <div th:if="${path.content}=='email'">修改邮箱</div>
+        <div th:if="${path.content}=='password'">修改密码</div>
+        <div th:if="${path.content}=='pay'">修改支付密码</div>
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home?tab=2}"><i class="ui left angle icon"></i>安全设置</a> /
+        <div th:if="${path.content}=='phone'" th:remove="tag">修改手机</div>
+        <div th:if="${path.content}=='email'" th:remove="tag">修改邮箱</div>
+        <div th:if="${path.content}=='password'" th:remove="tag">修改密码</div>
+        <div th:if="${path.content}=='pay'" th:remove="tag">修改支付密码</div>
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;width: 30%;">
+        身份验证：
+        <form th:action="@{/auth/check/}" class="ui form" style="margin-top: 20px;" method="post">
+            <div class="ui header" th:text="${user.attribute.phone}"></div>
+            <div class="field">
+                <input type="text" name="captcha" placeholder="请输入右图验证码" style="width: 70%">
+                <!--更新验证码，添加随机数，防止缓存-->
+                <img th:src="@{/public/captcha}" onclick="this.src='/public/captcha?d='+Math.random();" style="width: 28%;height: 38px;">
+            </div>
+            <div class="field">
+                <div class="ui  action input">
+                    <input class="compact" type="text" name="sms" placeholder="短信验证码"/>
+                    <div id="getSms" class="ui button">获取短信验证码</div>
+                </div>
+            </div>
+            <input type="hidden" name="phone" th:value="${user.attribute.phone}">
+            <input type="hidden" name="path" th:value="${path.content}">
+            <button class="ui basic button" id="submitSms">确定</button>
+            <div style="margin-top: 20px;"><div th:include="layout/message::message (${message})" th:remove="tag"></div></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

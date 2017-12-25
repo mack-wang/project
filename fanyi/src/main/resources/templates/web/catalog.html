@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+
+<div th:fragment="content" th:remove="tag">
+    <div style="margin-top: 78px;">
+        <div class="ui container"
+             th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(articles.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+        >
+            <div class="ui text container">
+                <div class="ui fluid category search article">
+                    <div class="ui icon input" >
+                        <input class="prompt" type="text" placeholder="请输入你要查询的问题关键词" style="width: 600px; margin-top: 10px;">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+            <div class="ui two column grid" style="margin-top:20px;margin-bottom: 50px;">
+                <div class="three wide column clearPadding" style="background-color:white;border: 1px solid #eee;">
+                    <div class="ui vertical menu clearShadow clearRadius articleMenu" style="width: 100%;border-left:none;border-right:none;border-top:none; ">
+                        <a class="item"
+                           th:each="catalog:${catalogs}"
+                           th:text="${catalog.catalog}"
+                           th:href="@{/catalog?id=}+${catalog.id}"
+                        ></a>
+                    </div>
+                </div>
+                <div class="thirteen wide column clearPadding" style="margin-left: -1px;">
+                    <!--文章-->
+                    <div style="width: 100%;height: 800px;background-color: white;border: 1px solid #eee;">
+                        <div class="ui breadcrumb bigMargin">
+                            <div class="section">用户手册</div>
+                            <div class="divider"> / </div>
+                            <div class="active section" th:text="${nowCatalog.catalog}"></div>
+                        </div>
+
+                        <div style="padding: 30px;">
+                            <table class="ui very basic padded selectable table">
+                                <tbody id="activeLink">
+                                <tr th:each="article:${articles}">
+                                    <td>
+                                        <i th:if="${article.top}==1" class="ui red fanyi-top icon"
+                                           style="font-size: 18px;margin:0;"></i>
+                                        <a th:href="@{/article?id=}+${article.id}"
+                                           th:text="${article.title}"
+                                           style="color:#555;"
+                                        ></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="ui info message" th:if="${articles.totalElements}==0">未搜索到相关结果</div>
+                            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                            <div th:include="layout/page::page (${articles},${url})" th:remove="tag"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

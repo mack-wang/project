@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+
+<div th:fragment="content" th:remove="tag">
+
+
+    <div style="margin-top: 60px;background-color: white;">
+        <div style="width: 100%;">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide " th:each="slide:${slides}">
+                        <a th:href="${slide.link}">
+                            <img class="ui image fullWidth" th:src="${slide.path}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="swiper-button-prev" style="z-index: 2000"></div>
+                <div class="swiper-button-next" style="z-index: 2000"></div>
+                <div class="swiper-pagination" style="z-index: 2000"></div>
+                <div class="indexTitle">
+                    <p>拓展你的世界</p>
+                    <p>一个快速、专业、可靠的翻译平台</p>
+                    <div>
+                        <a th:href="@{/task}" class="ui big blue button">立即下单</a>
+                        <a th:href="@{/public/chat}" class="ui big button" style="margin-left: 30px;">联系客服</a>
+                    </div>
+                    <p>热线：xxx-xxx-xxxx</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui container" style="margin: 50px auto;">
+            <div class="ui three column grid">
+                <div class="row" style="text-align: center;">
+                    <div class="three wide column"></div>
+                    <div class="ten wide column" style="font-size: 36px;font-weight: bold;margin: 20px auto;">为什么选择翻易？
+                    </div>
+                    <div class="three wide column"></div>
+                </div>
+                <div class="row" style="text-align: center;">
+                    <div class="column">
+                        <img th:src="@{/img/index/1.png}" class="ui centered image" alt="">
+                        <div style="font-size: 24px;margin: 14px auto;">快速完成</div>
+                        <div style="font-size: 16px;line-height: 30px;">
+                            我们有2万1千多位翻译遍布世界各个时区，无论是哪天哪个时间，新的翻译任务在几分钟内就会被领取与完成。
+                        </div>
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/2.png}" class="ui centered image" alt="">
+                        <div style="font-size: 24px;margin: 14px auto;">灵活的解决方案</div>
+                        <div style="font-size: 16px;line-height: 30px;">如机器翻译般快速，却拥有人工翻译的质量。翻易灵活的翻译平台能够每周处理百万字的翻译。</div>
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/3.png}" class="ui centered image" alt="">
+                        <div style="font-size: 24px;margin: 14px auto;">人工翻译的质量</div>
+                        <div style="font-size: 16px;line-height: 30px;">
+                            透过严格筛选译者的机制和定期审核译文的流程，翻易提供高质量的人工翻译，价格却仅是传统翻译公司的六分之一。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color: #f2f2f2;width: 100%;border: 1px solid #ddd;">
+            <div class="ui container" style="margin-top: 50px;margin-bottom: 50px;">
+                <div class="ui three column grid link cards">
+                    <div class="row" style="text-align: center;">
+                        <div style="width: 100%;font-size: 36px;font-weight: bold;margin: 20px auto;">需求场景</div>
+                    </div>
+                    <div class="column">
+                        <div class="ui fluid card">
+                            <div class="image">
+                                <img src="/img/index/14.png">
+                            </div>
+                            <div class="content">
+                                <div class="header">Matt Giampietro</div>
+                                <div class="meta">
+                                    <a>Friends</a>
+                                </div>
+                                <div class="description">
+                                    Matthew is an interior designer living in New York.
+                                </div>
+                            </div>
+                            <div class="extra content">
+      <span class="right floated">
+        Joined in 2013
+      </span>
+                                <span>
+        <i class="user icon"></i>
+        75 Friends
+      </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui fluid card">
+                            <div class="image">
+                                <img src="/img/index/15.png">
+                            </div>
+                            <div class="content">
+                                <div class="header">Matt Giampietro</div>
+                                <div class="meta">
+                                    <a>Friends</a>
+                                </div>
+                                <div class="description">
+                                    Matthew is an interior designer living in New York.
+                                </div>
+                            </div>
+                            <div class="extra content">
+      <span class="right floated">
+        Joined in 2013
+      </span>
+                                <span>
+        <i class="user icon"></i>
+        75 Friends
+      </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui fluid card">
+                            <div class="image">
+                                <img src="/img/index/16.jpg">
+                            </div>
+                            <div class="content">
+                                <div class="header">Matt Giampietro</div>
+                                <div class="meta">
+                                    <a>Friends</a>
+                                </div>
+                                <div class="description">
+                                    Matthew is an interior designer living in New York.
+                                </div>
+                            </div>
+                            <div class="extra content">
+      <span class="right floated">
+        Joined in 2013
+      </span>
+                                <span>
+        <i class="user icon"></i>
+        75 Friends
+      </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui container" style="margin: 50px auto;">
+            <div class="ui six column grid">
+                <div class="row" style="text-align: center;font-size: 36px;font-weight: bold;margin: 20px auto;">
+                    <div style="width: 100%;">合作企业</div>
+                </div>
+                <div class="row" style="text-align: center;">
+                    <div class="column">
+                        <img th:src="@{/img/index/8.png}" class="ui centered image" alt="">
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/9.png}" class="ui centered image" alt="">
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/10.png}" class="ui centered image" alt="">
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/11.png}" class="ui centered image" alt="">
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/12.png}" class="ui centered image" alt="">
+                    </div>
+                    <div class="column">
+                        <img th:src="@{/img/index/13.png}" class="ui centered image" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui container">
+            <img th:src="@{/img/index/7.png}" alt="" class="ui image" style="padding: 50px auto;">
+        </div>
+
+
+        <div style="background-color: #f2f2f2;width: 100%;border: 1px solid #ddd;">
+            <div class="ui container" style="margin-top: 50px;margin-bottom: 50px;">
+                <div class="ui three column grid">
+                    <div class="row"></div>
+                    <div class="row" style="text-align: center;">
+                        <div class="three wide column"></div>
+                        <div class="ten wide column" style="font-size: 36px;font-weight: bold;margin: 20px auto;">订购方法
+                        </div>
+                        <div class="three wide column"></div>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <div class="column">
+                            <img th:src="@{/img/index/4.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">发布任务</div>
+                            <div style="font-size: 16px;line-height: 30px;">上传您的文件或者直接在我们的网上表格中输入您的文字即可轻松快捷地订购翻译服务。
+                            </div>
+                            <div>
+                                <div class="ui blue compact button" style="margin-top: 16px;">现在就订购</div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <img th:src="@{/img/index/5.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">VIP服务</div>
+                            <div style="font-size: 16px;line-height: 30px;">有项目需要翻译？我们将与您密切合作，为您提供个性化的解决方案。</div>
+                            <div>
+                                <div class="ui blue compact  button" style="margin-top: 16px;">咨询客服</div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <img th:src="@{/img/index/6.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">翻译应用程序接口</div>
+                            <div style="font-size: 16px;line-height: 30px;">有项目需要翻译？我们将与您密切合作，为您提供个性化的解决方案。</div>
+                            <div>
+                                <div class="ui blue compact button" style="margin-top: 16px;">咨询客服</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <a href="#top" class="ui fixed bottom sticky button backTop" target="_self">
+            <div><i class="ui angle up icon clearMargin"></i>
+                <div>顶部</div>
+            </div>
+        </a>
+    </div>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,
+            speed: 1000,
+            direction: 'horizontal',
+            loop: true,
+            pagination: '.swiper-pagination',
+            paginationType: 'bullets',
+            prevButton: '.swiper-button-prev',
+            nextButton: '.swiper-button-next'
+        });
+
+        $(".column.flow").find("img:eq(1)").click(function () {
+            location.href = $(this).parent().parent().next().attr('href');
+        })
+    </script>
+</div>
+</body>
+</html>

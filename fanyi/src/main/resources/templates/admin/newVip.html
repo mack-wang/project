@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            新增VIP客户
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>新增VIP客户</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <form id="vipAddForm" th:action="@{/admin/vip/add}"
+                                  class="ui form"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">翻易账号</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="username" placeholder="客户翻易账号"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        VIP类型
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select name="type" class="ui fluid dropdown vipType">
+                                                <option value="0">按次结算</option>
+                                                <option value="1">按月结算</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">翻译价格</div>
+                                    <div id="translatePriceField" class="fourteen wide column">
+                                        <div class="ui divider" style="margin-top: 0;"></div>
+                                        <div class="fields">
+                                            <div class="ten wide field">
+                                                <div class="ui two item menu clearShadow">
+                                                    <div class="ui dropdown link item group">
+                                                        <span class="text">翻译语言</span>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div th:each="group:${languageGroups}" class="item"
+                                                                 th:attr="data-value=${group.id}"
+                                                                 th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui dropdown link item translateType">
+                                                        <span class="text">翻译类型</span>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div class="item" data-value="translate">笔译</div>
+                                                            <div class="item" data-value="interpret">口译</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="field">
+                                                <input type="text" placeholder="价格" id="prices">
+                                            </div>
+                                            <div class="three wide field">
+                                                <select class="ui compact selection dropdown translatePrice">
+                                                    <option value="word">元/千字</option>
+                                                    <option value="page">元/页</option>
+                                                    <option value="hour">元/小时</option>
+                                                    <option value="day">元/天</option>
+                                                </select>
+                                            </div>
+
+                                            <input type="hidden" name="price">
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <a id="addTranslatePrice"><i class="ui circle add icon"></i>添加</a>
+                                            <a class="translatePriceReset"><i class="ui circle remove icon"></i>重置</a>
+                                        </div>
+
+                                        <div id="translatePriceContainer"></div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        合同到期日
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="rangestart">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="endTime" placeholder="合同到期时间选择">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">上传附件</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <a id="contractAttachment">
+                                                <i class="iu upload icon"></i>点击添加文件
+                                            </a>
+                                            <input type="file" name="contractAttachment" class="hide"/>
+                                            <input type="hidden" name="path"/>
+                                        </div>
+                                        <div id="contractAttachmentBox" class="ui message">
+                                            <span></span><span>未上传附件</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+
+                                       <button class="ui blue button submit">提交</button>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

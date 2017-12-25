@@ -1,0 +1,15 @@
+
+.normal {
+}
+
+.wrap {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding: 6px;
+  margin-bottom: 14px;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: bold;
+}

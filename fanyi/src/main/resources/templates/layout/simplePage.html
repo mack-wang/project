@@ -1,0 +1,28 @@
+<div th:fragment="simplePage(datas,url)"
+
+>
+    <!--把当前页的page参数替换为空-->
+    <!--如果page替换后多了&符号，也删除-->
+    <div class="ui right floated pagination small menu clearShadow"
+    >
+        <a class="item" th:href="@{${url}(page=0)}">首页</a>
+        <a class="item" href="#" th:if="${datas.hasPrevious()}"
+           th:href="@{${url}(page=${datas.number-1})}"
+        >上一页
+        </a>
+        <a class="item"
+           th:if="${datas.hasNext()}"
+           th:href="@{${url}(page=${datas.number+1})}"
+        >下一页</a>
+        <a class="item"
+           th:if="datas.totalPages == 0"
+           th:href="@{${url}(page=0)}"
+        >尾页</a>
+        <a class="item"
+           th:if="datas.totalPages != 0"
+           th:href="@{${url}(page=${datas.totalPages}-1)}"
+        >尾页</a>
+        <a class="item" th:text="'共'+${datas.totalPages}+'页 / '+${datas.totalElements}+' 条'"></a>
+    </div>
+
+</div>

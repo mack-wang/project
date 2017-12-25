@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            vip客户信息
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <table class="ui fixed table">
+                <thead>
+                <tr>
+                    <th class="two wide">vip客户信息</th>
+                    <th class="seven wide"></th>
+                    <th class="seven wide"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        vip客户账号
+                    </td>
+                    <td th:text="${vip.user.username}">
+                    </td>
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        结算方式
+                    </td>
+                    <td th:text="${vip.type}==0?'按次结算':'按月结算'">
+                    </td>
+                    <td class="right aligned collapsing">
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'"
+                           th:href="@{/admin/vip/update/field?field=type}">修改结算方式</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        翻译价格
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="price:${vip.vipPrices}"
+                                 th:text="${price.languageGroup.originLanguages.name}
+                                        +'->'+${price.languageGroup.translateLanguages.name}
+                                        +(${price.translateType}=='translate'?'笔译':'口译')
+                                        +${price.price}
+                                        +(${price.priceType}=='word'?'元/千字':'')
+                                        +(${price.priceType}=='page'?'元/页':'')
+                                        +(${price.priceType}=='hour'?'元/小时':'')
+                                        +(${price.priceType}=='day'?'元/天':'')"
+                            ></div>
+                        </div>
+                    </td>
+                    <td class="right aligned">
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'"
+                           th:href="@{/admin/vip/update/field?field=price}">修改翻译价格</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        合同到期时间
+                    </td>
+                    <td th:text="${#dates.format(vip.endTime,'yyyy-MM-dd')}"></td>
+                    <td class="right aligned">
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'"
+                           th:href="@{/admin/vip/update/field?field=endTime}">修改合同到期时间</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        附件
+                    </td>
+                    <td>
+                        <a th:href="${vip.path}">下载附件</a>
+                    </td>
+                    <td class="right aligned">
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'"
+                           th:href="@{/admin/vip/update/field?field=path}">修改附件</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--成功通知-->
+            <div th:include="layout/message::message (${nameMessage})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

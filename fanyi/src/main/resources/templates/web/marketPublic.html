@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content">
+
+    <!--获取当前页面的除去page的url的参数-->
+    <div style="margin-top: 64px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  url=${@removeParam.apply('page')}">
+
+        <div style="overflow: hidden;position: relative;margin-bottom: -6px;">
+            <a th:href="${web.link}==nul?${url}:${web.link}">
+                <img th:src="${web.marketPicture}" style="width: 100%;" alt="">
+            </a>
+        </div>
+
+        <div class="ui container" style="margin-top: 30px;">
+            <div class="ui one column grid " style="margin-bottom:30px;background-color: white;padding: 20px;">
+                <div class="column">
+                    <div>
+                        <span>全部结果:</span>
+                        <!--field-->
+                        <a th:each="field:${skilledFields}"
+                           th:if="${param.field}!=null and ${#lists.contains(param.field,#strings.toString(field.id))}==true"
+                           th:href="${new java.lang.String(url).replace('field='+field.id, '')}"
+                           class="selectA">
+                            <span th:text="${field.skilledField}" th:remove="tag"></span>
+                            <i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <!--usage-->
+                        <a th:each="usage:${skilledUsages}"
+                           th:if="${param.usage}!=null and ${#lists.contains(param.usage,#strings.toString(usage.id))}==true"
+                           th:href="${new java.lang.String(url).replace('usage='+usage.id, '')}"
+                           class="selectA">
+                            <span th:text="${usage.skilledUsage}" th:remove="tag"></span>
+                            <i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <!--quality-->
+                        <a th:if="${param.quality}!=null and ${#lists.contains(param.quality,'1')}==true"
+                           th:href="${new java.lang.String(url).replace('quality=1', '')}"
+                           class="selectA">标准<i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <a th:if="${param.quality}!=null and ${#lists.contains(param.quality,'2')}==true"
+                           th:href="${new java.lang.String(url).replace('quality=2', '')}"
+                           class="selectA">专业<i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <!--emergency-->
+                        <a th:if="${param.emergency}!=null and ${#lists.contains(param.emergency,'0')}==true"
+                           th:href="${new java.lang.String(url).replace('emergency=0', '')}"
+                           class="selectA">不加急<i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <a th:if="${param.emergency}!=null and ${#lists.contains(param.emergency,'1')}==true"
+                           th:href="${new java.lang.String(url).replace('emergency=1', '')}"
+                           class="selectA">加急<i class="ui remove icon clearMargin"></i>
+                        </a>
+                        <span>翻译任务共<a th:text="${tasks.totalElements}"></a>条结果</span>
+                    </div>
+                    <table class="ui table marketFilter">
+                        <tbody>
+                        <tr>
+                            <td>专业领域：</td>
+                            <td th:each="field:${skilledFields}">
+                                <a th:href="@{${url}(field=${field.id})}"
+                                   th:class="${param.field}!=null and
+                                   ${#lists.contains(param.field,#strings.toString(field.id))}==true?'active':''"
+                                   th:text="${field.skilledField}"
+                                >
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>翻译用途：</td>
+                            <td th:each="usage:${skilledUsages}">
+                                <a th:href="@{${url}(usage=${usage.id})}"
+                                   th:class="${param.usage}!=null and
+                                   ${#lists.contains(param.usage,#strings.toString(usage.id))}==true?'active':''"
+                                   th:text="${usage.skilledUsage}"
+                                >
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:with="cUrl=(${@removeParam.apply('quality')})">
+                            <td>质量等级:</td>
+                            <td>
+                                <a th:href="@{${cUrl}(quality=1)}"
+                                   th:class="${param.quality}!=null and
+                                   ${param.quality[0]}==1 ?'active':''">
+                                    标准
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{${cUrl}(quality=2)}"
+                                   th:class="${param.quality}!=null and
+                                   ${param.quality[0]}==2 ?'active':''">
+                                    专业
+                                </a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr th:with="cUrl=(${@removeParam.apply('emergency')})">
+                            <td>是否加急:</td>
+                            <td>
+                                <a th:href="@{${cUrl}(emergency=1)}"
+                                   th:class="${param.emergency}!=null and
+                                   ${param.emergency[0]}==1 ?'active':''">
+                                    加急
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{${cUrl}(emergency=0)}"
+                                   th:class="${param.emergency}!=null and
+                                   ${param.emergency[0]}==0 ?'active':''">
+                                    不加急
+                                </a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column">
+                    <div class="ui menu clearShadow clearRadius clearMargin">
+                        <a th:if="${param.type}==null" class="item" th:href="@{/market?p}">
+                            全部
+                        </a>
+                        <a th:if="${param.type}!=null and ${param.type[0]}==1" class="item" th:href="@{/market?p&type=1}">
+                            笔译全部
+                        </a>
+                        <a th:if="${param.type}!=null and ${param.type[0]}==0" class="item" th:href="@{/market?p&type=0}">
+                            口译全部
+                        </a>
+
+                        <a class="item"
+                           th:classappend="${param.translateEndTime}!=null?'active':''"
+                           th:href="@{${@removeParam.apply('translateEndTime')}(translateEndTime=${param.translateEndTime}!=null and ${param.translateEndTime[0]}=='DESC' ?'ASC':'DESC')}">
+                            笔译截稿时间<i class="ui sort icon"></i>
+                        </a>
+
+                        <a class="item"
+                           th:classappend="${param.startTime}!=null?'active':''"
+                           th:href="@{${@removeParam.apply('startTime')}(startTime=${param.startTime}!=null and ${param.startTime[0]}=='DESC' ?'ASC':'DESC')}">
+                            口译开始时间<i class="ui sort icon"></i>
+                        </a>
+                        <a class="item"
+                           th:classappend="${param.totalWords}!=null?'active':''"
+                           th:href="@{${@removeParam.apply('totalWords')}(totalWords=${param.totalWords}!=null and ${param.totalWords[0]}=='ASC' ?'DESC':'ASC')}">
+                            翻译字数<i class="ui sort icon"></i>
+                        </a>
+
+                        <div class="ui dropdown link item marketLanguageGroup">
+                            <span class="text">翻译语言</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item"
+                                   th:each="group:${languageGroup}"
+                                   th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"
+                                   th:href="@{${@removeParam.apply('group')}(group=${group.id})}"
+                                   th:classappend="${param.group}!=null and ${param.group[param.group.length-1]}==${group.id}?'active selected':''"
+                                ></a>
+                            </div>
+                        </div>
+
+
+                        <div class="right menu">
+
+                            <div class="item"
+                                 th:if="${session.user}==null or ${session.user.currentRole}!='ROLE_ADMIN'">
+                                <div class="ui action input">
+                                    <input type="text" placeholder="关键词">
+                                    <button id="marketSearchButton" class="ui button" th:attr="data-value=${@removeParam.apply('title')}">搜索
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="item"
+                                 th:if="${session.user}!=null and ${session.user.currentRole}=='ROLE_ADMIN'">
+                                <div class="ui action input">
+                                    <input type="text" placeholder="请输入">
+                                    <select class="ui compact selection dropdown">
+                                        <option selected value="title">标题关键词</option>
+                                        <option value="phone">手机号</option>
+                                        <option value="username">用户名</option>
+                                    </select>
+                                    <div th:attr="data-value=${url}" id="adminUserListSearch" type="submit"
+                                         class="ui button">搜索
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div>
+                        <table class="ui selectable very basic table padded market">
+                            <thead>
+                            <tr>
+
+                                <td class="seven wide">
+                                    任务主题
+                                </td>
+                                <td>语言</td>
+                                <td>类型</td>
+                                <td>
+                                    <span th:if="${param.type}==null" th:remove="tag">截稿/截止时间</span>
+                                    <span th:if="${param.type}!=null and ${param.type[0]}==1" th:remove="tag">笔译截稿时间</span>
+                                    <span th:if="${param.type}!=null and ${param.type[0]}==0" th:remove="tag">口译开始时间</span>
+                                </td>
+                                <td class="two wide">
+                                    字数
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="task,taskStat:${tasks.content}"
+                                th:style="${task.top}==1?'background-color:#FcFcFc;':''">
+                                <td class="seven wide" style="padding-left: 14px;">
+                                    <div class="ui small header clearMargin">
+                                        <a th:href="@{'/task/detail?id='+${task.id}}">
+                                            <i th:if="${task.emergency}==1" class="ui red fanyi-hurry icon"
+                                               style="font-size: 18px;margin:0;"></i>
+                                            <i th:if="${task.top}==1" class="ui red fanyi-top icon"
+                                               style="font-size: 18px;margin:0;"></i>
+                                            <span th:text="${task.title}"></span>
+                                        </a>
+                                    </div>
+                                    <!--显示100个字-->
+                                    <div style="margin-top: 8px;"
+                                         th:text="${#strings.length(task.taskRequest.content)}<100?${task.taskRequest.content}:${#strings.substring(task.taskRequest.content,0,99)}+'...'"></div>
+                                    <div style="margin-top: 8px;">
+                                        <span th:text="${#dates.format(task.createdAt,'yyyy-MM-dd')}"
+                                              style="opacity: 0.6"></span>
+                                        <!--昵称-->
+                                        <span th:text="${task.user.attribute.nickname}" style="opacity: 0.6"></span>
+                                        <!--认证情况-->
+                                        <div th:include="layout/role2::role2 (${task.user.roles})" th:remove="tag"></div>
+
+                                    </div>
+                                </td>
+                                <td th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></td>
+                                <td th:text="${task.type}==1?'笔译':'口译'"></td>
+
+
+                                <td th:if="${task.type}==1"
+                                    th:text="${#dates.format(task.translateEndTime,'yyyy-MM-dd HH:mm')}">
+                                </td>
+                                <td th:if="${task.type}==0"
+                                    th:text="${#dates.format(task.interpret.startTime,'yyyy-MM-dd HH:mm')}">
+                                </td>
+
+                                <td class="one wide" style="padding-right: 14px;">
+                                    <div th:if="${task.type}==1" class="ui header">
+                                        <a href="" th:text="${task.words}+${task.attachmentWords}+'字'"></a>
+                                    </div>
+                                    <div th:if="${task.type}==0">
+                                        无
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="ui info message" th:if="${tasks.totalElements}==0">未搜索到相关结果</div>
+
+
+                    <div th:include="layout/page::page (${tasks},${url})" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <a href="#top" class="ui fixed bottom sticky button backTop" target="_self">
+            <div><i class="ui angle up icon clearMargin"></i>
+                <div>顶部</div>
+            </div>
+        </a>
+
+    </div>
+</div>
+</body>
+</html>

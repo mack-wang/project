@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            任务进度
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/tender}"><i class="ui left angle icon"></i>我的任务</a> / 任务进度
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>正在翻译</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;margin-bottom: 40px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">译员投标</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">提交翻译</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">客户审核</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">完成任务</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <form id="tenderTranslateForm" th:action="@{/tender/translate/form}"
+                                  class="ui form"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">
+                                        任务简介
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <table class="ui compact celled table">
+                                            <thead>
+                                            <tr>
+                                                <th class="eight wide">项目</th>
+                                                <th class="eight wide">值</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>任务标题</td>
+                                                <td>
+                                                    <a th:href="@{/task/detail?id=}+${task.id}"
+                                                       target="_blank"
+                                                       th:text="${task.title}"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>翻译语言</td>
+                                                <td th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>翻译内容</td>
+                                                <td th:text="${task.words}+'字'"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>翻译附件</td>
+                                                <td><i class="attach ui icon"></i><span
+                                                        th:text="${attachmentCount}+'件 共'+${task.attachmentWords}+'字'"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>字数总计</td>
+                                                <td th:text="(${task.words}+${task.attachmentWords})+'字'"></td>
+                                            </tr>
+                                            <tr th:if="${task.type}==0" id="isInterpretForm">
+                                                <td>口译类型</td>
+                                                <td th:text="${task.interpret.type}==0?'交传（陪同）':'同传'"></td>
+                                            </tr>
+                                            <tr th:if="${taskType}=='interpret'">
+                                                <td>服务时间</td>
+                                                <td>
+                                                    <div th:text="'从'+${task.interpret.startTime}"></div>
+                                                    <div th:text="'到'+${task.interpret.endTime}"></div>
+                                                    <div th:text="'每日工作'+${task.interpret.workTime}+'小时'"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>完成任务后您将获得</td>
+                                                <td th:text="'￥'+${#numbers.formatDecimal(taskUser.price*0.7,0,2)}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <a th:href="@{/task/detail?id=}+${task.id}" target="_blank" class="ui basic blue button">
+                                            查看要求|下载附件
+                                        </a>
+                                    </div>
+
+                                    <div th:if="${task.type}==1" th:remove="tag">
+                                        <div class="two wide column">
+                                            翻译内容
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="field">
+                                                <textarea id="translateContent" name="translateContent" rows="16"
+                                                          placeholder="请输入或者粘贴您翻译的内容"></textarea>
+                                            </div>
+                                            <div>统计：字符 <span id="charsCount">0</span>,单词 <span id="wordsCount">0</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="two wide column">
+                                            翻译文件
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <table class="ui table">
+                                                <thead>
+                                                <tr>
+                                                    <span style="opacity: 0.5;">*支持大多数文件，单个附件大小不得超过100M，总附件大小不得超过1G</span>
+                                                    <th class="six wide"><a id="uploadAttachment">
+                                                        <i class="iu upload icon"></i>点击添加文件
+                                                    </a></th>
+                                                    <th class="three wide "></th>
+                                                    <th class="three wide "></th>
+                                                    <th class="four wide "></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="attachmentBox">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--如果是口译任务就提交这个-->
+                                    <input type="hidden" th:if="${task.type}==0" value="口译任务" name="translateContent">
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <div class="ui blue button submitButton" th:text="${task.type}==1?'提交':'完成任务'"></div>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})"
+                                             th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+                                <input type="file" class="hide" name="attachment">
+                                <input type="hidden" name="attachmentUrl">
+                                <input type="hidden" name="clientWords">
+                                <input type="hidden" name="id" th:value="${task.id}">
+                                <!--翻译语言已经定了，所以不需要再选择，但是要选择和该语言相反的计数方式-->
+                                <input type="hidden" name="languageGroup" th:value="${task.languageGroup.id}*(-1)">
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

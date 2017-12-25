@@ -1,0 +1,13 @@
+
+<div th:fragment="content(content)">
+    <div th:if="${#strings.length(content)}<=140">
+        <span th:text="${content}" th:remove="tag"></span>
+    </div>
+    <div th:if="${#strings.length(content)}>140">
+        <div>
+            <div th:text="${#strings.substring(content,0,139)}+'...'"></div>
+            <div class="fixContent hide" th:text="${content}"></div>
+            <a class="switchContent">查看全文</a>
+        </div>
+    </div>
+</div>

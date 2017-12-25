@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+
+
+    <!-- Page Contents -->
+    <div class="home header">
+        微信充值
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/weixin/back?id=}+${product.outTradeNo}"><i class="ui left angle icon"></i>返回</a> / 微信充值
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin:30px;">
+        <table class="ui large padded  table">
+            <thead>
+            <tr>
+                <th>微信充值</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr>
+                <td style="overflow: visible;">
+                    <div class="ui header" style="margin: 30px;">翻易收银台</div>
+                    <div class="ui two column grid" style="background-color: #eee">
+                        <div class="ten wide column" style="padding-left: 40px;">
+                            <div>订单编号：<span th:text="${product.outTradeNo}"></span></div>
+                            <div>订单类型：<span>充值</span></div>
+                        </div>
+                        <div class="six wide column">
+                            应付金额：￥<span th:text="${product.price}"></span>
+                        </div>
+                    </div>
+                    <div class="ui three column grid">
+
+                        <div class="five wide column" style="padding-left: 40px;">
+                            <img th:src="@{/img/fanyi/WePayLogo.png}" class="ui small image" alt="" style="display: inline-block">
+                            <img th:src="@{/img/fanyi/weButton.png}" class="ui mini image" alt="" style="display: inline-block">
+                            </div>
+                        <div class="six wide column textCenter">
+                            亿万用户的选择，更快更安全
+                        </div>
+                        <div class="five wide column">
+                        </div>
+                    </div>
+                    <div class="ui three column grid">
+                        <div class="five wide column">
+
+                        </div>
+                        <div class="six wide column textCenter">
+                            <img th:src="${img}" alt="">
+                            <div>
+                                <img th:src="@{/img/fanyi/weMessage.png}" style="width: 200px;"  alt="">
+                            </div>
+                        </div>
+                        <div class="five wide column">
+                        </div>
+                    </div>
+                    <div class="ui three column grid">
+                        <div class="five wide column">
+                        </div>
+                        <div class="six wide column textCenter">
+                            <a th:href="@{/weixin/back?id=}+${product.outTradeNo}" class="ui green button">完成支付</a>
+                            <a th:href="@{/weixin/back?id=}+${product.outTradeNo}" class="ui basic green button">取消支付</a>
+                        </div>
+                        <div class="five wide column">
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>

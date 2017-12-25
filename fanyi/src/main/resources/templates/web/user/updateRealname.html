@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="auth"></div>
+    <div class="home header">
+        实名认证
+    </div>
+
+    <!--修改姓名-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='name'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate}"><i class="ui left angle icon"></i>实名认证</a> / 修改姓名
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateNameForm" th:action="@{/update/user/certificate}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">修改姓名</div>
+                    <input type="text" name="name" placeholder="身份证上姓名"/>
+                </div>
+                <input type="hidden" name="key" value="name"/>
+                <button class="ui basic button">修改</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改地址-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='address'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate}"><i class="ui left angle icon"></i>实名认证</a> / 修改地址
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateAddressForm" th:action="@{/update/user/certificate}" method="post" class="ui form" style="width: 600px;">
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">居住地址</div>
+                    <div id="areaField" class="ui three item menu clearShadow">
+                        <div class="ui pointing dropdown link item authProvince">
+                            <span class="text">省份</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                        <div class="ui pointing dropdown link item authCity">
+                            <span class="text">城市</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                        <div class="ui pointing dropdown link item authArea">
+                            <span class="text">区域</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" name="provinceCityAreaId" class="hide">
+                </div>
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">详细地址</div>
+                    <input type="text" name="address" placeholder="具体街道和门牌"/>
+                </div>
+                <input type="hidden" name="key" value="address"/>
+                <button id="updateAddressButton" class="ui basic button">确定</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改身份证号-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='idNumber'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate}"><i class="ui left angle icon"></i>实名认证</a> / 修改身份证号
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateIdNumberForm" th:action="@{/update/user/certificate}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">修改身份证号</div>
+                    <input type="text" name="idNumber" placeholder="身份证号"/>
+                </div>
+                <input type="hidden" name="key" value="idNumber"/>
+                <button class="ui basic button">修改</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改身份证照片-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='idCardPhoto'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate}"><i class="ui left angle icon"></i>实名认证</a> / 修改身份证照片
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateIdCardForm" th:action="@{/update/user/certificate/idCard}" class="ui form" method="post" style="width: 600px;" enctype="multipart/form-data">
+                <div class="field">
+                    <div class="ui segment clearShadow">
+                        <div class="font16" style="margin-bottom: 12px;">示例照片</div>
+                        <img th:src="@{/img/fanyi/idPhoto1.png}" alt="" style="width: 49%;">
+                        <img th:src="@{/img/fanyi/idPhoto2.png}" alt="" style="width: 49%;">
+                    </div>
+                    <div id="idField" class="ui segment clearShadow">
+                        <div class="font16" style="margin-bottom: 12px;">上传照片</div>
+                        <div style="width: 48%;display: inline-block;text-align: center;">
+                            <img th:src="@{/img/fanyi/idCard.png}"
+                                 alt="" style="width: 100%;">
+                            <a id="idCardFrontButton">上传身份证正面照片</a>
+                        </div>
+                        <div style="width: 48%;display: inline-block;margin-left: 6px;text-align: center;">
+                            <img th:src="@{/img/fanyi/idCard.png}"
+                                 alt="" style="width: 100%;">
+                            <a id="idCardBackButton">上传身份证背面照片</a>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="key" value="idCardPhoto"/>
+                <input type="file" name="idCardFront" class="hide"
+                       accept="image/gif,image/jpeg,image/jpg,image/png">
+                <input type="file" name="idCardBack" class="hide"
+                       accept="image/gif,image/jpeg,image/jpg,image/png">
+                <button class="ui basic button">修改</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

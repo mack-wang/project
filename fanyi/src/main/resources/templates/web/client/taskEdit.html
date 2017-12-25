@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            已发任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>修改任务</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <form id="taskEditForm" th:action="@{/task/edit/form}"
+                                  class="ui form"
+                                  method="post">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">
+                                        任务标题
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="title" placeholder="任务标题" th:value="${task.title}">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        内容摘要
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="field">
+                                            <textarea rows="2" name="brief" placeholder="请输入内容摘要" th:text="${task.brief.content}"></textarea>
+                                        </div>
+                                        <div style="opacity:0.5;">*最多140字，若涉及敏感内容，可不填</div>
+                                    </div>
+
+
+                                    <div class="two wide column">
+                                        翻译要求
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="field">
+                                            <textarea rows="12" name="translateRequest"  placeholder="请输入翻译要求,例如译员学历，证书等级，翻译稿件文本的格式等" th:text="${task.taskRequest.content}"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        是否加急
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown quality" name="emergency">
+                                                <option value="0">不加急</option>
+                                                <option value="1" th:selected="${task.emergency}==1?'selected':false">加急</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        是否置顶
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="inline fields taskTopCheckbox">
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="top" checked value="0">
+                                                    <label>不置顶</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="top" value="1" data-value="10">
+                                                    <label>置顶1天-10元</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="top" value="3" data-value="25">
+                                                    <label>置顶3天-25元</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui radio checkbox">
+                                                    <input type="radio" name="top" value="7" data-value="50">
+                                                    <label>置顶7天-50元</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span style="opacity: 0.5" th:if="${task.top}==1" th:text="'您当前的置顶有效期至：'+${#dates.format(task.topTime,'yyyy-MM-dd HH点')}"></span>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <div id="taskEditSubmit" class="ui blue button submitButton">提交</div>
+                                        <a th:href="@{'/task/close?id='+${task.id}}"
+                                           class="ui basic button"
+                                           onclick="return confirm('关闭任务后，将无法再重启该任务，您确定要关闭任务并申请退款吗？')"
+                                        >关闭任务</a>
+                                        <a th:href="@{/task/process}" class="ui basic button">返回</a>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})"
+                                             th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+                                <input type="text" name="password" class="hide" onfocus="this.type='password'" autocomplete="off"/>
+                                <input type="hidden" name="topValue">
+                                <input type="hidden" name="taskId" th:value="${task.id}">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="payInput" class="hide bigMargin">
+                <div id="payDetail" style="margin-bottom: 20px;">
+                    <div>余额：￥<span th:text="${task.user.account.money}"></span></div>
+                    <div>待支付金额：￥<span th:text="${price}"></span></div>
+                    <div class="hide">余额不足 <a th:href="@{/balance}">点击充值</a></div>
+                </div>
+                <input id="beginBtn" type="password" maxlength="1"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off"><!-
+                -><input type="password" maxlength="1" autocomplete="off">
+                <a id="clearPayPassword" style="display: block">清空密码</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+</div>
+</body>
+</html>

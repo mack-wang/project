@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        选择开票资料
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/task/process}"><i class="ui left angle icon"></i>我的任务</a> / 选择开票资料
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin: 30px;">
+
+        <table class="ui large padded table">
+            <thead>
+            <tr>
+                <th class="two wide">开票资料列表</th>
+                <th class="seven wide"></th>
+                <th class="seven wide"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.size(invoices)}==0">
+                <td>无开票资料</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr th:each="invoice:${invoices}">
+                <td class="collapsing">
+                    发票
+                </td>
+                <td>
+                    <span th:if="${invoice.type}==0"
+                          th:text="'增值税专用发票 | '+${invoice.title}+' | '+${invoice.tax}+' | '+${invoice.address}+' | '+${invoice.phone}+' | '+${invoice.bank}+' | '+${invoice.account}"></span>
+                    <span th:if="${invoice.type}==1"
+                          th:text="'增值税普通发票 | '+${invoice.title}+' | '+${invoice.tax}"></span>
+                    <span th:if="${invoice.type}==2" th:text="'个人发票 | '+${invoice.title}"></span>
+                </td>
+                <td class="right aligned collapsing">
+                    <a th:href="@{/select/invoiceVip?taskId=}+${taskId}+'&invoiceId='+${invoice.id}">选择</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--新开一页去修改开票资料-->
+        <a th:href="@{/update/invoice}" class="ui blue button" target="_blank">修改开票资料</a>
+
+        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+    </div>
+
+</div>
+</body>
+</html>

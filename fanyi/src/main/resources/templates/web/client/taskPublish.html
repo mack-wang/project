@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            发布任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>任务编辑</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">翻译内容</div>
+                                        <div class="description">翻译语言和内容</div>
+                                    </div>
+                                </div>
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">任务要求</div>
+                                        <div class="description">翻译要求和类别</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">发布任务</div>
+                                        <div class="description">确定价格和日期</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="taskTranslateThreeForm" th:action="@{/task/translate/three/form}"
+                                  class="ui form"
+                                  method="post">
+
+                                <div class="ui two column grid">
+                                    <div class="two wide column">
+                                        翻译账单
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <table class="ui compact celled table">
+                                            <thead>
+                                            <tr>
+                                                <th class="eight wide">项目</th>
+                                                <th class="eight wide">值</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>翻译语言</td>
+                                                <td th:text="${languageGroup.originLanguages.name}+'->'+${languageGroup.translateLanguages.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>翻译内容</td>
+                                                <td th:text="${detail.words}+'字'"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>翻译附件</td>
+                                                <td><i class="attach ui icon"></i><span
+                                                        th:text="${detail.attachmentCount}+'件 共'+${detail.attachmentWords}+'字'"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>字数总计</td>
+                                                <td th:text="${detail.totalWords}+'字'"></td>
+                                            </tr>
+                                            <tr th:if="${taskType}=='interpret'" id="isInterpretForm">
+                                                <td>口译类型</td>
+                                                <td th:text="${interpretType}==0?'交传（陪同）':'同传'"></td>
+                                            </tr>
+                                            <tr th:if="${taskType}=='interpret'">
+                                                <td>服务时间</td>
+                                                <td>
+                                                    <div th:text="'从'+${interpretStartTime}"></div>
+                                                    <div th:text="'到'+${interpretEndTime}"></div>
+                                                    <div th:text="'每日工作'+${workTime}+'小时'"></div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="two wide column">
+                                        任务截止
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="rangestart">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="taskEndTime" placeholder="任务截止时间选择">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div th:if="${taskType}=='translate'" th:remove="tag">
+                                    <div class="two wide column">
+                                        翻译交稿
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div class="ui calendar" id="rangeend">
+                                                <div class="ui input left icon">
+                                                    <i class="calendar icon"></i>
+                                                    <input type="text" name="translateEndTime" placeholder="翻译交稿时间选择">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        是否加急
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="field">
+                                            <select class="ui fluid dropdown quality" name="emergency">
+                                                <option value="0">不加急</option>
+                                                <option value="1">加急</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <input type="text" name="password" class="hide" onfocus="this.type='password'" autocomplete="off"/>
+                                    <input type="hidden" name="words" th:value="${detail.words}">
+                                    <input type="hidden" name="attachmentWords" th:value="${detail.attachmentWords}">
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button class="ui blue button submit">提交</button>
+                                        <a th:href="@{/task/translate/reset}" class="ui basic button">重新编辑</a>
+                                        <div th:include="layout/message::message (${message})"
+                                             th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

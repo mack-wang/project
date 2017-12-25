@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        个人信息
+    </div>
+    <div class="homeTab">
+        <div class="ui pointing secondary menu clearMargin">
+            <a th:class="${#httpServletRequest.getParameter('tab')}==null?'item active':'item'"
+               data-tab="first">个人详情</a>
+            <a th:class="${#httpServletRequest.getParameter('tab')}==2?'item active':'item'" data-tab="second">安全设置</a>
+        </div>
+        <div class="ui tab" th:classappend="${#httpServletRequest.getParameter('tab')}==null?'active':''"
+             data-tab="first">
+            <div style="margin: 30px;">
+                <table class="ui large padded table">
+                    <thead>
+                    <tr>
+                        <th class="two wide">个人详情</th>
+                        <th class="seven wide"></th>
+                        <th class="seven wide"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="collapsing">
+                            头像
+                        </td>
+                        <td>
+                            <img th:src="${attribute.avatar}?:'/img/fanyi/default.png'" alt=""
+                                 style="width: 50px;border:1px solid #eee">
+                        </td>
+                        <td class="right aligned collapsing">
+                            <a th:href="@{/update/avatar}">上传头像</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            昵称
+                        </td>
+                        <td id="nicknameTd" th:text="${attribute.nickname}"></td>
+                        <td class="right aligned"><a style="cursor:pointer" id="updateNickname">修改昵称</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            性别
+                        </td>
+                        <!--因为userInfo不像attribute一样从一开始就创建，所以可能会没有OneToOne-->
+                        <!--从没有中获取信息，会报错-->
+                        <td id="sex">
+                            <div th:if="${userInfo.sex} == null">未填写</div>
+                            <div th:if="${userInfo.sex} == 1">男</div>
+                            <div th:if="${userInfo.sex} == 0">女</div>
+                        </td>
+                        <td class="right aligned">
+                            <div class="ui radio checkbox sex">
+                                <input type="radio" name="sex" value="男">
+                                <label style="color:#4183c4">男</label>
+                            </div>
+                            <div class="ui radio checkbox sex">
+                                <input type="radio" name="sex" value="女">
+                                <label style="color:#4183c4">女</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            类型
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_USER'">译员</td>
+                        <td th:if="${user.currentRole}=='ROLE_CLIENT'">客户</td>
+                        <td th:if="${user.currentRole}=='ROLE_ADMIN'">管理员</td>
+                        <td class="right aligned"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            简介
+                        </td>
+                        <td id="introduce">
+                            <div th:text="${userInfo.introduce}!=null?${userInfo.introduce}:'未填写'"></div>
+                        </td>
+                        <td class="right aligned"><a style="cursor:pointer" id="updateIntroduce">修改简介</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            认证情况
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_CLIENT'"
+                            sec:authorize="!hasRole('ROLE_AUTH_CLIENT')">未认证
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_CLIENT'"
+                            sec:authorize="hasRole('ROLE_AUTH_CLIENT')">已认证
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_USER'" sec:authorize="!hasRole('ROLE_AUTH_USER')">
+                            未认证
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_USER'" sec:authorize="hasRole('ROLE_AUTH_USER')">
+                            已认证
+                        </td>
+                        <td th:if="${user.currentRole}=='ROLE_ADMIN'">管理员</td>
+                        <td class="right aligned">
+                            <a th:if="${user.currentRole}=='ROLE_CLIENT'"
+                               sec:authorize="!hasRole('ROLE_AUTH_CLIENT')"
+                               th:href="@{/user/certificate}">去认证</a>
+                            <a th:if="${user.currentRole}=='ROLE_USER'"
+                               sec:authorize="!hasRole('ROLE_AUTH_USER')"
+                               th:href="@{/user/certificate}">去认证</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            所在城市
+                        </td>
+                        <td style="overflow: visible">
+                            <div th:text="${userInfo.city}!=null?${userInfo.city.name}:'未填写'"></div>
+                        </td>
+                        <td class="right aligned"><a th:href="@{/update/city}">修改城市</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            邮寄信息
+                        </td>
+                        <td th:if="${address}==null">未填写</td>
+                        <td th:if="${address}!=null"
+                            th:text="${address.province.name}+${address.city.name}+${address.area.name}+${address.address}"></td>
+                        <td class="right aligned"><a th:href="@{/update/address}">修改邮寄信息</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            开票资料
+                        </td>
+                        <td th:if="${invoice}==0">未填写</td>
+                        <td th:if="${invoice}!=0" th:text="'已经填写'+${invoice}+'条开票资料'"></td>
+                        <td class="right aligned"><a th:href="@{/update/invoice}">修改开票资料</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            邀请码
+                        </td>
+                        <td th:text="${hashid}"></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px;">
+                    <div th:include="layout/message::message (${profileMessage})" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui tab" th:classappend="${#httpServletRequest.getParameter('tab')}==2?'active':''"
+             data-tab="second">
+            <div style="margin: 30px;">
+                <table class="ui large padded  table">
+                    <thead>
+                    <tr>
+                        <th class="two wide">账号设置</th>
+                        <th class="seven wide"></th>
+                        <th class="seven wide"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="collapsing">
+                            翻易账号
+                        </td>
+                        <td th:text="${user.username}"></td>
+                        <td class="right aligned collapsing"></td>
+                    </tr>
+                    <tr>
+                        <td class="collapsing">
+                            手机号
+                        </td>
+                        <td th:text="${attribute.phone}"></td>
+                        <td class="right aligned collapsing"><a th:href="@{/auth/check/phone}">修改手机</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            邮箱
+                        </td>
+                        <td th:text="${attribute.email}!=null?${attribute.email}:'未绑定'"></td>
+                        <td class="right aligned"><a th:href="@{/auth/check/email}">修改邮箱</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            登入密码
+                        </td>
+                        <td>******</td>
+                        <td class="right aligned"><a th:href="@{/auth/check/password}">修改登入密码</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            支付密码
+                        </td>
+                        <td>******</td>
+                        <td class="right aligned"><a th:href="@{/auth/check/pay}">修改支付密码</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px;">
+                    <div th:include="layout/message::message (${securityMessage})" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div th:include="layout/floatMenu::floatMenu" th:remove="tag"></div>-->
+
+    <div th:if="${registerUsername}!=null" id="registerUsername" class="hide">
+        <div class="ui segment" style="width:350px;height: 350px;text-align: center;">
+            <div style="margin: 30px;">
+                <i class="ui huge blue circle check icon"></i>
+            </div>
+            <div style="font-size: 24px;margin-top: 30px;">欢迎加入翻易，<span th:text="${registerUsername}"></span></div>
+            <div style="margin-top: 30px;text-align: left">为了更好的使用体验，请在"个人信息"中进一步完善您的信息。</div>
+            <div id="closeLayer" style="margin-top: 30px;" class="ui fluid blue button">继续</div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

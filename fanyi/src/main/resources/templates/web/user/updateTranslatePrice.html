@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <div id="activeMenu" data-value="auth"></div>
+    <div class="home header">
+        资质认证
+    </div>
+
+
+    <!--修改翻译价格-->
+    <div class="home secondHeader">
+        <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改翻译语言
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;">
+        <form th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+            翻译语言
+            <div id="translatePriceField" class="fields">
+                <div class="ten wide field">
+                    <div class="ui two item menu clearShadow">
+                        <div class="ui dropdown link item group">
+                            <span class="text">翻译语言</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div th:each="group:${languageGroups}" class="item"
+                                     th:attr="data-value=${group.id}"
+                                     th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"></div>
+                            </div>
+                        </div>
+                        <div class="ui dropdown link item translateType">
+                            <span class="text">翻译类型</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item" data-value="translate">笔译</div>
+                                <div class="item" data-value="interpret">口译</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <input type="text" placeholder="价格" id="prices">
+                </div>
+                <div class="three wide field">
+                    <select class="ui compact selection dropdown translatePrice">
+                        <option value="word">元/千字</option>
+                        <option value="page">元/页</option>
+                        <option value="hour">元/小时</option>
+                        <option value="day">元/天</option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" name="price">
+
+            <div style="margin-bottom: 10px;">
+                <a id="addTranslatePrice"><i class="ui circle add icon"></i>添加</a>
+                <a class="translatePriceReset"><i class="ui circle remove icon"></i>重置</a>
+            </div>
+
+            <div id="translatePriceContainer"></div>
+
+            <input type="hidden" name="key" value="translatePrice"/>
+            <button id="updateTranslatePrice" class="ui basic button">修改</button>
+        </form>
+
+    </div>
+</body>
+</html>

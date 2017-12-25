@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="home header">
+        个人信息
+    </div>
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui card" style="margin: 20px;">
+                <div class="image">
+                    <img th:src="@{/img/fanyi/avatar2.png}"/>
+                </div>
+                <div class="content">
+                    <div class="header">Elyse</div>
+                    <div class="extra">
+                        总分：432
+                    </div>
+                    <div class="extra">
+                        评价:
+                        <div class="ui star rating" data-rating="4"></div>
+                    </div>
+                    <div class="description">
+                        广州外国语学院，英语翻译专业，专业英语8级，现就职于广州国际公司，擅长于翻译国际外贸。
+                    </div>
+                </div>
+                <div class="extra content">
+      <span class="right floated">
+        2014年3月加入
+      </span>
+                    <span>
+        <i class="user icon"></i>
+        已完成5次翻译任务
+      </span>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <form class="ui form">
+                <div class="field">
+                    <label>First Name</label>
+                    <input type="text" name="first-name" placeholder="First Name"/>
+                </div>
+                <div class="field">
+                    <label>Last Name</label>
+                    <input type="text" name="last-name" placeholder="Last Name"/>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden"/>
+                        <label>I agree to the Terms and Conditions</label>
+                    </div>
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

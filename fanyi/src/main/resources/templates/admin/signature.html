@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(signatures.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            签章处理
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:classappend="${param.result}==null?'active':''"
+                   th:href="@{${curUrl}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.result}!=null and ${param.result[param.result.length-1]}==0?'active':''"
+                   th:href="@{${url}(result=0)}"
+                   class="ui button">未处理</a>
+                <a th:classappend="${param.result}!=null and ${param.result[param.result.length-1]}==1?'active':''"
+                   th:href="@{${url}(result=1)}"
+                   class="ui button">已处理</a>
+            </div>
+
+            <div class="ui action input">
+                <input type="text" placeholder="请输入">
+                <select class="ui compact selection dropdown">
+                    <option selected value="username">用户账号</option>
+                    <option value="phone">用户手机</option>
+                </select>
+                <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+            </div>
+
+            <table class="ui selectable table padded">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        头像
+                    </th>
+                    <th>用户昵称</th>
+                    <th>任务标题</th>
+                    <th>邮寄地址</th>
+                    <th>时间</th>
+                    <th>快递单号</th>
+                    <th>处理</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="signature:${signatures}">
+                    <td><img th:src="${signature.user.attribute.avatar}" class="ui mini image" alt=""></td>
+                    <td>
+                        <a th:text="${signature.user.attribute.nickname}"
+                           th:href="@{/profile/user?view=}+${signature.user.username}"></a>
+                    </td>
+                    <td>
+                        <a th:if="${signature.task}!=null"
+                           th:href="@{/task/detail?id=}+${signature.task.id}"
+                           th:text="${signature.task.title}"></a>
+                        <a th:if="${signature.vipTask}!=null"
+                           th:href="@{/admin/vip/task/detail?id=}+${signature.vipTask.id}"
+                           th:text="${signature.vipTask.title}"></a>
+                    </td>
+                    <td th:text="${signature.address.province.name}+${signature.address.city.name}+${signature.address.area.name}+${signature.address.address}"></td>
+                    <td th:text="${#dates.format(signature.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+
+                    <td th:if="${signature.trackingNumber}==null">
+                        <form th:action="@{/admin/signature/deal}" method="get">
+                            <div class="ui input">
+                                <input type="text" placeholder="快递公司：快递单号" name="trackingNumber">
+                            </div>
+                            <input type="hidden" name="id" th:value="${signature.id}">
+                        </form>
+                    </td>
+                    <td th:if="${signature.trackingNumber}!=null" th:text="${signature.trackingNumber}">
+                    </td>
+                    <td>
+                        <a th:if="${signature.result}==0" class="signatureDeal" style="cursor:pointer">处理</a>
+                        <a th:if="${signature.result}==1" >已处理</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${signatures.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+
+            <div th:include="layout/page::page (${signatures},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

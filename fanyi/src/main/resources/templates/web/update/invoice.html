@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        修改开票资料
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home}"><i class="ui left angle icon"></i>个人详情</a> / 修改开票资料
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin: 30px;">
+        <div>开票内容：翻译服务费（不可变更）</div>
+        <table class="ui large padded table">
+            <thead>
+            <tr>
+                <th class="two wide">开票资料列表</th>
+                <th class="seven wide"></th>
+                <th class="seven wide"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.size(invoices)}==0">
+                <td>无开票资料</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr th:each="invoice:${invoices}">
+                <td class="collapsing">
+                    发票
+                </td>
+                <td>
+                    <span th:if="${invoice.type}==0"
+                          th:text="'增值税专用发票 | '+${invoice.title}+' | '+${invoice.tax}+' | '+${invoice.address}+' | '+${invoice.phone}+' | '+${invoice.bank}+' | '+${invoice.account}"></span>
+                    <span th:if="${invoice.type}==1"
+                          th:text="'增值税普通发票 | '+${invoice.title}+' | '+${invoice.tax}"></span>
+                    <span th:if="${invoice.type}==2" th:text="'个人发票 | '+${invoice.title}"></span>
+                </td>
+                <td class="right aligned collapsing">
+                    <a th:href="@{/delete/invoice/}+${invoice.id}">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="ui top attached tabular menu">
+            <a class="item active" data-tab="first">增值税普通发票</a>
+            <a class="item" data-tab="second">增值税专用发票</a>
+            <a class="item" data-tab="third">个人发票</a>
+        </div>
+        <div class="ui bottom attached tab segment active" data-tab="first">
+            <form id="updateInvoiceFormTwo" th:action="@{/update/invoice}" method="post" class="ui form"
+                  style="width: 600px;">
+                <div class="field">
+                    <label for="">名称</label>
+                    <input type="text" name="title" placeholder="名称">
+                </div>
+                <div class="field">
+                    <label for="">纳税人识别号</label>
+                    <input type="text" name="tax" placeholder="纳税人识别号">
+                </div>
+                <input type="hidden" name="type" value="1">
+                <button class="ui blue button submit">确定</button>
+            </form>
+        </div>
+        <div class="ui bottom attached tab segment " data-tab="second">
+            <form id="updateInvoiceForm" th:action="@{/update/invoice}" method="post" class="ui form"
+                  style="width: 600px;">
+                <div class="field">
+                    <label for="">名称</label>
+                    <input type="text" name="title" placeholder="名称">
+                </div>
+                <div class="field">
+                    <label for="">纳税人识别号</label>
+                    <input type="text" name="tax" placeholder="纳税人识别号">
+                </div>
+                <div class="field">
+                    <label for="">地址</label>
+                    <input type="text" name="address" placeholder="地址">
+                </div>
+                <div class="field">
+                    <label for="">电话</label>
+                    <input type="text" name="phone" placeholder="电话">
+                </div>
+                <div class="field">
+                    <label for="">开户行</label>
+                    <input type="text" name="bank" placeholder="开户行">
+                </div>
+                <div class="field">
+                    <label for="">账号</label>
+                    <input type="text" name="account" placeholder="账号">
+                </div>
+
+                <input type="hidden" name="type" value="0">
+                <button class="ui blue button submit">确定</button>
+
+            </form>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="third">
+            <form id="updateInvoiceFormThree" th:action="@{/update/invoice}" method="post" class="ui form"
+                  style="width: 600px;">
+                <div class="field">
+                    <label for="">名称</label>
+                    <input type="text" name="title" placeholder="名称">
+                </div>
+                <input type="hidden" name="type" value="2">
+                <button class="ui blue button submit">确定</button>
+            </form>
+        </div>
+        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+
+    </div>
+
+</div>
+</body>
+</html>

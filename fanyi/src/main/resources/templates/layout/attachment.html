@@ -1,0 +1,26 @@
+
+<div th:fragment="attachment(suffixName)">
+    <div th:switch="${suffixName}" th:remove="tag">
+        <i th:case=".doc" class="ui icon iconFix blue file word outline"></i>
+        <i th:case=".docx" class="ui icon iconFix blue file word outline"></i>
+        <i th:case=".pdf" class="ui icon iconFix red file pdf outline"></i>
+        <i th:case=".txt" class="ui icon iconFix file text outline"></i>
+        <i th:case=".xls" class="ui icon iconFix green file excel outline"></i>
+        <i th:case=".xlsx" class="ui icon iconFix green file excel outline"></i>
+        <i th:case=".ppt" class="ui icon iconFix orange file powerpoint outline"></i>
+        <i th:case=".pptx" class="ui icon iconFix orange file powerpoint outline"></i>
+        <i th:case=".zip" class="ui icon iconFix violet file archive outline"></i>
+        <i th:case=".rar" class="ui icon iconFix violet file archive outline"></i>
+        <i th:case=".tar" class="ui icon iconFix violet file archive outline"></i>
+        <i th:case=".mp3" class="ui icon iconFix purple file audio outline"></i>
+        <i th:case=".wav" class="ui icon iconFix purple file audio outline"></i>
+        <i th:case=".jpg" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".png" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".jpg" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".jpeg" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".bmp" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".gif" class="ui icon iconFix teal file image outline"></i>
+        <i th:case=".svg" class="ui icon iconFix teal file image outline"></i>
+        <i th:case="*" class="ui icon iconFix file outline"></i>
+    </div>
+</div>

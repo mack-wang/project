@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+
+    <!--获取当前页面的除去page的url的参数-->
+
+    <div id="chatContainer" class="ui container"
+         style="background-color: white;margin-top: 50px;border: 1px solid #ddd;width: 900px;height: 650px;">
+        <div class="ui two column grid">
+            <div class="four wide column clearPadding" style="border-right: 1px solid #ddd;">
+                <!--显示好友-->
+                <div class="chatLeftBanner">
+                    <span style="float: left;margin-left: 10px;"><i class="ui comments icon"></i>聊天消息</span>
+                    <a id="chatRefresh" style="float: right;margin-right: 10px;cursor:pointer"><i class="ui refresh icon"></i>刷新消息</a>
+                </div>
+                <div class="ui feed chatFriend clearMargin" style="overflow: auto;overflow-x: hidden;height: 605px;">
+                    <!--未读消息-->
+                    <div class="event"
+                         th:each="result,resultStat:${results}"
+                         th:attr="data-value=${#httpServletRequest.getRequestURL()}+'?to='+${result.user.username}">
+                        <div class="label" style="margin: 10px;">
+                            <img th:src="${result.user.attribute.avatar}">
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user" th:text="${result.user.attribute.nickname}">
+                                </a>
+                                <div style="display: block;" class="date clearMargin" th:text="${#dates.format(result.date,'MM-dd HH:mm')}">
+                                </div>
+                            </div>
+                            <div class="meta clearMargin" th:text="${#strings.length(result.content)}<10?${result.content}:${#strings.substring(result.content,0,9)}+'...'">
+                            </div>
+                        </div>
+                        <div class="content" style="line-height: 65px;">
+                            <div class="ui circular red mini label" style="margin-right: 8px;"
+                                 th:if="${result.reading}==0">未读</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <div class="ui one column grid">
+                    <div class="column">
+                        <div style="padding: 10px;background-color: #eee;">
+                            <i class="ui user icon"></i><span th:text="${toUser.attribute.nickname}"></span>
+                            <!--<i class="ui ellipsis vertical icon floatRight"></i>-->
+                        </div>
+                        <div class="ui divider clearMargin"></div>
+                    </div>
+                    <div id="chatRoom" class="column"
+                         style="height: 400px;overflow: auto;overflow-x: hidden;padding: 10px;">
+                        <div style="text-align: center">
+                            <a th:if="${baseMessages.totalPages}>1 and ${baseMessages.number}!=0"
+                               th:href="'/chat?to='+${toUser.username}+'&page='+(${baseMessages.number}-1)">上一页</a>
+                            <a th:if="${baseMessages.totalPages}>1 and ${baseMessages.number}!=${baseMessages.totalPages}-1"
+                               th:href="'/chat?to='+${toUser.username}+'&page='+(${baseMessages.number}+1)">下一页</a>
+                        </div>
+
+                        <!--聊天内容-->
+                        <!--对方消息-->
+                        <div th:each="msg:${baseMessages}" th:remove="tag">
+                            <div class="chatMessage right" th:if="${msg.sender}==${toUser.username}">
+                                <img th:src="${toUser.attribute.avatar}">
+                                <div class="ui message">
+                                    <span th:text="${msg.content}"></span>
+                                    <p th:text="${#dates.format(msg.date,'MM-dd HH:mm')}"></p>
+                                </div>
+                            </div>
+                            <!--自己消息-->
+                            <div class="chatMessage left" th:if="${msg.sender}==${session.user.username}">
+                                <div class="ui info message">
+                                    <span th:text="${msg.content}"></span>
+                                    <p th:text="${#dates.format(msg.date,'MM-dd HH:mm')}"></p>
+                                </div>
+                                <img th:src="${session.user.attribute.avatar}">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="column">
+                        <div class="ui divider" style="margin: 0;"></div>
+                        <i class="ui edit icon" style="margin-left: 10px;"></i>
+                    </div>
+                    <div class="column" style="height: 100px;margin-top: 0;padding: 0 30px;">
+                        <!--输入框-->
+                        <div id="chatInput" contenteditable="true"
+                             style="height: 100%;overflow: auto;outline:none"></div>
+                    </div>
+                    <div class="column">
+                        <div class="floatRight bigMargin">
+                            <a onclick="window.history.go(-1);" class="ui button">返回</a>
+                            <button id="chatSend" class="ui blue button"
+                                    th:attr="data-value=${toUser.username},data-avatar=${session.user}!=null and ${session.user.attribute.avatar}!=null?${session.user.attribute.avatar}:'/img/fanyi/default.png'">
+                                发送
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" th:src="@{/music/message.mp3}"></audio>
+
+    <div style="width: 100%;height: 40px;margin-top: 100px;">
+        <div class="ui text container" style="text-align: center;">
+            <div class="ui borderless menu clearBorder home footer clearShadow" style="background:none;">
+                <a class="item">关于翻易</a>
+                <a class="item">举报中心</a>
+                <a class="item">翻易客服</a>
+                <a class="item">联系邮箱</a>
+                <a class="item">侵权投诉</a>
+                <a class="item">Copyright © 2012-2017 Fanyi. All Rights Reserved.</a>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+
+        var bgMusic = document.getElementById("bgMusic");
+
+        $("#chatRefresh").click(function () {
+            location.href = location.href;
+        });
+
+        $(".ui.feed.chatFriend>.event").click(function () {
+            location.href = $(this).data("value");
+        });
+
+        //实时聊天js
+        var toUser = [[${toUser.username}]];
+        var stompClient = null;
+
+        //创建连接
+        function connect() {
+            var socket = new SockJS('/socket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/notice', function (message) {//接收订阅消息，并弹出消息
+                    showMessage(JSON.parse(message.body));
+                });
+                stompClient.subscribe('/user/topic/chat', function (message) {//接收订阅消息，并弹出消息
+                    showMessage(JSON.parse(message.body));
+                });
+            });
+        }
+
+        //自动滚动到底部
+        var chatRoom =$("#chatRoom")[0];
+        chatRoom.scrollTop = chatRoom.scrollHeight;
+
+        //显示从服务器来的消息
+        function showMessage(message) {
+            //如果当前聊天对象不是发送来的人，则不显示消息，那消息就成为了未读
+            if(message.username != toUser) return;
+            var elem = '<div class="chatMessage right"><img src="' + message.avatar + '"><div class="ui message">' + message.content + '<p>' + message.sendTime + '</p></div></div>';
+            $("#chatRoom").append(elem);
+            //更新为已读
+            $.get("/chat/read?sender="+toUser);
+            //发出声音；
+            bgMusic.play();
+            //自动滚动到底部
+            chatRoom.scrollTop = chatRoom.scrollHeight;
+        }
+
+        function showInput(avatar, content, sendTime) {
+            var elem = '<div class="chatMessage left"><div class="ui info message">' + content + '<p>' + sendTime + '</p></div><img src="' + avatar + '"></div>';
+            $("#chatRoom").append(elem);
+            //自动滚动到底部
+            chatRoom.scrollTop = chatRoom.scrollHeight;
+        }
+
+        //
+        $(function () {
+            connect();
+            $("#chatSend").click(function () {
+                    //一对一发消息
+                    var message = $("#chatInput").text();
+                    //如果字数超过140字，则不准提交
+                    if(message.length > 140){
+                        alert("字数不得超过140字，请修改后再发送");
+                        return;
+                    }
+
+                    var content = '{"type":"text","content":"' + message + '","toType":"'+[[${toUser.currentRole}]]+'","receiver":"' + toUser + '"}';
+                    var d = new Date();
+                    var time = (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
+
+                    showInput($(this).data("avatar"), message, time);
+                    stompClient.send("/app/chat", {}, content);
+                //把输入框清空
+                $("#chatInput").text("");
+            });
+
+            $("#chatInput").on("keydown",function(e){
+                if(e.keyCode == 13 && e.shiftKey){
+                    // 这里实现换行
+                    $(this)[0].value += "\n";
+                }else if(e.keyCode == 13){
+                    // 避免回车键换行
+                    e.preventDefault();
+                    // 下面写你的发送消息的代码
+                    $("#chatSend").click();
+                }
+            });
+        });
+
+
+
+    </script>
+</div>
+</body>
+</html>

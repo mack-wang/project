@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            新建VIP任务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>新建VIP任务</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">选择VIP客户</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">填写VIP任务</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui two column grid" style="margin:50px auto;">
+                                <div class="three wide column">选择VIP客户</div>
+                                <div class="thirteen wide column">
+                                    <div class="field">
+                                        <div class="ui action input">
+                                            <input type="text" placeholder="请输入">
+                                            <select class="ui compact selection dropdown">
+                                                <option selected value="phone">手机号</option>
+                                                <option value="email">邮箱</option>
+                                                <option value="username">用户名</option>
+                                            </select>
+                                            <div th:attr="data-value=${#httpServletRequest.getRequestURL()}+'/select'"
+                                                 id="adminUserListSearch" type="submit" class="ui button">选择</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

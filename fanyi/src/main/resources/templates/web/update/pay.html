@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        设置支付密码
+    </div>
+    <div th:if="${account.password}==null">
+        <div class="home secondHeader">
+            <a th:href="@{/home}"><i class="ui left angle icon"></i>安全设置</a> / 设置支付密码
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;width: 30%;">
+            设置支付密码：
+            <form id="payPasswordAddForm" th:action="@{/auth/checked/pay/add}" class="ui form" style="margin-top: 20px;" method="post">
+                <div class="field">
+                    <input type="text" name="password" onfocus="this.type='password'"
+                           autocomplete="off" placeholder="新密码"/>
+                </div>
+                <div class="field">
+                    <input type="text" name="passwordConfirm" onfocus="this.type='password'"
+                           autocomplete="off" placeholder="重复密码"/>
+                </div>
+                <button class="ui basic button">确定</button>
+                <div style="margin-top: 20px;"><div th:include="layout/message::message (${message})" th:remove="tag"></div></div>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${account.password}!=null">
+        <div class="home secondHeader">
+            <a th:href="@{/home}"><i class="ui left angle icon"></i>安全设置</a> / 修改支付密码
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;width: 30%;">
+            修改支付密码：
+            <form id="payPasswordUpdateForm" th:action="@{/auth/checked/pay/update}" class="ui form" style="margin-top: 20px;" method="post">
+                <div class="field">
+                    <input type="text" name="passwordOld" onfocus="this.type='password'"
+                           autocomplete="off" placeholder="旧密码"/>
+                </div>
+                <div class="field">
+                    <input type="text" name="password" onfocus="this.type='password'"
+                           autocomplete="off" placeholder="新密码"/>
+                </div>
+                <button class="ui basic button">确定</button>
+                <div style="margin-top: 20px;"><div th:include="layout/message::message (${message})" th:remove="tag"></div></div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

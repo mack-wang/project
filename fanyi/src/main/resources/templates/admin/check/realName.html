@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            实名认证
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/admin/certificate}"><i class="ui left angle icon"></i>认证审核</a> / 实名认证
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th class="two wide">实名认证信息</th>
+                    <th class="seven wide"></th>
+                    <th class="seven wide"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        姓名
+                    </td>
+                    <td th:text="${certificate.name}">
+                    </td>
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        居住地址
+                    </td>
+                    <td th:text="${certificate.province.name}+${certificate.city.name}+${certificate.area.name}+${certificate.address}"></td>
+                    <td class="right aligned"></td>
+                </tr>
+                <tr>
+                    <td>
+                        身份证号码
+                    </td>
+                    <td th:text="${certificate.idNumber}"></td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        身份证照片
+                    </td>
+                    <td>
+                        <img class="showImage" th:src="${certificate.idCardFront}"
+                             style="height: 80px;">
+                        <img class="showImage" th:src="${certificate.idCardBack}"
+                             style="height: 80px;">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        认证结果
+                    </td>
+                    <td th:if="${check.realNameCheck}==0"><i class="ui large blue clock icon"></i>审核中（1～3个工作日）
+                    </td>
+                    <td th:if="${check.realNameCheck}==1"><i class="ui large  green check circle icon"></i>审核通过
+
+                    </td>
+                    <td th:if="${check.realNameCheck}==2"><i class="ui large  red remove circle icon"></i>审核不通过（原因：<span
+                            th:text="${check.message.realNameMessage}"></span>）
+                    </td>
+                    <td class="right aligned"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui segment clearShadow" th:if="${check.realNameCheck}==0">
+                <form id="checkRealNameForm" th:action="@{/admin/certificate/realName}" class="ui form" method="post">
+                    <div class="field taskComment">
+                        <label for="">审核不通过理由</label>
+                        <div class="ui compact basic button">姓名错误</div>
+                        <div class="ui compact basic button">居住地址错误</div>
+                        <div class="ui compact basic button">身份证号码错误</div>
+                        <div class="ui compact basic button">身份证照片模糊</div>
+                        <div class="ui compact basic button">身份证照片与填写内容不符</div>
+                        <div class="ui compact basic button">身份证过期</div>
+                    </div>
+                    <div class="field">
+                        <label for="">其他</label>
+                        <input type="text" name="reason" placeholder="请输入不通过理由(选填)">
+                    </div>
+                    <input type="hidden" name="reasons">
+                    <input type="hidden" name="id" th:value="${check.id}">
+                    <a class="ui basic blue button submitButton">审核不通过</a>
+                    <a th:href="@{/admin/certificate/realName/success?id=}+${check.id}" class="ui blue button">审核通过</a>
+                </form>
+            </div>
+
+            <!--成功通知-->
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+</body>
+</html>

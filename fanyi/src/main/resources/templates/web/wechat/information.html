@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/wechatLayout"
+>
+<body>
+<div th:fragment="content">
+    <!-- Page Contents -->
+    <div class="ui three item inverted menu clearRadius clearMargin">
+        <a th:href="@{/wechat/auth/market}" class="item">
+            翻易大厅
+        </a>
+        <a th:href="@{/wechat/auth/mytask}" class="item">
+            我的任务
+        </a>
+        <a th:href="@{/wechat/auth/info}" class="active item">
+            个人中心
+        </a>
+    </div>
+
+    <div style="margin:14px;padding-bottom: 50px;">
+
+        <div class="ui four item menu clearShadow">
+            <div th:if="${user.currentRole}=='ROLE_CLIENT'" th:remove="tag">
+                <div class="item" th:text="'已发布 '+${active}"></div>
+                <div class="item" th:text="'翻译中 '+${translate}"></div>
+                <div class="item" th:text="'待审核 '+${checked}"></div>
+                <div class="item" th:text="'待评价 '+${comment}"></div>
+            </div>
+            <div th:if="${user.currentRole}=='ROLE_USER'" th:remove="tag">
+                <div class="item" th:text="'已报价 '+${active}"></div>
+                <div class="item" th:text="'待翻译 '+${translate}"></div>
+                <div class="item" th:text="'待审核 '+${checked}"></div>
+                <div class="item" th:text="'待评价 '+${comment}"></div>
+            </div>
+        </div>
+
+        <table class="ui compact table tdFirst">
+            <tbody>
+            <tr>
+                <td><img th:src="${user.attribute.avatar}" style="width: 40px;border-radius: 50%;"></td>
+            </tr>
+            <tr>
+                <td>昵称: <span th:text="${user.attribute.nickname}"></span></td>
+            </tr>
+
+            <tr>
+                <td>认证情况:
+                    <div th:include="layout/role::role (${user})" th:remove="tag"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>等级:<div th:include="layout/rank::rank (${user.attribute.score})"
+                            th:remove="tag"></div></td>
+            </tr>
+
+            <tr>
+                <td>信用分数: <span th:text="${user.attribute.score}"></span></td>
+            </tr>
+
+            <tr>
+                <td>余额: <span th:text="'￥'+${user.account.money}"></span></td>
+            </tr>
+
+            <tr>
+                <td>邀请码: <span th:text="${hashid}"></span></td>
+            </tr>
+            <tr>
+                <td>类型:
+                <span th:if="${user.currentRole}=='ROLE_USER'">译员</span>
+                <span th:if="${user.currentRole}=='ROLE_CLIENT'">客户</span>
+                <span th:if="${user.currentRole}=='ROLE_ADMIN'">管理员</span>
+                </td>
+            </tr>
+            <tr th:if="${user.currentRole}=='ROLE_CLIENT'"
+                sec:authorize="hasRole('ROLE_USER')">
+                <td>切换：<a th:href="@{/wechat/auth/switch/user}"
+                       >切换成译员</a>
+                </td>
+            </tr>
+            <tr th:if="${user.currentRole}=='ROLE_USER'"
+                sec:authorize="hasRole('ROLE_CLIENT')">
+                <td>切换：<a th:href="@{/wechat/auth/switch/client}"
+                    >切换成客户</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <a class="logout ui fluid button" th:text="#{logout}" style="margin-bottom: 30px;"></a>
+        <form id="logoutForm" th:action="@{/wechat/logout}" method="post">
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(vipTasks.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            VIP服务
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <a th:href="@{/bill}" class="ui blue button">结算账单</a>  <span th:text="'您当前有'+${unpay[0]}+'笔账单，合计金额￥'+(${unpay[1]}==null?0:${unpay[1]})+'未结算'"></span>
+            <br>
+            <div class="ui basic buttons" style="margin-top:14px;">
+                <a th:classappend="${param.type}==null?'active':''"
+                   th:href="@{${curUrl}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==0?'active':''"
+                   th:href="@{${curUrl}(type=0)}"
+                   class="ui button">口译</a>
+                <a th:classappend="${param.type}!=null and ${param.type[0]}==1?'active':''"
+                   th:href="@{${curUrl}(type=1)}"
+                   class="ui button">笔译</a>
+            </div>
+            <br>
+            <div class="ui basic buttons" style="margin-bottom: 14px;margin-top:14px;">
+                <a th:href="@{${curUrl}}"
+                   class="ui button">全部任务</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==0?'active':''"
+                   th:href="@{${curUrl}(off=0)}"
+                   class="ui button">正在进行</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==0?'active':''"
+                   th:href="@{${curUrl}(off=1)}"
+                   class="ui button">已关闭任务</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==1?'active':''"
+                   th:href="@{${curUrl}(off=2)}"
+                   class="ui button">完成翻译</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==1?'active':''"
+                   th:href="@{${curUrl}(off=2)}"
+                   class="ui button">确认收稿</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==2?'active':''"
+                   th:href="@{${curUrl}(off=3)}"
+                   class="ui button">已出账单未付款</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==3?'active':''"
+                   th:href="@{${curUrl}(off=4)}"
+                   class="ui button">已付款</a>
+                <a th:classappend="${param.off}!=null and ${param.off[param.off.length-1]}==4?'active':''"
+                   th:href="@{${curUrl}(off=5)}"
+                   class="ui button">待发送月结账单</a>
+            </div>
+
+            <div class="ui action input">
+                <input type="text" placeholder="标题关键词"
+                       th:value="${param.title}!=null?${param.title[0]}:''">
+                <button id="marketSearchButton" class="ui button" th:attr="data-value=${curUrl}">搜索
+                </button>
+            </div>
+
+            <table class="ui selectable  table padded market taskProcess">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        编号
+                    </th>
+                    <th class="one wide">
+                        金额
+                    </th>
+                    <th class="three wide">
+                        标题
+                    </th>
+                    <th>截稿时间/口译时间</th>
+                    <th style="width: 110px;">
+                        状态
+                    </th>
+                    <th>翻译原件 | 申请发票 | 申请盖章</th>
+                    <th>下载译稿</th>
+                    <th>确认完成</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="task,taskStat:${vipTasks}">
+                    <td th:text="${#strings.append(#dates.format(task.createdAt,'yyyyMMdd'),task.id)}">
+                    </td>
+                    <td>
+                        <div class="ui header">
+                            <a th:text="'￥'+${task.price}"></a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui small header clearMargin">
+                            <a th:href="@{'/vip/task/detail?id='+${task.id}}" th:text="${task.title}"></a>
+                        </div>
+                        <span th:text="${task.languageGroup.originLanguages.name}+'->'+${task.languageGroup.translateLanguages.name}"></span>
+                        <span th:text="${task.type}==1?'笔译':'口译'"></span>
+                    </td>
+                    <td >
+                        <span th:if="${task.type}==1" th:text="${#dates.format(task.endTime,'yyyy-MM-dd HH:mm')}"></span>
+                        <div th:if="${task.type}==0" th:text="${#dates.format(task.startDate,'yyyy-MM-dd HH:mm')}"></div>
+                        <div th:if="${task.type}==0" th:text="${#dates.format(task.endDate,'yyyy-MM-dd HH:mm')}"></div>
+                    </td>
+                    <td>
+                        <div th:include="layout/vipTask::vipTask (${task.off})" th:remove="tag"></div>
+                    </td>
+                    <td th:with="invoice=(${task.invoiceRequest}==null?null:${task.invoiceRequest.result}),signature=(${task.signatureRequest}==null?null:${task.signatureRequest.result})">
+                        <a th:href="${task.vipAttachment}">下载原件</a>
+                        <div th:if="${task.off}==4" th:remove="tag">
+                            |
+                            <a th:if="${invoice}==null" th:href="@{'/vipTask/invoice?id='+${task.id}}">申请发票</a>
+                            <a th:if="${invoice}==0">已经申请</a>
+                            <a th:if="${invoice}==1" class="showInvoiceResult" th:attr="data-value=${task.invoiceRequest.trackingNumber}">查看结果</a>
+                            |
+                            <a th:if="${signature}==null" th:href="@{'/vipTask/signature?id='+${task.id}}">申请盖章</a>
+                            <a th:if="${signature}==0">已经申请</a>
+                            <a th:if="${signature}==1" class="showSignatureResult" th:attr="data-value=${task.signatureRequest.trackingNumber}">查看结果</a>
+                        </div>
+                    </td>
+                    <td>
+                        <a th:if="${task.version}==0">正在翻译</a>
+                        <a th:if="${task.version}>0"
+                           th:href="${task.vipTask}"
+                           th:text="'下载第'+${task.version}+'稿'"
+                        ></a>
+                    </td>
+                    <td>
+                        <a th:if="${task.off}==2 or ${task.off}==0" th:href="@{/vip/task/confirm?id=}+${task.id}" class="ui blue button">确认完成</a>
+                        <a th:if="${task.off}>=3" class="ui button">已确认完成</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+                申请盖章：申请翻译盖章件。
+            </div>
+
+            <div class="ui info message" th:if="${vipTasks.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+            <div th:include="layout/page::page (${vipTasks},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

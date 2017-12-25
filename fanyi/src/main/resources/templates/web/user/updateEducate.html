@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <div id="activeMenu" data-value="auth"></div>
+    <div class="home header">
+        资质认证
+    </div>
+
+    <!--修改教育背景-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='education'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改教育背景
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateEducationForm" th:action="@{/update/user/education}" class="ui form" method="post"
+                  style="width: 800px;">
+                <div class="font16" style="margin-bottom: 12px;">修改教育背景</div>
+                <div id="educationFields" class="fields">
+                    <div class="field">
+                        <input type="hidden" name="education" placeholder="学历">
+                        <input type="text" placeholder="证书编号"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="学校"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="学位"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="专业"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="入学年份"/>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="毕业年份"/>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <a id="addEducation"><i class="ui circle add icon"></i>添加</a>
+                    <a class="educationReset"><i class="ui circle remove icon"></i>重置</a>
+                    <span style="opacity: 0.5">*提醒，添加后才生效</span>
+                </div>
+
+                <div id="educationFieldsContainer">
+
+                </div>
+                <input type="hidden" name="key" value="education">
+                <div class="ui basic button submitButton">修改</div>
+            </form>
+        </div>
+    </div>
+
+    <!--修改教育背景-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='certificate'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改资质证书及照片
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+
+                资质证书
+                <div class="field">
+                    <select class="ui fluid dropdown certificateKind" multiple="">
+                        <option value="">资质证书选择</option>
+                    </select>
+                    <input type="hidden" name="certificate">
+                </div>
+                <div class="field">
+                    <input id="otherCertificateInput" type="text" placeholder="其他证书"/>
+                    <input type="hidden" name="otherCertificate">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <a id="addCertificate"><i class="ui circle add icon"></i>添加</a>
+                    <a class="otherCertificateReset"><i class="ui circle remove icon"></i>重置</a>
+                </div>
+                <div id="addCertificateContainer">
+                </div>
+
+                <div class="field" style="margin-top: 10px;">
+                    <div id="certificatePictureContainer" class="ui segment clearShadow"
+                         style="padding:4px;">
+                        <div style="display: inline-block;text-align: center;vertical-align: top;">
+                            <div style="width: 140px;height: 100px;position: relative;">
+                                <i class="ui remove circle icon certificate"
+                                   style="position: absolute;right: 8px;top:4px;"></i>
+                                <img th:src="@{/img/fanyi/certificate.jpeg}" alt=""
+                                     style="width: 90%;height: 90%;"></div>
+                            <div class="ui tiny progress certificate">
+                                <div class="bar hide"></div>
+                                <div class="label">示例图片</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="certificatePictureUrl">
+                </div>
+
+                <div style="text-align: right;">
+                    <a id="uploadCertificatePicture"><i class="ui upload icon"></i>上传资质证书</a>
+                </div>
+                <input type="hidden" name="key" value="certificate"/>
+                <input type="file" name="certificatePicture" class="hide">
+                <button id="updateCertificateBook" class="ui basic button">修改</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--修改母语-->
+    <div id="updateMotherTongueForm" th:if="${#httpServletRequest.getParameter('field')}=='motherTongue'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改母语
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form  th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+
+                <div class="field">
+                    <select name="language" class="ui fluid dropdown language">
+                        <option value="">母语选择</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="key" value="motherTongue">
+                <button  class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--修改翻译年限-->
+    <div id="updateTranslateYearForm" th:if="${#httpServletRequest.getParameter('field')}=='translateYear'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改翻译年限
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form  th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+
+                <div class="field">
+                    <input type="text" name="translateYear" placeholder="翻译年限">
+                </div>
+
+                <input type="hidden" name="key" value="translateYear">
+                <button  class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改擅长领域-->
+    <div  th:if="${#httpServletRequest.getParameter('field')}=='skilledField'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改擅长领域
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateSkilledFieldForm"  th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+
+                <div class="field">
+                    <select  class="ui fluid dropdown skilledField" multiple="">
+                        <option value="">擅长领域选择</option>
+                    </select>
+                    <input type="hidden" name="skilledField">
+                </div>
+
+                <input type="hidden" name="key" value="skilledField">
+                <div  class="ui basic button submitButton">修改</div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--修改用户用途-->
+    <div  th:if="${#httpServletRequest.getParameter('field')}=='skilledUsage'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>资质认证</a> / 修改擅长用途
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateSkilledUsageForm"  th:action="@{/update/user/education}" class="ui form" method="post" style="width: 800px;">
+
+                <div class="field">
+                    <select class="ui fluid dropdown skilledUsage" multiple="">
+                        <option value="">擅长用途选择</option>
+                    </select>
+                    <input type="hidden" name="skilledUsage">
+                </div>
+
+                <input type="hidden" name="key" value="skilledUsage">
+                <div  class="ui basic button submitButton">修改</div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

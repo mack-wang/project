@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        修改邮箱
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home?tab=2}"><i class="ui left angle icon"></i>安全设置</a> / 设置邮箱
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;width: 30%;">
+        修改邮箱：
+        <form id="updateEmailForm" th:action="@{/auth/checked/email}" class="ui form" style="margin-top: 20px;" method="post">
+            <div class="field">
+                    <input type="text" name="email" placeholder="邮箱号"/>
+            </div>
+            <div id="updateEmailButton" class="ui basic button">发送验证邮件</div>
+            <div style="margin-top: 20px;"><div th:include="layout/message::message (${message})" th:remove="tag"></div></div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

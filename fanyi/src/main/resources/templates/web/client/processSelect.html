@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(taskUsers.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}">
+        <div class="home header">
+            任务进度
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/task/process}"><i class="ui left angle icon"></i>我的任务</a> / 任务进度
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>任务进度</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;margin-bottom: 40px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">选择译员</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">正在翻译</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">审核稿件</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">评价任务</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${taskUsers.totalElements}==0" class="ui info message">暂时还没有译员接单</div>
+                            <div th:if="${taskUsers.totalElements}>0">
+                                <div class="ui tiny header">
+                                    推荐译员
+                                </div>
+                                <div class="ui container">
+                                    <div class="ui three stackable link cards">
+
+                                        <div class="card" th:each="top:${taskUserTops}">
+                                            <div class="content">
+                                                <img class="right floated mini ui image"
+                                                     th:src="${top.user.attribute.avatar}">
+                                                <div class="header" th:text="${top.attribute.nickname}">
+                                                </div>
+                                                <div class="meta">
+                                                    <div>信用分数:<span th:text="${top.attribute.score}"></span></div>
+                                                    <div>等级：
+                                                        <div th:include="layout/rank::rank (${top.attribute.score})"
+                                                             th:remove="tag"></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="description">
+                                                    <div th:each="education:${top.educations}">
+                                                        <div th:text="${education.school}+'-'+${education.degree}+'-'+${education.major}"></div>
+                                                    </div>
+                                                    <div th:text="'共完成任务：'+${top.attribute.taskDone}+'个'"></div>
+                                                    <div th:text="'共翻译字数：'+${top.attribute.words}+'字'"></div>
+                                                    <div th:text="'报价：'+${top.price}+'元'"></div>
+                                                    <a th:href="@{/profile/user?view=}+${top.user.username}">查看译员详情</a>
+                                                    <div>
+                                                        <a th:href="@{/sms/notify?username=}+${top.user.username}+'&id='+${param.id[0]}"><i
+                                                                class="ui mail icon"></i>短信提醒</a>
+                                                    </div>
+                                                    <div><a th:href="@{/chat?to=}+${top.user.username}"><i
+                                                            class="ui comment icon"></i>聊一聊</a></div>
+                                                </div>
+                                            </div>
+                                            <a th:attr="data-value=${top.user.username},data-price=${top.price}"
+                                               class="ui bottom attached button taskSelect">
+                                                <i class="add icon"></i>
+                                                选择
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin:30px;" th:if="${taskUsers.totalElements}>0">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>所有报价译员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <table class="ui celled table" style="margin-top: 30px;">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    所有接单译员
+                                </td>
+                                <td>译员详情</td>
+                                <td>信用分数</td>
+                                <td>等级</td>
+                                <td>完成任务数</td>
+                                <td>报价</td>
+                                <td>短信提醒</td>
+                                <td>沟通</td>
+                                <td>选择</td>
+                            </tr>
+                            <tr th:each="user:${taskUsers}">
+                                <td>
+                                    <img style="display: inline" class="ui mini image" th:src="${user.attribute.avatar}"
+                                         alt="">
+                                    <a style="display: inline" th:href="@{/profile/user?view=}+${user.user.username}"
+                                       th:text="${user.attribute.nickname}"></a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/profile/user?view=}+${user.user.username}">查看详情</a>
+                                </td>
+                                <td>
+                                    <span th:text="${user.attribute.score}"></span>
+                                </td>
+                                <td>
+                                    <div th:include="layout/rank::rank (${user.attribute.score})"
+                                         th:remove="tag"></div>
+                                </td>
+                                <td>
+                                    <span th:text="${user.attribute.taskDone}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${user.price}"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/sms/notify?username=}+${user.user.username}+'&id='+${param.id[0]}"><i
+                                            class="ui mail icon"></i>短信提醒</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/chat?to=}+${user.user.username}"><i
+                                            class="ui comment icon"></i>聊一聊</a>
+                                </td>
+                                <td>
+                                    <a th:attr="data-value=${user.user.username},data-price=${user.price}"
+                                       class="ui blue button taskSelect">选择</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <span th:if="${sms}==null">今天短信提醒已用数量：0条/5条</span>
+                        <span th:if="${sms}!=null">今天短信提醒已用数量：<span th:text="${sms.used}"></span>条/<span
+                                th:text="${sms.account}"></span>条</span>
+                        <div th:include="layout/page::page (${taskUsers},${url})" th:remove="tag"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+            <div th:include="layout/pay::pay(${account.money},0)" th:remove="tag"></div>
+            <form id="taskSelectForm" th:action="@{/task/select}" method="post">
+                <input type="hidden" name="id" th:value="${param.id[0]}">
+                <input type="hidden" name="username">
+                <input type="password" name="password" class="hide" autocomplete="off"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

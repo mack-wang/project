@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(balances.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            所有交易
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px">
+            收入：<span th:text="'￥'+${income}"></span> | 支出：<span th:text="'￥'+${expend}"></span> | 平台盈利：<span
+                th:text="'￥'+(${profit})"></span><span> (由抽成，置顶，vip服务，返现四项费用组成)</span>
+        </div>
+
+        <a th:href="${curUrl}" class="ui button" style="margin-left: 30px;">全部</a>
+        <div class="ui selection dropdown" >
+            <input type="hidden" name="gender">
+            <i class="dropdown icon"></i>
+            <div class="default text">科目</div>
+            <div class="menu">
+                <a th:href="@{${url}(accounting=${accounting.id})}"
+                   class="item" th:each="accounting:${accountings}" th:text="${accounting.name}"></a>
+            </div>
+        </div>
+
+        <div class="ui action input">
+            <input type="text" placeholder="请输入">
+            <select class="ui compact selection dropdown">
+                <option selected value="phone">手机号</option>
+                <option value="username">用户名</option>
+                <option value="title">任务标题</option>
+            </select>
+            <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+        </div>
+        <div style="margin: 30px;">
+            <table class="ui selectable table market">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        科目
+                    </th>
+                    <th>科目名称</th>
+                    <th>交易对象</th>
+                    <th>对象昵称</th>
+                    <th>
+                        关联任务
+                    </th>
+                    <th>时间</th>
+                    <th>类型</th>
+                    <th>金额(元)</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="balance:${balances}">
+                    <td>
+                        <div th:switch="${balance.accounting.shortName}">
+                            <i th:case="'prepay'" class="ui blue big fanyi-yu-prepay icon"></i>
+                            <i th:case="'task'" class="ui green big fanyi-yu-task icon"></i>
+                            <i th:case="'commission'" class="ui blue big fanyi-yu-commission icon"></i>
+                            <i th:case="'repair'" class="ui blue big fanyi-yu-prepay icon"></i>
+                            <i th:case="'drawback'" class="ui green big fanyi-refund icon"></i>
+                            <i th:case="'refund'" class="ui green big fanyi-refund icon"></i>
+                            <i th:case="'alipayIn'" class="ui blue big fanyi-yu-alipay icon"></i>
+                            <i th:case="'wechatIn'" class="ui green big fanyi-yu-wechat icon"></i>
+                            <i th:case="'bankIn'" class="ui blue big fanyi-yu-bank icon"></i>
+                            <i th:case="'alipayOut'" class="ui blue big fanyi-yu-alipay icon"></i>
+                            <i th:case="'wechatOut'" class="ui green big fanyi-yu-wechat icon"></i>
+                            <i th:case="'bankOut'" class="ui blue big fanyi-yu-back icon"></i>
+                            <i th:case="'topService'" class="ui blue big fanyi-yu-top icon"></i>
+                            <i th:case="'vipOnce'" class="ui blue big fanyi-yu-vip icon"></i>
+                            <i th:case="'vipMonth'" class="ui blue big fanyi-yu-vip icon"></i>
+                            <i th:case="'ticket'" class="ui green big fanyi-red-packet icon"></i>
+                        </div>
+                    </td>
+                    <td th:text="${balance.accounting.name}"></td>
+                    <td>
+                        <img class="ui mini image" th:if="${balance.user}!=null" th:src="${balance.user.attribute.avatar}" alt="">
+                        <img class="ui mini image" th:if="${balance.user}==null" th:src="@{/img/fanyi/logo.png}" alt="">
+                    </td>
+                    <td>
+                        <a th:href="@{/profile/user?view=}+${balance.user.username}" th:if="${balance.user}!=null" th:text="${balance.user.attribute.nickname}"></a>
+                        <span th:if="${balance.user}==null">翻易平台</span>
+                    </td>
+                    <td>
+                        <div th:if="${balance.task}!=null">
+                            <a th:href="@{/task/detail?id=}+${balance.task.id}" th:text="${balance.task.title}"></a>
+                        </div>
+                        <div th:if="${balance.bill}!=null" th:remove="tag">
+                            <a th:if="${balance.bill.type}==0"
+                               th:href="@{/vip/task/detail?id=}+${balance.bill.vipTasks[0].id}"
+                               th:text="${balance.bill.vipTasks[0].title}"></a>
+                            <span th:if="${balance.bill.type}==1"
+                                  th:href="@{/vip?bill=}+${balance.bill.id}"
+                                  th:text="'共'+${#lists.size(balance.bill.vipTasks)}+'项关联vip任务'"></span>
+                        </div>
+                        <div th:if="${balance.task}==null and ${balance.bill}==null">无</div>
+                    </td>
+                    <td th:text="${#dates.format(balance.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${balance.accounting.type}==1?'收入':'支出'"></td>
+                    <td th:text="${balance.accounting.type}==1?'+'+${balance.variation}:'-'+${balance.variation}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${balances.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+            <div th:include="layout/page::page (${balances},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

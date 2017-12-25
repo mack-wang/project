@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="auth"></div>
+    <div class="home header">
+        企业认证
+    </div>
+
+    <!--修改企业名称-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='name'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>企业认证</a> / 修改企业名称
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateCompanyNameForm" th:action="@{/update/client/company}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <input type="text" name="name" placeholder="输入企业名称"/>
+                </div>
+                <input type="hidden" name="key" value="name"/>
+                <button  class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--修改营业执照-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='license'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>企业认证</a> / 修改营业执照
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateLicenseForm" th:action="@{/update/client/company}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <div id="licensePictureContainer" class="ui segment clearShadow"
+                         style="padding:4px;">
+                        <div style="display: inline-block;text-align: center;vertical-align: top;">
+                            <div style="width: 100px;height: 140px;position: relative;">
+                                <i class="ui remove circle icon certificate"
+                                   style="position: absolute;right: 8px;top:4px;"></i>
+                                <img th:src="@{/img/fanyi/license.jpeg}" alt=""
+                                     style="width: 90%;height: 90%;"></div>
+                            <div class="ui tiny progress certificate">
+                                <div class="bar hide"></div>
+                                <div class="label">示例图片</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="licensePictureUrl">
+                </div>
+
+                <div style="text-align: right;">
+                    <a id="uploadLicensePicture"><i class="ui upload icon"></i>上传营业执照</a>
+                </div>
+                <input type="file" name="licensePicture" class="hide">
+                <input type="hidden" name="key" value="license"/>
+                <div  class="ui basic button submitButton">修改</div>
+            </form>
+        </div>
+    </div>
+
+    <!--修改地址-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='address'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>企业认证</a> / 修改企业地址
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateAddressForm" th:action="@{/update/client/company}" method="post" class="ui form" style="width: 600px;">
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">企业地址</div>
+                    <div id="areaField" class="ui three item menu clearShadow">
+                        <div class="ui pointing dropdown link item authProvince">
+                            <span class="text">省份</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                        <div class="ui pointing dropdown link item authCity">
+                            <span class="text">城市</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                        <div class="ui pointing dropdown link item authArea">
+                            <span class="text">区域</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" name="provinceCityAreaId" class="hide">
+                </div>
+                <div class="field">
+                    <div class="font16" style="margin-bottom: 12px;">详细地址</div>
+                    <input type="text" name="address" placeholder="具体街道和门牌"/>
+                </div>
+                <input type="hidden" name="key" value="address"/>
+                <button id="updateAddressButton" class="ui basic button">确定</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改联系人姓名-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='contactName'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>企业认证</a> / 修改联系人姓名
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateContactNameForm" th:action="@{/update/client/company}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <input type="text" name="contactName" placeholder="输入联系人姓名"/>
+                </div>
+                <input type="hidden" name="key" value="contactName"/>
+                <button  class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改联系方式-->
+    <div th:if="${#httpServletRequest.getParameter('field')}=='contactPhone'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/user/certificate?tab=2}"><i class="ui left angle icon"></i>企业认证</a> / 修改联系方式
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form id="updateContactPhoneForm" th:action="@{/update/client/company}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <input type="text" name="contactPhone" placeholder="输入联系方式"/>
+                </div>
+                <input type="hidden" name="key" value="contactPhone"/>
+                <button  class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

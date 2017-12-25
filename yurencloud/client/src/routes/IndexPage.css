@@ -1,0 +1,10 @@
+
+.articleRow{
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.articleRow:hover{
+  background: #f9f9f9;
+}

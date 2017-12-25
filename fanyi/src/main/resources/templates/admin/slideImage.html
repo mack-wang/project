@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            首页轮播
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>图片</th>
+                    <th>链接地址</th>
+                    <th>编辑</th>
+                    <th>关闭</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="slide:${slides}">
+                    <td th:text="${slide.id}"></td>
+                    <td><img th:src="${slide.path}" class="ui small image" th:attr="data-value=${slide.path}" alt=""></td>
+                    <td th:text="${slide.link}"></td>
+                    <td><a class="edit slideImage">编辑</a></td>
+                    <td><a th:href="@{/admin/slideImage/toggle?id=}+${slide.id}"
+                           th:text="${slide.off}==0?'关闭':'开启'"></a></td>
+                    <td><a th:href="@{/admin/slideImage/delete?id=}+${slide.id}"
+                           class="delete slideImage">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--有id就修改，没id就添加-->
+            <form id="slideImageUpdateForm" class="ui form" th:action="@{/admin/slideImage/update}" method="post"
+                  style="width: 400px;">
+                <div class="field">
+                    <div id="uploadBox" class="ui message">
+                        <a id="uploadSlideImage" class="ui basic compact button">
+                            <i class="iu upload icon"></i>上传轮播图
+                        </a>
+                        <span>未上传文件</span>
+                        <span></span>
+                        <input type="file" name="uploadSlideImage" class="hide"/>
+                        <input type="hidden" name="path"/>
+                    </div>
+                    <div style="margin-top: 14px;">建议尺寸1280px*500px,所有图片比例要一致。</div>
+                </div>
+                <div class="field">
+                    <input type="text" name="link" placeholder="链接地址">
+                </div>
+                <input type="hidden" name="id">
+                <button class="ui blue button submit">添加新轮播图</button>
+                <div class="ui button cancelSlideImageEdit hide">取消修改</div>
+                <div class="ui error message"></div>
+            </form>
+
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

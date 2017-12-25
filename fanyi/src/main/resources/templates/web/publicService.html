@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="ui main container yiContainer">
+        <div class="yiHeader">
+            咨询客服
+        </div>
+        <div class="yiNote">
+        </div>
+        <div class="ui text container">
+            <form id="serviceQuestion" th:action="@{/public/service/question}"
+                  class="ui form"
+                  method="post">
+
+                <div class="field">
+                    <div style="margin-bottom: 10px;">咨询问题</div>
+                    <textarea rows="8" name="question" placeholder="请输入您要咨询的问题，15~400字"></textarea>
+                </div>
+
+
+                <div class="field">
+                    <div style="margin-bottom: 10px;">接收客服回复的邮箱</div>
+                    <input type="text" name="email" placeholder="请输入您的常用邮箱">
+                </div>
+
+
+                <button class="ui blue button submit">提交</button>
+                <a th:href="@{/login}" class="ui basic blue button">登入咨询在线客服</a>
+                <!--错误提示-->
+                <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

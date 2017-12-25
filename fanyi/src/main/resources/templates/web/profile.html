@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="ui main container registerTypeContainer">
+        <div class="register type header">
+            注册
+        </div>
+        <div class="register user container">
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+            <div th:each="item : ${errors}" th:remove="tag">
+                <div class="ui error message visible"><span th:text="${item}"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

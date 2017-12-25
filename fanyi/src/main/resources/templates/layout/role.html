@@ -1,0 +1,12 @@
+<div th:fragment="role(user)" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!--/* 用户查看自己的认证情况 */-->
+    <a sec:authorize="hasRole('ROLE_AUTH_REALNAME')" style="padding-right: 10px;">
+        <i class="address card icon" style="margin: 0;"></i>实名认证
+    </a>
+    <a sec:authorize="hasRole('ROLE_AUTH_USER')" th:if="${user.currentRole}=='ROLE_USER'" style="padding-right: 10px;">
+        <i class="address card icon" style="margin: 0;"></i>认证译员
+    </a>
+    <a sec:authorize="hasRole('ROLE_AUTH_COMPANY')" th:if="${user.currentRole}=='ROLE_CLIENT'" style="padding-right: 10px;">
+        <i class="address card icon" style="margin: 0;"></i>认证企业
+    </a>
+</div>

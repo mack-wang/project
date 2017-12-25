@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            重置手机号
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>重置手机号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <form id="superResetPhoneForm" th:action="@{/admin/super/reset/phone}"
+                                  class="ui form"
+                                  method="post">
+                                <div class="ui two column grid">
+                                    <div class="two wide column">
+                                        账号
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="username" placeholder="账号">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        新手机号
+                                    </div>
+                                    <div class="fourteen wide column" style="z-index: 10002;">
+                                        <div class="field">
+                                            <input type="text" name="phone" placeholder="手机号">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <div class="ui blue button submit">提交</div>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})"
+                                             th:remove="tag"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

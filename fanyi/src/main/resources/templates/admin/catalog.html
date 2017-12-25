@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            目录管理
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>目录编号</th>
+                    <th>目录名称</th>
+                    <th>目录英文名</th>
+                    <th>状态</th>
+                    <th>置顶</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="catalog:${catalogs}">
+                    <td th:text="${catalog.id}"></td>
+                    <td th:text="${catalog.catalog}"></td>
+                    <td th:text="${catalog.ecatalog}"></td>
+                    <td>
+                        <div class="ui checkbox catalogOff">
+                            <input type="checkbox" th:attr="checked=${catalog.off}==1?'checked':'false'" th:value="${catalog.id}">
+                            <label>关闭</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui checkbox catalogTop">
+                            <input type="checkbox" th:attr="checked=${catalog.top}==1?'checked':'false'" th:value="${catalog.id}">
+                            <label>置顶</label>
+                        </div>
+                    </td>
+                    <td><a class="edit catalog">编辑</a></td>
+                    <td><a th:href="@{/admin/catalog/delete?id=}+${catalog.id}"
+                           onclick="return confirm('删除目录会导致目录下的所有文章全部删除？你确定要删除目录吗？')"
+                           class="delete catalog">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--有id就修改，没id就添加-->
+            <form id="catalogUpdateForm" class="ui form" th:action="@{/admin/catalog/update}" method="post">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="catalog" placeholder="目录中文名">
+                    </div>
+                    <div class="field">
+                        <input type="text" name="ecatalog" placeholder="目录英文名">
+                    </div>
+                    <input type="hidden" name="id" >
+                    <button class="ui blue button submit">添加新目录</button>
+                    <div class="ui button cancelCatalogEdit hide">取消修改</div>
+                </div>
+                <div class="ui error message"></div>
+            </form>
+
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

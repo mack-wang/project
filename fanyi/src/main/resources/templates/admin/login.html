@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="loginContainer">
+        <div style="height: 600px;overflow: hidden;">
+            <img th:src="@{/img/fanyi/foreign.jpg}" alt="" style="width: 100%;" />
+        </div>
+        <div class="segment">
+            <div class="ui top attached tabular menu">
+                <a class="item"
+                   th:classappend="${tab}==null?'active':''"
+                   data-tab="first">管理员账号登录</a>
+                <a class="item"
+                   th:classappend="${tab}!=null?'active':''"
+                   data-tab="second">手机号登录</a>
+            </div>
+            <div class="ui bottom attached tab segment clearBorder"
+                 th:classappend="${tab}==null?'active':''"
+                 data-tab="first">
+                    <form id="userLoginForm" class="ui form" name="form" th:action="@{/admin/login}" method="POST">
+                        <div class="field ">
+                            <label for="username">翻易账号</label>
+                            <input type="text" name="username" placeholder="请输入用户名"/><!--如果不闭合input会报错-->
+                        </div>
+                        <div class="field">
+                            <label for="password">密码</label>
+                            <input type="text" name="password" onfocus="this.type='password'" placeholder="请输入密码"/>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui checkbox remember">
+                                <input type="checkbox" name="remember-me"/>
+                                <label for="remember-me">记住我</label>
+                            </div>
+                            <a id="forgetPassword" style="float: right;">忘记密码？</a>
+                        </div>
+                        <button class="ui blue button">提交</button>
+                        <div class="ui error message"></div>
+                        <!--如果地址带error参数则显示此信息-->
+                        <div th:if="${param.error}" class="ui error message visible">账号或密码错误</div>
+                        <div th:include="layout/message::message (${firstMessage})" th:remove="tag"></div>
+                        <div th:each="item : ${errors}" th:remove="tag">
+                            <div class="ui error message visible"><span th:text="${item}"></span></div>
+                        </div>
+                    </form>
+            </div>
+            <div class="ui bottom attached tab segment clearBorder"
+                 th:classappend="${tab}!=null?'active':''"
+                 data-tab="second">
+                <form id="userLoginByPhoneForm" class="ui form" name="form" th:action="@{/login/phone}" method="POST">
+                    <div class="field ">
+                        <label for="phone">手机号</label>
+                        <input type="text" name="phone" placeholder="请输入注册手机号"/>
+                    </div>
+                    <div class="field">
+                        <label for="password2">密码</label>
+                        <input type="text" name="password2" onfocus="this.type='password'" placeholder="请输入密码"/>
+                    </div>
+                    <div class="field hide">
+                        <label for="sms">验证码</label>
+                        <div class="ui  action input">
+                            <input class="compact" type="text" name="sms" placeholder="短信验证码"/>
+                            <div id="getSms" class="ui button" style="padding: 11px;">获取短信验证码</div>
+                        </div>
+                    </div>
+                    <div class="inline field">
+                        <div class="ui checkbox remember">
+                            <!--勾选则为"on",不勾选则为false-->
+                            <input type="checkbox" name="remember-me"/>
+                            <label for="remember-me">记住我</label>
+                        </div>
+                        <a id="loginBySms" style="float: right;">短信验证码登录</a>
+                    </div>
+
+                    <button id="userLoginByPhoneSubmit" class="ui blue button ">提交</button>
+                    <div class="ui error message"></div>
+                    <!--如果地址带error参数则显示此信息-->
+                    <div th:if="${param.error}" class="ui error message visible">账号或密码错误</div>
+                    <div th:include="layout/message::message (${secondMessage})" th:remove="tag"></div>
+                    <div th:each="item : ${errors}" th:remove="tag">
+                        <div class="ui error message visible"><span th:text="${item}"></span></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="qrcode">
+            <div class="ui segment">
+                <img th:src="@{/img/fanyi/qrcode.png}" alt="" style="width: 100px;" />
+                <p>关注微信公众号</p>
+            </div>
+        </div>
+
+        <!--<div class="ui segment">-->
+            <!--<div class="header">-->
+                <!--登入-->
+            <!--</div>-->
+                <!--<form class="ui form" name="form" th:action="@{/login}" method="POST">-->
+                    <!--<div class="field ">-->
+                        <!--<label for="username">翻易账号</label>-->
+                        <!--<input type="text" name="username" placeholder="请输入用户名" />&lt;!&ndash;如果不闭合input会报错&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="field">-->
+                        <!--<label for="password">密码</label>-->
+                        <!--<input type="password" name="password" placeholder="请输入密码" />-->
+                    <!--</div>-->
+                    <!--<div class="inline field">-->
+                        <!--<div class="ui checkbox remember">-->
+                            <!--<input type="checkbox" name="remember-me" id="remember-me"/>-->
+                            <!--<label for="remember-me">记住我</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<button class="ui blue button">提交</button>-->
+                    <!--<div class="ui error message"></div>-->
+                    <!--&lt;!&ndash;如果地址带error参数则显示此信息&ndash;&gt;-->
+                    <!--<div th:if="${param.error}" class="ui error message visible">翻易账号或密码错误</div>-->
+                    <!--<div th:include="layout/message::message (${message})" th:remove="tag"></div>-->
+                    <!--<div th:each="item : ${errors}" th:remove="tag">-->
+                        <!--<div class="ui error message visible" ><span th:text="${item}"></span></div>-->
+                    <!--</div>-->
+                <!--</form>-->
+        <!--</div>-->
+    </div>
+    <div style="margin-top: 300px;"></div>
+</div>
+</body>
+</html>

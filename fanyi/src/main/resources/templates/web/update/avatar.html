@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="home"></div>
+    <div class="home header">
+        修改头像
+    </div>
+    <div class="home secondHeader">
+        <a th:href="@{/home}"><i class="ui left angle icon"></i>个人详情</a> / 设置头像
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin-left: 20px;font-size: 16px;width: 30%;">
+        上传头像：
+        <div class="ui two column grid avatar" style="width: 800px;">
+            <div class="ten wide column bigPadding textCenter">
+                <img  id="cropAvatar" class="ui large image hide" th:src="${session.user.attribute.getAvatar()}?${session.user.attribute.getAvatar()}:'/img/fanyi/default.png'" alt="">
+            </div>
+            <div class="six wide column hugePadding">
+                <div id="cropAvatarPreview" style="width: 150px;height: 150px;overflow: hidden;">
+                    <img  class="ui image hide" th:src="${session.user.attribute.getAvatar()}?${session.user.attribute.getAvatar()}:'/img/fanyi/default.png'" alt="">
+                </div>
+                <div style="margin-top: 20px;">
+                <input id="uploadAvatarInput" type="file" name="file"
+                       style="opacity: 0;width: 1px;height: 1px;padding: 0"/>
+                    <div class="ui basic button" id="uploadAvatar">上传头像</div>
+                    <div class="ui basic button" id="uploadAvatarConfirm">确认</div>
+                    <div class="ui basic buttons tinyMargin">
+                    <div class="ui icon button repeat"><i class="ui repeat icon"></i></div>
+                    <div class="ui icon button undo"><i class="ui undo icon"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

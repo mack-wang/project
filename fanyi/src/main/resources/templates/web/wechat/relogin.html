@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/wechatLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="segment">
+        <div style="text-align: center;width: 100%;margin-bottom: 20px;">
+            <a th:href="@{/index}" class="header item">
+                <i class="ui  fanyi-fanyi icon" style="color:black;font-size: 100px;"></i>
+            </a>
+        </div>
+        <div class="ui container" >
+            <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1414468857f698b&redirect_uri=http%3A%2F%2Fwww.fypool.com%2Fwechat%2Fpublic%2Frelogin%2Fopenid&response_type=code&scope=snsapi_userinfo&state=#wechat_redirect" class="ui blue fluid button">重新登入</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+

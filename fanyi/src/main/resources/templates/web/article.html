@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+
+<div th:fragment="content" th:remove="tag">
+    <div style="margin-top: 78px;">
+        <div class="ui container">
+            <div class="ui text container ">
+                <div class="ui fluid category search article">
+                    <div class="ui icon input" >
+                        <input class="prompt" type="text" placeholder="请输入你要查询的问题关键词" style="width: 600px; margin-top: 10px;">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+            <div class="ui two column grid" style="margin-top:20px;margin-bottom: 50px;">
+                <div class="three wide column clearPadding" style="background-color:white;border: 1px solid #eee;">
+                    <div class="ui vertical menu clearShadow clearRadius articleMenu" style="width: 100%;border-left:none;border-right:none;border-top:none; ">
+                        <a class="item"
+                           th:each="catalog:${catalogs}"
+                           th:text="${catalog.catalog}"
+                           th:href="@{/catalog?id=}+${catalog.id}"
+                        ></a>
+                    </div>
+                </div>
+                <div class="thirteen wide column clearPadding" style="margin-left: -1px;">
+                    <!--文章-->
+                    <div style="width: 100%;min-height: 800px;background-color: white;border: 1px solid #eee;">
+                        <div class="ui breadcrumb bigMargin">
+                            <div class="section">用户手册</div>
+                            <div class="divider"> / </div>
+                            <div class="active section" th:text="${article.catalog.catalog}"></div>
+                        </div>
+
+                        <div style="padding: 30px;">
+                            <div style="text-align: center;">
+                                <div class="ui header" th:text="${article.title}"></div>
+                            </div>
+                            <div class="ui divider"></div>
+                            <div th:utext="${article.articleContent.content}">
+                            </div>
+                            <div class="ui divider"></div>
+
+                            <div id="thumbsButton">
+                                <div style="margin-bottom: 10px;">这条帮助是否解决了您的问题？</div>
+                                <div class="ui basic button">
+                                    <i class="ui thumbs outline up icon"></i>
+                                    解决了
+                                </div>
+                                <div class="ui basic button">
+                                    <i class="ui thumbs outline down icon"></i>
+                                    没解决
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <a href="#top" class="ui fixed bottom sticky button backTop" target="_self">
+        <div><i class="ui angle up icon clearMargin"></i><div>顶部</div></div>
+    </a>
+</div>
+</body>
+</html>

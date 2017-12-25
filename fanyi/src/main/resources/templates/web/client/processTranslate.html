@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            任务进度
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/task/process}"><i class="ui left angle icon"></i>我的任务</a> / 任务进度
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>正在翻译</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;margin-bottom: 40px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">选择译员</div>
+                                    </div>
+                                </div>
+                                <div class="active step">
+                                    <div class="content">
+                                        <div class="title">正在翻译</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">审核稿件</div>
+                                    </div>
+                                </div>
+                                <div class="step">
+                                    <div class="content">
+                                        <div class="title">评价任务</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui card">
+                                <div class="content">
+                                    <img class="right floated mini ui image"
+                                         th:src="${select.user.attribute.avatar}">
+                                    <div class="header" th:text="${select.attribute.nickname}">
+                                    </div>
+                                    <div class="meta">
+                                        <div>信用分数:<span th:text="${select.attribute.score}"></span></div>
+                                        <div th:include="layout/rank::rank (${select.attribute.score})"
+                                             th:remove="tag"></div>
+                                    </div>
+                                    <div class="description">
+                                        <div th:each="education:${select.educations}">
+                                            <div th:text="${education.school}+'-'+${education.degree}+'-'+${education.major}"></div>
+                                        </div>
+                                        <div th:text="'共完成任务：'+${select.attribute.taskDone}+'个'"></div>
+                                        <div th:text="'共翻译字数：'+${select.attribute.words}+'字'"></div>
+                                        <div th:text="'报价：'+${select.price}+'元'"></div>
+                                        <a th:href="@{/profile/user?view=}+${select.user.username}">查看译员详情</a>
+                                    </div>
+                                </div>
+                                <a th:href="@{/chat?to=}+${select.user.username}"
+                                   class="ui bottom attached button">
+                                    <i class="comment icon"></i>
+                                    聊一聊
+                                </a>
+                            </div>
+                            <div class="ui info message">
+                                您选择的译员正在努力为您翻译，可以通过聊一聊和译员沟通...
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

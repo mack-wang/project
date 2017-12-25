@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+
+
+    <!-- Page Contents -->
+    <div class="home header">
+        我的首页
+    </div>
+    <div class="ui divider"></div>
+    <div style="margin:30px;">
+        <table class="ui large padded  table">
+            <thead>
+            <tr>
+                <th>我的首页</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="ui three column grid" style="margin: 50px auto;">
+                        <div class="ui two wide column">
+                            <img th:src="${user.attribute.avatar}" class="ui tiny image" alt="">
+                        </div>
+                        <div class="ui six wide column" style="border-right:1px solid #eee;">
+                            <span href="" th:text="${user.attribute.nickname}"></span><br>
+                            <div th:include="layout/role::role (${user})" th:remove="tag"></div>
+                            <div>
+                                <div>邀请码：<a th:text="${hashid}" style="font-size: 20px;margin-top: 14px;"></a>
+                                    <a th:href="@{/article?id=6}">查看如何邀请好友？</a></div>
+                                <div >
+                                    等级：
+                                    <div th:include="layout/rank::rank (${user.attribute.score})"
+                                         th:remove="tag"></div>
+                                </div>
+                                <div>
+                                    信用分数：<span th:text="${user.attribute.score}"></span>
+                                </div>
+                                <div>
+                                    余额：￥<span th:text="${user.account.money}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui eight wide column" style="padding-left: 50px;">
+                            <div style="margin-bottom: 20px;color:#666;"
+                                 th:text="${user.currentRole}=='ROLE_CLIENT'?'我发布的任务':'我投标的任务'"></div>
+                            <div class="ui five column grid">
+                                <div class="column"><img th:src="@{/img/fanyi/files.png}" style="width: 50px;" alt=""></div>
+                                <div class="column"><img th:src="@{/img/fanyi/edit.png}" style="width: 50px;" alt=""></div>
+                                <div class="column"><img th:src="@{/img/fanyi/checked.png}" style="width: 50px;" alt=""></div>
+                                <div class="column"><img th:src="@{/img/fanyi/chat.png}" style="width: 50px;" alt=""></div>
+                                <div class="column"></div>
+
+                                <div th:if="${user.currentRole}=='ROLE_CLIENT'" th:remove="tag">
+                                    <div class="column"><a th:href="@{/task/process}" th:text="'已发布 '+${active}"></a></div>
+                                    <div class="column"><a th:href="@{/task/process?process=1}" th:text="'翻译中 '+${translate}"></a></div>
+                                    <div class="column"><a th:href="@{/task/process?process=2}" th:text="'待审核 '+${checked}"></a></div>
+                                    <div class="column"><a th:href="@{/task/process?process=3}" th:text="'待评价 '+${comment}"></a></div>
+                                    <div class="column"></div>
+                                </div>
+                                <div th:if="${user.currentRole}=='ROLE_USER'" th:remove="tag">
+                                    <div class="column"><a th:href="@{/tender}" th:text="'已投标 '+${active}"></a></div>
+                                    <div class="column"><a th:href="@{/tender?process=1}" th:text="'待翻译 '+${translate}"></a></div>
+                                    <div class="column"><a th:href="@{/tender?process=2}" th:text="'待审核 '+${checked}"></a></div>
+                                    <div class="column"><a th:href="@{/tender?process=3}" th:text="'待评价 '+${comment}"></a></div>
+                                    <div class="column"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>

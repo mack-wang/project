@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            译员信息
+        </div>
+        <div class="home secondHeader">
+            <a onclick="window.history.go(-1);" style="cursor: pointer;"><i class="ui left angle icon"></i>返回</a> / 译员详情
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <div class="ui two column  grid">
+                <div class="four wide column">
+                    <div class="ui card ">
+                        <div class="image">
+                            <img th:src="${user.attribute.avatar}">
+                        </div>
+                        <div class="content">
+                            <a class="header" th:text="${user.attribute.nickname}"></a>
+                            <div><a th:href="@{/chat?to=}+${user.username}"><i class="ui comment icon"></i>聊一聊</a></div>
+                            <div class="meta">
+                                <span class="date" th:text="${#dates.format(user.createdAt,'yyyy-MM-dd')}"></span>
+                            </div>
+                            <div class="description" th:text="${user.userInfo.introduce}==null?'未填写':${user.userInfo.introduce}">
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div style="padding-top:8px;">
+                                等级：
+                                <div th:include="layout/rank::rank (${user.attribute.score})"
+                                     th:remove="tag"></div>
+                            </div>
+                            <div style="padding-top:8px;">
+                                信用分数：<span th:text="${user.attribute.score}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ten wide column">
+                    <table class="ui selectable celled table">
+                        <thead>
+                        <tr>
+                            <th class="three wide">项目</th>
+                            <th>值</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${session.user.currentRole}=='ROLE_ADMIN'">
+                            <td class="warning">账号</td>
+                            <td th:text="${user.username}"></td>
+                        </tr>
+                        <tr>
+                            <td class="warning">昵称</td>
+                            <td th:text="${user.attribute.nickname}"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="warning">性别</td>
+                            <td th:if="${user.userInfo.sex}==null">未填写</td>
+                            <td th:if="${user.userInfo.sex}!=null"><span th:text="${user.userInfo.sex}==0?'女':'男'"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="warning">邮箱</td>
+                            <td th:text="${user.attribute.email}==null?'未绑定':${user.attribute.email}"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="warning">所在城市</td>
+                            <td th:text="${user.userInfo.city}==null?'未填写':${user.userInfo.city.name}"></td>
+                        </tr>
+
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">教育背景</td>
+                                <td>
+                                    <div class="ui list">
+                                        <div class="item" th:each="education:${educations}"
+                                             th:text="${education.school}+${education.degree}+${education.major}+${education.startYear}+'~'+${education.graduateYear}"
+                                        ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">资质证书</td>
+                                <td>
+                                    <div class="ui list">
+                                        <div class="item" th:each="paper,paperStat:${papers}"
+                                             th:if="${paper.certificateKind}!=null"
+                                             th:text="${paper.certificateKind.name}"
+                                        ></div>
+                                        <div class="item" th:each="paper,paperStat:${papers}"
+                                             th:if="${paper.certificateKind}==null"
+                                             th:text="${paper.otherCertificate}"
+                                        ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">翻译年限</td>
+                                <td th:text="${certificateInfo.translateYear}+'年'"></td>
+                            </tr>
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">母语</td>
+                                <td th:text="${certificateInfo.motherTongue.name}"></td>
+                            </tr>
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">翻译语言</td>
+                                <td>
+                                    <div class="ui list">
+                                        <div class="item" th:each="price:${prices}"
+                                             th:text="${price.languageGroup.originLanguages.name}
+                                        +'->'+${price.languageGroup.translateLanguages.name}
+                                        +(${price.translateType}=='translate'?'笔译':'口译')
+                                        +${price.price}
+                                        +(${price.priceType}=='word'?'元/千字':'')
+                                        +(${price.priceType}=='page'?'元/页':'')
+                                        +(${price.priceType}=='hour'?'元/小时':'')
+                                        +(${price.priceType}=='day'?'元/天':'')"
+                                        ></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">擅长领域</td>
+                                <td>
+                                    <div class="ui list">
+                                        <div class="item" th:each="field:${certificateInfo.skilledFields}"
+                                             th:text="${field.skilledField}"
+                                        ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${check}!=null and ${check.certificateCheck}==1">
+                                <td class="warning">擅长用途</td>
+                                <td>
+                                    <div class="ui list">
+                                        <div class="item" th:each="usage:${certificateInfo.skilledUsages}"
+                                             th:text="${usage.skilledUsage}"
+                                        ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

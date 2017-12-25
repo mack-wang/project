@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            发布任务
+        </div>
+        <div class="homeTab">
+            <div class="ui pointing secondary menu clearMargin">
+                <a class="item active" data-tab="first">笔译任务</a>
+                <a th:href="@{/task/interpret}" class="item" >口译任务</a>
+            </div>
+            <div class="ui tab active" data-tab="first">
+                <div style="margin:30px;">
+                    <table class="ui large padded  table">
+                        <thead>
+                        <tr>
+                            <th>编辑笔译任务</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="overflow: visible;">
+                                <div class="ui container" style="width: 800px;">
+                                    <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                        <div class="active step">
+                                            <div class="content">
+                                                <div class="title">翻译内容</div>
+                                                <div class="description">翻译语言和内容</div>
+                                            </div>
+                                        </div>
+                                        <div class="step">
+                                            <div class="content">
+                                                <div class="title">任务要求</div>
+                                                <div class="description">翻译要求和类别</div>
+                                            </div>
+                                        </div>
+                                        <div class="step">
+                                            <div class="content">
+                                                <div class="title">发布任务</div>
+                                                <div class="description">确定价格和日期</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form id="taskTranslateOneForm" th:action="@{/task/translate/one/form}"
+                                          class="ui form"
+                                          method="post" enctype="multipart/form-data">
+                                        <div class="ui two column grid">
+                                            <div class="two wide column">翻译语言</div>
+                                            <div class="fourteen wide column">
+                                                <div class="ui selection dropdown languageGroup">
+                                                    <input type="hidden" name="languageGroup">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">翻译语言</div>
+                                                    <div class="menu">
+                                                        <div th:each="group:${languageGroups}" class="item"
+                                                             th:attr="data-value=${group.id}"
+                                                             th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"></div>
+                                                    </div>
+                                                </div>
+                                                <a href="/article?id=6" target="_blank">查看翻译价格</a>
+                                                <div style="margin-top: 14px;opacity: 0.5;">*其他语言请联系客服：18961296317</div>
+                                            </div>
+
+                                            <div class="two wide column">
+                                                任务标题
+                                            </div>
+                                            <div class="fourteen wide column">
+                                                <div class="field">
+                                                    <input type="text" name="title" placeholder="任务标题">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="two wide column">
+                                                翻译内容
+                                            </div>
+                                            <div class="fourteen wide column">
+                                                <div class="ui buttons">
+                                                    <div id="uploadAttachment" class="ui blue button">上传文档</div>
+                                                    <div class="or"></div>
+                                                    <div id="writeDirectButton" class="ui button">直接输入</div>
+                                                </div>
+                                                <div style="opacity: 0.5;margin-top: 14px;">*支持大多数文件，单个附件大小不得超过100M，总附件大小不得超过1G</div>
+                                                <table class="ui table">
+                                                    <thead>
+                                                    <tr class="hide">
+                                                        <th class="six wide"></th>
+                                                        <th class="three wide "></th>
+                                                        <th class="three wide "></th>
+                                                        <th class="four wide "></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="attachmentBox">
+                                                    </tbody>
+                                                </table>
+                                                <div>统计文档总字数：<span id="attachCharsCount">0</span></div>
+                                            </div>
+
+                                            <div class="two wide column hide writeDirectly">
+                                                直接输入
+                                            </div>
+                                            <div class="fourteen wide column hide writeDirectly">
+                                                <div class="field">
+                                                    <textarea id="translateContent" name="translateContent" rows="16" placeholder="请输入或者粘贴需要翻译的内容"></textarea>
+                                                </div>
+                                                <div>统计：字符 <span id="charsCount">0</span>,单词 <span id="wordsCount">0</span></div>
+                                            </div>
+
+                                            <div class="two wide column"></div>
+                                            <div class="fourteen wide column">
+                                                <div class="ui blue button submitButton">提交</div>
+                                                <!--错误提示-->
+                                                <div th:include="layout/message::message (${message})"
+                                                     th:remove="tag"></div>
+                                            </div>
+                                        </div>
+
+                                        <input type="file" class="hide" name="attachment">
+                                        <input type="hidden" name="attachmentUrl">
+                                        <input type="hidden" name="clientWords">
+                                        <input type="hidden" name="taskType" th:value="translate">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="ui tab active" data-tab="second">
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+</div>
+</body>
+</html>

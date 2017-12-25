@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/webLayout"
+>
+<body>
+<div th:fragment="content">
+
+    <!--获取当前页面的除去page的url的参数-->
+    <div style="margin-top: 64px;">
+
+        <div style="overflow: hidden;position: relative;margin-bottom: -6px;">
+            <a th:href="${web.link}==nul?${url}:${web.link}">
+                <img th:src="${web.marketPicture}" style="width: 100%;" alt="">
+            </a>
+        </div>
+
+
+        <div class="ui container">
+            <div class="ui two column grid " style="margin-top: 30px;margin-bottom:30px;">
+                <div class="twelve wide column" style="padding: 4px;">
+                    <div style="background-color: white">
+                        <div class="ui three column grid bigPadding">
+                            <div class="column">
+                                <a onclick="window.history.go(-1)" style="cursor:pointer;"><i class="ui angle left icon"></i>返回</a>
+                            </div>
+                            <div class="column"></div>
+                            <div class="column">
+                                <div class="ui pointing dropdown">
+                                    <div class="text">举报</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <a class="item"
+                                           th:each="illegal:${illegals}"
+                                           th:href="@{/report/illegal?task=}+${task.id}+'&illegal='+${illegal.id}"
+                                           th:text="${illegal.name}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ten wide column">
+                                <div class="ui header" th:text="${task.title}"></div>
+                                <div>
+                                    <span th:text="${task.languageGroup.originLanguages.name}+'-'+${task.languageGroup.translateLanguages.name}"></span>
+
+                                    <span th:text="${task.type}==1?'笔译':'口译'"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="one wide column"></div>
+                            <div class="five wide column">
+                                <div th:if="${task.type}==1"
+                                     class="ui blue header" style="font-size: 30px;"
+                                     th:text="(${task.words}+${task.attachmentWords})+'字'"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="column" th:classappend="${task.type}==1?'ten wide':'sixteen wide'">
+                                    <table class="ui very basic table">
+                                        <thead>
+                                        <tr th:if="${task.type}==0">
+                                            <th colspan="4"><span style="opacity: 0.6;">口译地址：</span>
+                                                <span th:text="${task.interpret.province.name}+${task.interpret.city.name}+${task.interpret.area.name}+${task.interpret.address}"></span>
+                                            </th>
+                                        </tr>
+
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span style="opacity: 0.6;">翻译领域：</span>
+                                                <span th:text="${task.field.skilledField}"></span>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <span style="opacity: 0.6;">翻译用途：</span>
+                                                <span th:text="${task.usage.skilledUsage}"></span>
+                                            </td>
+                                            <td th:if="${task.type}==0"><span style="opacity: 0.6;">开始时间：</span>
+                                                <span th:text="${#dates.format(task.interpret.startTime,'yyyy-MM-dd HH:mm')}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <td><span style="opacity: 0.6;">质量等级：</span>
+                                                <span th:text="${task.quality.quality}"></span></td>
+                                            <td></td>
+                                            <td th:if="${task.type}==1">
+                                                <span style="opacity: 0.6;">截稿时间：</span>
+                                                <span th:text="${#dates.format(task.translateEndTime,'yyyy-MM-dd HH:mm')}"></span>
+                                            </td>
+                                            <td th:if="${task.type}==0">
+                                                <span style="opacity: 0.6;">工作时长：</span>
+                                                <span th:text="'每日工作'+${task.interpret.workTime}+'小时'"></span>
+                                            </td>
+                                            <td th:if="${task.type}==0">
+                                                <span style="opacity: 0.6;">结束时间：</span>
+                                                <span th:text="${#dates.format(task.interpret.endTime,'yyyy-MM-dd HH:mm')}"></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="sixteen wide column">
+                                    <div class="ui tiny header">
+                                        客户要求
+                                    </div>
+                                    <div th:include="layout/content::content (${task.taskRequest.content})"
+                                         th:remove="tag"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="sixteen wide column">
+                                    <div class="ui divider"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="column sixteen wide ">
+                                    <div>
+                                        <div th:if="${task.off==0} and ${task.taskEndTime.getTime()}>${#dates.createNow().getTime()}"
+                                             th:remove="tag">
+                                            <a th:if="${isSelected}==true" class="ui blue compact big basic button">
+                                                你的报价：<span th:text="${taskUser.price}"></span>元
+                                            </a>
+                                            <a th:if="${isSelected}==true"
+                                               th:href="@{/task/cancel?id=}+${param.id[0]}"
+                                               class="ui compact big button">取消报价</a>
+
+                                            <div style="width: 400px;display: inline-block;">
+                                                <form class="ui form" id="taskSelectedForm" th:if="${isSelected}==false"
+                                                      th:action="@{/task/selected}" method="post"
+                                                      style="display: inline;">
+                                                    <div class="field">
+                                                        <div class="ui action input">
+                                                            <input type="text" name="price" placeholder="请输入报价金额 单位：元">
+                                                            <button class="ui blue button submit">我要翻译</button>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="id" th:value="${task.id}">
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                        <div th:if="${task.off}==1" class="ui red button">正常关闭</div>
+                                        <div th:if="${task.off}==0 and ${task.taskEndTime.getTime()}<${#dates.createNow().getTime()}"
+                                             class="ui compact button">报价结束
+                                        </div>
+                                        <div th:if="${task.off}==2" class="ui blue button">正在翻译</div>
+                                        <div th:if="${task.off}==3" class="ui blue button">任务完成</div>
+                                        <div th:if="${task.off}==4" class="ui red button">举报关闭</div>
+                                        <a th:href="@{/chat?to=}+${task.user.username}"
+                                           class="ui labeled icon basic button"
+                                           style="float: right;">
+                                            <i class="comments icon"></i>
+                                            咨询客户
+                                        </a>
+                                    </div>
+                                    <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    <div style="margin-top: 20px;">任务截止时间：<span
+                                            th:text="${#dates.format(task.taskEndTime,'yyyy-MM-dd HH:mm')}"></span>
+                                    </div>
+                                    <div>当前报价：<a th:text="${task.joins}"></a>人</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="four wide column" style="margin-top: -1.6rem;">
+                    <div style="background-color: white">
+                        <div class="ui container bigPadding">
+                            <div class="ui header" th:text="${task.user.attribute.nickname}"></div>
+                            <div th:if="${company}!=null" th:text="${company.name}"></div>
+                            <div th:if="${check}!=null and ${check.companyCheck}==1" class="ui divider"></div>
+                            <div th:include="layout/role2::roles2 (${task.user.roles})" th:remove="tag"></div>
+                            <div class="ui divider"></div>
+                            <div class="ui three column grid">
+                                <div class="column">发布任务</div>
+                                <div class="column">完成任务</div>
+                                <div class="column" style="padding-left: 0;padding-right: 0;">加入翻易</div>
+                                <div class="column" th:text="${totalTasks}+'个'"></div>
+                                <div class="column"><span th:text="${totalDone}"></span>个</div>
+                                <div class="column"><span th:text="${joinMonth}"></span>月</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="twelve wide column" style="padding: 4px;margin-top: 20px;">
+                    <div style="background-color: white">
+                        <div class="bigPadding">
+                            <!--如果是选中者查看，则是翻译内容，如果是对外则是内容摘要-->
+                            <div class="ui tiny header">
+                                内容摘要
+                            </div>
+                            <div>
+                                <span th:text="${task.brief}!=null?${task.brief.content}:'保密'" th:remove="tag"></span>
+                            </div>
+
+
+                            <div class="ui tiny header">
+                                翻译附件
+                            </div>
+                            <div>
+                                <div class="ui message" th:if="${attachments.empty}">
+                                    无附件，请按翻译内容进行翻译。
+                                </div>
+                                <table class="ui table" th:if="!${attachments.empty}">
+                                    <tbody>
+                                    <!--用switch来输出i-->
+                                    <tr th:each="attachment:${attachments}">
+                                        <td>
+                                            <div th:include="layout/attachment::attachment(${attachment.suffixName})"
+                                                 th:remove="tag"></div>
+                                            <span th:with="fileName=${#strings.arraySplit(attachment.path,'/')}"
+                                                  th:text="${fileName[fileName.length-1]}"></span>
+                                        </td>
+                                        <td>大小：
+                                            <span th:if="${attachment.size}<1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/1024,0,1)}+'KB'"></span>
+                                            <span th:if="${attachment.size}>1024*1024 and ${attachment.size}<1024*1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/(1024*1024),0,1)}+'MB'"></span>
+                                        </td>
+                                        <td>字数：<span th:text="${attachment.clientWords}"></span>字</td>
+                                        <td>页数：<span th:text="${attachment.pages}"></span>页</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="ui tiny header">
+                                总计
+                            </div>
+                            <div>
+                                <div class="ui message">翻译内容<span th:text="${task.words}"></span>字 + 翻译附件<span
+                                        th:text="${task.attachmentWords}"></span>字 = 总计 <span
+                                        th:text="${task.words}+${task.attachmentWords}"></span>字
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="ui fixed bottom sticky button backTop" target="_self">
+        <div><i class="ui angle up icon clearMargin"></i>
+            <div>顶部</div>
+        </div>
+    </a>
+</div>
+</body>
+</html>

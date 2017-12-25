@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>首页</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!--优先调用最高版本IE浏览器和webkit浏览器-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1"/>-->
+    <link th:href="@{/semantic/semantic.min.css}" rel="stylesheet"/>
+    <link th:href="@{/modules/layer/theme/default/layer.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/font/fanyi/fanyi.css}" rel="stylesheet"/>
+    <link th:href="@{/css/swiper-3.4.2.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.cookie.js}" type="text/javascript"></script>
+    <script th:src="@{/semantic/semantic.min.js}" type="text/javascript"></script>
+    <script th:src="@{/modules/layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/js/swiper-3.4.2.min.js}" type="text/javascript"></script>
+</head>
+<body style="background-color: #f5f5f5;">
+<a th:href="@{/index}" class="ui basic button bigMargin"><i class="ui angle left icon"></i>翻易首页</a>
+<div class="ui main container yiContainer" style="margin: 20px auto;">
+    <div class="yiHeader">
+        客户注册
+    </div>
+    <div class="register user container">
+        <form id="registerUserForm" th:action="@{/register}" class="ui form" method="post">
+            <div class="field">
+                <label for="username">翻易账号</label>
+                <input type="text" name="username" placeholder="允许字母、数字、横线、下划线" autocomplete="off"/>
+            </div>
+            <div class="field">
+                <label for="password">密码</label>
+                <input type="text" name="password" placeholder="至少6位" onfocus="this.type='password'"
+                       autocomplete="off"/>
+            </div>
+            <div class="field">
+                <label for="passwordConfirm">确认密码</label>
+                <input type="text" name="passwordConfirm" onfocus="this.type='password'"
+                       autocomplete="off" placeholder="请再次输入密码" />
+            </div>
+            <div id="phoneCheck" class="field">
+                <label for="phone">手机号</label>
+                <div class="ui labeled input">
+                    <div class="ui label">
+                        +86
+                    </div>
+                    <input id="newPhone" type="text" name="phone"/>
+                </div>
+            </div>
+            <div class="field">
+                <label>图形验证码</label>
+                <input type="text" name="captcha" placeholder="请输入右图验证码" style="width: 70%">
+                <!--更新验证码，添加随机数，防止缓存-->
+                <img th:src="@{/public/captcha}" onclick="this.src='/public/captcha?d='+Math.random();" style="width: 28%;height: 38px;">
+            </div>
+            <div  class="field">
+                <label for="sms">短信验证码</label>
+                <div class="ui action input">
+                    <input type="text" name="sms"/>
+                    <div id="getSms" class="ui button">获取短信验证码</div>
+                </div>
+            </div>
+            <div class="field">
+                <label>邀请码</label>
+                <input type="text" name="code" placeholder="若无邀请码可不填" />
+            </div>
+            <div class="inline field">
+                <div class="ui checkbox registerRule">
+                    <input type="checkbox" name="rule"/>
+                    <label><a id="registerRule" class="underLineA">翻易客户服务协议</a></label>
+                </div>
+            </div>
+            <input type="hidden" name="role" value="ROLE_CLIENT"/>
+
+            <button id="registerUserSubmit" class="ui blue button">提交</button>
+
+            <!--错误提示-->
+            <div class="ui error message"></div>
+            <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+            <div th:each="item : ${errors}" th:remove="tag">
+                <div class="ui error message visible"><span th:text="${item}"></span></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="userAgreement hide">
+    <ul class="ui ordered list " style="padding: 20px;">
+        <li class="item">
+            翻译是一个历史悠久的行业，它伴随着政治、经济、文化在不同国度间的交流而产生，同时翻译又置身在科技的最前沿，计算机辅助工具、人工智能等技术在产生的最初就已经开始服务于翻译行业。
+        </li>
+        <li class="item">现在，smartCAT 将在技术和规范上引领一次翻译行业的演化。</li>
+        <li class="item">smartCAT 定义了一个全球化的翻译生态系统，在此你不仅能够连接到世界级的语言专家，同时也可以无缝的使用全球最先进的翻译技术。</li>
+        <li class="item">
+            翻译是一个历史悠久的行业，它伴随着政治、经济、文化在不同国度间的交流而产生，同时翻译又置身在科技的最前沿，计算机辅助工具、人工智能等技术在产生的最初就已经开始服务于翻译行业。
+        </li>
+        <li class="item">现在，smartCAT 将在技术和规范上引领一次翻译行业的演化。</li>
+        <li class="item">smartCAT 定义了一个全球化的翻译生态系统，在此你不仅能够连接到世界级的语言专家，同时也可以无缝的使用全球最先进的翻译技术。</li>
+    </ul>
+</div>
+
+</body>
+<script th:src="@{/js/basic.js}" type="text/javascript"></script>
+<script th:src="@{/js/web.js}" type="text/javascript"></script>
+</html>

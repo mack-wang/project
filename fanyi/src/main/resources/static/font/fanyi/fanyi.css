@@ -1,0 +1,93 @@
+/*
+  Icon Font: fanyi
+*/
+
+@font-face {
+  font-family: "fanyi";
+  src: url("./fanyi.eot");
+  src: url("./fanyi.eot?#iefix") format("embedded-opentype"),
+       url("./fanyi.woff") format("woff"),
+       url("./fanyi.ttf") format("truetype"),
+       url("./fanyi.svg#fanyi") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "fanyi";
+    src: url("./fanyi.svg#fanyi") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.fanyi-client:before,
+.fanyi-coin:before,
+.fanyi-crown:before,
+.fanyi-diamond:before,
+.fanyi-employer:before,
+.fanyi-fanyi:before,
+.fanyi-fanyi2:before,
+.fanyi-hurry:before,
+.fanyi-realname:before,
+.fanyi-red-packet:before,
+.fanyi-refund:before,
+.fanyi-top:before,
+.fanyi-translator:before,
+.fanyi-unauth:before,
+.fanyi-user:before,
+.fanyi-wechat:before,
+.fanyi-weibo:before,
+.fanyi-yu-add:before,
+.fanyi-yu-alipay:before,
+.fanyi-yu-bank:before,
+.fanyi-yu-commission:before,
+.fanyi-yu-minus:before,
+.fanyi-yu-prepay:before,
+.fanyi-yu-task:before,
+.fanyi-yu-top:before,
+.fanyi-yu-vip:before,
+.fanyi-yu-wechat:before {
+  display: inline-block;
+  font-family: "fanyi";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.fanyi-client:before { content: "\f11b"; }
+.fanyi-coin:before { content: "\f113"; }
+.fanyi-crown:before { content: "\f110"; }
+.fanyi-diamond:before { content: "\f111"; }
+.fanyi-employer:before { content: "\f103"; }
+.fanyi-fanyi:before { content: "\f100"; }
+.fanyi-fanyi2:before { content: "\f105"; }
+.fanyi-hurry:before { content: "\f119"; }
+.fanyi-realname:before { content: "\f11c"; }
+.fanyi-red-packet:before { content: "\f118"; }
+.fanyi-refund:before { content: "\f106"; }
+.fanyi-top:before { content: "\f11a"; }
+.fanyi-translator:before { content: "\f104"; }
+.fanyi-unauth:before { content: "\f11d"; }
+.fanyi-user:before { content: "\f11e"; }
+.fanyi-wechat:before { content: "\f101"; }
+.fanyi-weibo:before { content: "\f102"; }
+.fanyi-yu-add:before { content: "\f107"; }
+.fanyi-yu-alipay:before { content: "\f108"; }
+.fanyi-yu-bank:before { content: "\f109"; }
+.fanyi-yu-commission:before { content: "\f10a"; }
+.fanyi-yu-minus:before { content: "\f10b"; }
+.fanyi-yu-prepay:before { content: "\f10c"; }
+.fanyi-yu-task:before { content: "\f10d"; }
+.fanyi-yu-top:before { content: "\f10e"; }
+.fanyi-yu-vip:before { content: "\f112"; }
+.fanyi-yu-wechat:before { content: "\f10f"; }

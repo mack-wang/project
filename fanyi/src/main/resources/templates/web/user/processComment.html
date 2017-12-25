@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            任务进度
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/tender}"><i class="ui left angle icon"></i>我的任务</a> / 任务进度
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>正在翻译</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;margin-bottom: 40px;">
+                            <div class="ui fluid ordered steps" style="margin-bottom: 30px;">
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">译员投标</div>
+                                    </div>
+                                </div>
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">提交翻译</div>
+                                    </div>
+                                </div>
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">客户审核</div>
+                                    </div>
+                                </div>
+                                <div class="completed step">
+                                    <div class="content">
+                                        <div class="title">完成任务</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui tiny header">
+                                译员翻译内容
+                            </div>
+                            <div th:if="${process.translate}!=null">
+                                <div th:include="layout/content::content (${process.translate.content})" th:remove="tag"></div>
+                            </div>
+                            <div th:if="${process.translate}==null">
+                                见附件
+                            </div>
+
+                            <div class="ui tiny header">
+                                译员翻译附件
+                            </div>
+                            <div th:if="!${attachments.empty}">
+                                <table class="ui table">
+                                    <tbody>
+                                    <!--用switch来输出i-->
+                                    <tr th:each="attachment:${attachments}">
+                                        <td>
+                                            <div th:include="layout/attachment::attachment(${attachment.suffixName})"
+                                                 th:remove="tag"></div>
+                                            <span th:with="fileName=${#strings.arraySplit(attachment.path,'/')}"
+                                                  th:text="${fileName[fileName.length-1]}"></span>
+                                        </td>
+                                        <td>大小：
+                                            <span th:if="${attachment.size}<1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/1024,0,1)}+'KB'"></span>
+                                            <span th:if="${attachment.size}>1024*1024 and ${attachment.size}<1024*1024*1024"
+                                                  th:text="${#numbers.formatDecimal(attachment.size/(1024*1024),0,1)}+'MB'"></span>
+                                        </td>
+                                        <td>字数：<span th:text="${attachment.clientWords}"></span>字</td>
+                                        <td>页数：<span th:text="${attachment.pages}"></span>页</td>
+                                        <td><a th:href="${attachment.path}" >下载</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div th:if="${attachments.empty}">
+                                无附件，见翻译内容
+                            </div>
+
+                            <div class="ui tiny header">
+                                客户评价
+                            </div>
+                            <div class="ui segment clearShadow" th:if="${process.star}==null">
+                                客户未评价
+                            </div>
+                            <div class="ui segment clearShadow" th:if="${process.star}!=null">
+                                <div class="ui form">
+                                    <div class="field">
+                                        <label for="">打分</label>
+                                        <div class="ui star rating taskCommented"
+                                             th:attr="data-rating=${process.star}" data-max-rating="5"></div>
+                                    </div>
+                                    <div class="field" th:if="${process.templateComment}!=null">
+                                        <div class="ui compact blue basic button"
+                                            th:each="comment:${#strings.arraySplit(process.templateComment,',')}"
+                                             th:text="${comment}"
+                                        ></div>
+                                    </div>
+                                    <div class="field" th:if="${process.clientComment}!=null">
+                                        <label for="">评价</label>
+                                        <div th:text="${process.clientComment}"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

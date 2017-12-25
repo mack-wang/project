@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="auth"></div>
+    <div class="home header">
+        vip客户信息
+    </div>
+
+    <!--修改VIP类型-->
+    <div th:if="${param.field[0]}=='type'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/admin/profile/vip?view=}+${param.username[0]}"><i class="ui left angle icon"></i>vip客户信息</a> / 修改VIP类型
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form th:action="@{/admin/vip/update}" class="ui form" method="post" style="width: 300px;">
+                <div class="field">
+                    <select name="type" class="ui fluid dropdown vipType">
+                        <option value="0">按次结算</option>
+                        <option value="1">按月结算</option>
+                    </select>
+                </div>
+                <input type="hidden" name="field" th:value="${param.field[0]}"/>
+                <input type="hidden" name="username" th:value="${param.username[0]}"/>
+                <button class="ui basic button submit">修改</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--修改合同到期时间-->
+    <div th:if="${param.field[0]}=='endTime'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/admin/profile/vip?view=}+${param.username[0]}"><i class="ui left angle icon"></i>vip客户信息</a> / 修改合同到期时间
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form th:action="@{/admin/vip/update}" class="ui form" method="post"
+                  style="width: 300px;">
+                <div class="field">
+                    <div class="ui calendar" id="rangestart">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input type="text" name="endTime" placeholder="合同到期时间选择">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="field" th:value="${param.field[0]}"/>
+                <input type="hidden" name="username" th:value="${param.username[0]}"/>
+                <button class="ui basic button">修改</button>
+            </form>
+        </div>
+    </div>
+
+    <!--修改附件-->
+    <div th:if="${param.field[0]}=='path'" th:remove="tag">
+        <div class="home secondHeader">
+            <a th:href="@{/admin/profile/vip?view=}+${param.username[0]}"><i class="ui left angle icon"></i>vip客户信息</a> / 修改VIP类型
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin-left: 20px;font-size: 16px;">
+            <form th:action="@{/admin/vip/update}" class="ui form" method="post"
+                  style="width: 300px;">
+                <div class="field">
+                    <a id="contractAttachment">
+                        <i class="iu upload icon"></i>点击添加文件
+                    </a>
+                    <input type="file" name="contractAttachment" class="hide"/>
+                    <input type="hidden" name="path" placeholder="合同到期日"/>
+                </div>
+                <div id="contractAttachmentBox" class="ui message">
+                    <span></span><span>未上传附件</span>
+                </div>
+                <input type="hidden" name="field" th:value="${param.field[0]}"/>
+                <input type="hidden" name="username" th:value="${param.username[0]}"/>
+                <button class="ui basic button">修改</button>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

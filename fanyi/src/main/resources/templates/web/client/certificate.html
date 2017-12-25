@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            客户认证
+        </div>
+        <div class="homeTab">
+            <div class="ui pointing secondary menu clearMargin">
+                <a class="item" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'':'active'" data-tab="first">实名认证</a>
+                <a class="item" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'active':''" data-tab="second">企业认证</a>
+            </div>
+            <div class="ui tab" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'':'active'" data-tab="first">
+                <div style="margin: 30px;">
+                    <div th:include="layout/realname::realname (${certificate},${check})" th:remove="tag"></div>
+                    <!--成功通知-->
+                    <div th:include="layout/message::message (${nameMessage})" th:remove="tag"></div>
+                </div>
+            </div>
+
+
+            <div class="ui tab" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'active':''" data-tab="second">
+                <div style="margin: 30px;">
+                    <table class="ui large padded table">
+                        <thead>
+                        <tr>
+                            <th class="two wide">企业认证信息</th>
+                            <th class="seven wide"></th>
+                            <th class="seven wide"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="collapsing">
+                                企业名称
+                            </td>
+                            <td th:text="${company.name}"></td>
+
+                            <td class="right aligned collapsing">
+                                <a th:if="${check.companyCheck}!=1" th:href="@{/update/user/company?field=name}">修改企业名称</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                营业执照
+                            </td>
+                            <td>
+                                <img th:src="${company.license}"
+                                     alt="" style="height: 140px;">
+                            </td>
+                            <td class="right aligned">
+                                <a th:if="${check.companyCheck}!=1" th:href="@{/update/user/company?field=license}">重新上传营业执照</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                企业地址
+                            </td>
+                            <td th:text="${company.province.name}+${company.city.name}+${company.area.name}+${company.address}"></td>
+                            <td class="right aligned">
+                                <a th:if="${check.companyCheck}!=1" th:href="@{/update/user/company?field=address}">修改地址</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="collapsing">
+                                联系人姓名
+                            </td>
+                            <td th:text="${company.contactName}"></td>
+
+                            <td class="right aligned collapsing">
+                                <a th:href="@{/update/user/company?field=contactName}">修改联系人姓名</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="collapsing">
+                                联系方式
+                            </td>
+                            <td th:text="${company.contactPhone}"></td>
+
+                            <td class="right aligned collapsing">
+                                <a th:href="@{/update/user/company?field=contactPhone}">修改联系方式</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                认证结果
+                            </td>
+                            <td th:if="${check.companyCheck}==0"><i class="ui large blue clock icon"></i>审核中（1～3个工作日）
+                            </td>
+                            <td th:if="${check.companyCheck}==1"><i class="ui large  green check circle icon"></i>审核通过
+                                <a sec:authorize="!hasRole('ROLE_AUTH_COMPANY')" th:href="@{/refresh/certificate}"><i class="ui large blue refresh icon"></i>刷新认证证书</a>
+                            </td>
+                            <td th:if="${check.companyCheck}==2"><i class="ui large  red remove circle icon"></i>审核失败（原因：<span th:text="${check.message.companyMessage}"></span>）
+                            </td>
+                            <td class="right aligned">
+                                <a th:if="${check.companyCheck}==2" th:href="@{/resubmit/company}">重新提交审核</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--成功通知-->
+                    <div th:include="layout/message::message (${companyMessage})" th:remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

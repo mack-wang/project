@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/webLayout"
+>
+<body>
+
+<div th:fragment="content" th:remove="tag">
+
+
+    <div style="margin-top: 60px;background-color: white;">
+
+
+        <div style="position: relative;overflow: hidden;">
+            <img th:src="@{/img/index/17.jpg}" alt="" style="width: 130%;">
+            <div class="ui container">
+                <div style="width:30%;background-color:rgba(255, 255, 255, 0.7);position:absolute;top:15%;left:20%;padding: 20px;">
+                    <div class="ui huge header">VIP服务</div>
+                    <p>盒马是一个线上与线下结合的高效体验式消费中心。基于对餐饮零售业消费模式的重构，以打通线上APP下单与线下会员体验店的方式打造一个全新的零售生态系统；</p>
+                    <div class="ui blue button" >咨询客服</div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="ui text container" style="margin: 50px auto;">
+            <p dir="ltr">
+                从新闻到音乐，再从约会到摄影：移动应用的身影无处不在，涵盖了人们生活的方方面面。每年都有数以百万计的应用被下载，使得全球移动应用市场总值超过 350 亿美元，并且有望在 2017 年达到 770
+                亿美元。总部位于印度的移动软件公司 Plackal 致力于开发多种用途且精美易用的应用程序，借以进入这一国际市场。</p>
+            Plackal 最著名的热门应用 LoveCycles，已在全球范围内拥有超过 300 万次下载量，每日活跃用户超过 13 万人。LoveCycles 在韩国、意大利、墨西哥、美国、俄罗斯以及更多国家占据
+            App Store 排行榜前列，证明了为全球用户使用高质量人力翻译构建应用的强大实力。
+
+            <div class="ui big header">对速度的追求</div>
+
+            <p dir="ltr">作为一家移动应用公司，Plackal 团队需要为其应用频繁地更新并创建全新功能。频繁更新带来的是新的字符串文本，而当 Plackal
+                开始对其应用进行本地化时，他们发现寻找译员非常困难，因为他们的需求是字数灵活性，并且译文应当在他们完成更改后尽快交付。</p>
+            <p dir="ltr">为了跟上 Plackal 产品开发周期的步伐，他们需要这样一种服务：只需点按一个按钮，就能随时提交翻译订单。</p>
+
+            <div class="ui big header">摆脱字数限制</div>
+
+
+            <p dir="ltr">Gengo 帮助 Plackal 团队将他们的产品快速翻译为所有支持的语言，即便他们只需要更新短短几个字。Plackal 无需花费几周时间用于沟通和等待译文。在
+                Gengo，他们能在订购的同一天，甚至通常在同一个小时内，就能获得译文。多语言产品的更新对他们来说已是易如反掌。</p>
+            <p dir="ltr">自 Plackal 开始为其多语言应用使用 Gengo 以来，他们的全球下载量已翻了三倍，并且在韩国、俄罗斯、意大利等国成功建立了客户基础。Plackal
+                现已能够稳步开发产品，并期待与 Gengo 持续合作以获得长期发展。</p>
+        </div>
+
+
+        <div style="background-color: #f2f2f2;width: 100%;border: 1px solid #ddd;">
+            <div class="ui container" style="margin-top: 50px;margin-bottom: 50px;">
+                <div class="ui three column grid">
+                    <div class="row"></div>
+                    <div class="row" style="text-align: center;">
+                        <div class="three wide column"></div>
+                        <div class="ten wide column" style="font-size: 36px;font-weight: bold;margin: 20px auto;">订购方法
+                        </div>
+                        <div class="three wide column"></div>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <div class="column">
+                            <img th:src="@{/img/index/4.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">发布任务</div>
+                            <div style="font-size: 16px;line-height: 30px;">上传您的文件或者直接在我们的网上表格中输入您的文字即可轻松快捷地订购翻译服务。
+                            </div>
+                            <div>
+                                <div class="ui blue compact button" style="margin-top: 16px;">现在就订购</div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <img th:src="@{/img/index/5.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">VIP服务</div>
+                            <div style="font-size: 16px;line-height: 30px;">有项目需要翻译？我们将与您密切合作，为您提供个性化的解决方案。</div>
+                            <div>
+                                <div class="ui blue compact  button" style="margin-top: 16px;">咨询客服</div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <img th:src="@{/img/index/6.png}" class="ui centered image" alt="">
+                            <div style="font-size: 24px;margin: 14px auto;">翻译应用程序接口</div>
+                            <div style="font-size: 16px;line-height: 30px;">有项目需要翻译？我们将与您密切合作，为您提供个性化的解决方案。</div>
+                            <div>
+                                <div class="ui blue compact button" style="margin-top: 16px;">咨询客服</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <a href="#top" class="ui fixed bottom sticky button backTop" target="_self">
+            <div><i class="ui angle up icon clearMargin"></i>
+                <div>顶部</div>
+            </div>
+        </a>
+    </div>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,
+            speed: 1000,
+            direction: 'horizontal',
+            loop: true,
+            pagination: '.swiper-pagination',
+            paginationType: 'bullets',
+            prevButton: '.swiper-button-prev',
+            nextButton: '.swiper-button-next'
+        });
+
+        $(".column.flow").find("img:eq(1)").click(function () {
+            location.href = $(this).parent().parent().next().attr('href');
+        })
+    </script>
+</div>
+</body>
+</html>

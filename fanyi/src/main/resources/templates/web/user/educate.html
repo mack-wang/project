@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            译员认证
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded  table">
+                <thead>
+                <tr>
+                    <th>译员认证</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div style="text-align: center;margin: 20px;">
+                                <div class="ui compact buttons">
+                                    <a class="ui button"><i class="ui blue check circle icon"></i>第一步：实名认证 </a>
+                                    <a class="ui blue button">第二步：资质认证</a>
+                                </div>
+                            </div>
+                            <form id="educationCertificateForm" th:action="@{/user/education/certificate}"
+                                  class="ui form"
+                                  method="post" enctype="multipart/form-data">
+                                <div class="ui two column grid">
+
+
+                                    <div class="two wide column">
+                                        教育背景
+                                    </div>
+                                    <div class="fourteen wide column">
+
+                                        <div class="ui divider" style="margin-top: 0;"></div>
+                                        <div id="educationFields" class="fields">
+                                            <div class="field">
+                                                <input type="hidden" name="education" placeholder="学历">
+                                                <input type="text" placeholder="证书编号"/>
+                                            </div>
+                                            <div class="field">
+                                                <input type="text" placeholder="学校"/>
+                                            </div>
+                                            <div class="field">
+                                                <input type="text" placeholder="学位"/>
+                                            </div>
+                                            <div class="field">
+                                                <input type="text" placeholder="专业"/>
+                                            </div>
+                                            <div class="field">
+                                                <input type="text" placeholder="入学年份"/>
+                                            </div>
+                                            <div class="field">
+                                                <input type="text" placeholder="毕业年份"/>
+                                            </div>
+
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <a id="addEducation"><i class="ui circle add icon"></i>添加</a>
+                                            <a class="educationReset"><i class="ui circle remove icon"></i>重置</a>
+                                            <span style="opacity: 0.5">*提醒，添加后才生效</span>
+                                        </div>
+
+                                        <div id="educationFieldsContainer">
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="two wide column">
+                                        资质证书
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="ui divider" style="margin-top: 0;"></div>
+                                        <div class="field">
+                                            <select class="ui fluid dropdown certificateKind" multiple="">
+                                                <option value="">资质证书选择</option>
+                                            </select>
+                                            <input type="hidden" name="certificate">
+                                        </div>
+                                        <div class="field">
+                                            <input id="otherCertificateInput" type="text" placeholder="其他证书"/>
+                                            <input type="hidden" name="otherCertificate">
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <a id="addCertificate"><i class="ui circle add icon"></i>添加</a>
+                                            <a class="otherCertificateReset"><i class="ui circle remove icon"></i>重置</a>
+                                        </div>
+                                        <div id="addCertificateContainer">
+                                        </div>
+
+
+                                        <div class="field" style="margin-top: 10px;">
+                                            <div id="certificatePictureContainer" class="ui segment clearShadow"
+                                                 style="padding:4px;">
+                                                <div style="display: inline-block;text-align: center;vertical-align: top;">
+                                                    <div style="width: 140px;height: 100px;position: relative;">
+                                                        <i class="ui remove circle icon certificate"
+                                                           style="position: absolute;right: 8px;top:4px;"></i>
+                                                        <img th:src="@{/img/fanyi/certificate.jpeg}" alt=""
+                                                             style="width: 90%;height: 90%;"></div>
+                                                    <div class="ui tiny progress certificate">
+                                                        <div class="bar hide"></div>
+                                                        <div class="label">示例图片</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="certificatePictureUrl">
+                                        </div>
+
+                                        <div style="text-align: right;">
+                                            <a id="uploadCertificatePicture"><i class="ui upload icon"></i>上传资质证书</a>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="two wide column">翻译语言</div>
+                                    <div id="translatePriceField" class="fourteen wide column">
+                                        <div class="ui divider" style="margin-top: 0;"></div>
+                                        <div class="fields">
+                                            <div class="ten wide field">
+                                                <div class="ui two item menu clearShadow">
+                                                    <div class="ui dropdown link item group">
+                                                        <span class="text">翻译语言</span>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div th:each="group:${languageGroups}" class="item"
+                                                                 th:attr="data-value=${group.id}"
+                                                                 th:text="${group.originLanguages.name}+'->'+${group.translateLanguages.name}"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui dropdown link item translateType">
+                                                        <span class="text">翻译类型</span>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div class="item" data-value="translate">笔译</div>
+                                                            <div class="item" data-value="interpret">口译</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="field">
+                                                <input type="text" placeholder="价格" id="prices">
+                                            </div>
+                                            <div class="three wide field">
+                                                <select class="ui compact selection dropdown translatePrice">
+                                                    <option value="word">元/千字</option>
+                                                    <option value="page">元/页</option>
+                                                    <option value="hour">元/小时</option>
+                                                    <option value="day">元/天</option>
+                                                </select>
+                                            </div>
+
+                                            <input type="hidden" name="price">
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            <a id="addTranslatePrice"><i class="ui circle add icon"></i>添加</a>
+                                            <a class="translatePriceReset"><i class="ui circle remove icon"></i>重置</a>
+                                        </div>
+
+                                        <div id="translatePriceContainer"></div>
+                                    </div>
+
+
+
+                                    <div class="two wide column">翻译年限</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="translateYear" placeholder="翻译年限"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        母语
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown language">
+                                                <option value="">母语选择</option>
+                                            </select>
+                                            <input type="hidden" name="language">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">擅长领域</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown skilledField" multiple="">
+                                                <option value="">擅长领域选择</option>
+                                            </select>
+                                            <input type="hidden" name="skilledField">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">擅长用途</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <select class="ui fluid dropdown skilledUsage" multiple="">
+                                                <option value="">擅长用途选择</option>
+                                            </select>
+                                            <input type="hidden" name="skilledUsage">
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button id="educationCertificateSubmit" class="ui blue button">提交</button>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+                                <input type="file" name="certificatePicture" class="hide">
+
+                            </form>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

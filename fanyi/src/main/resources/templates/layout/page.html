@@ -1,0 +1,66 @@
+
+<div th:fragment="page(datas,url)"
+
+>
+    <!--把当前页的page参数替换为空-->
+    <!--如果page替换后多了&符号，也删除-->
+    <div class="ui right floated pagination menu clearShadow"
+         >
+        <a class="item" th:href="@{${url}(page=0)}">首页</a>
+        <a class="item" href="#" th:if="${datas.hasPrevious()}"
+           th:href="@{${url}(page=${datas.number-1})}"
+        >上一页
+        </a>
+        <!--总页数小于等于10-->
+        <div th:if="${(datas.totalPages le 10) and (datas.totalPages gt 0)}" th:remove="tag">
+            <div th:each="pg : ${#numbers.sequence(0, datas.totalPages - 1)}" th:remove="tag">
+                        <span th:if="${pg eq datas.getNumber()}" th:remove="tag">
+                            <a class="active item"><span th:text="${pg+1}"></span></a>
+                        </span>
+                <span th:unless="${pg eq datas.getNumber()}" th:remove="tag">
+                            <a class="item" th:href="@{${url}(page=${pg})}" th:text="${pg+1}"></a>
+                        </span>
+            </div>
+        </div>
+
+        <!-- 总数数大于10时 -->
+        <div th:if="${datas.totalPages gt 10}" th:remove="tag">
+            <a class="item"
+               th:if="${datas.number-2 ge 0}"
+               th:href="@{${url}(page=${datas.number}-2)}"
+               th:text="${datas.number-1}">
+            </a>
+            <a class="item"
+               th:if="${datas.number-1 ge 0}"
+               th:href="@{${url}(page=${datas.number}-1)}"
+               th:text="${datas.number}"
+            ></a>
+
+            <a class="active item" th:text="${datas.number+1}"></a>
+
+            <a class="item"
+               th:if="${datas.number+1 lt datas.totalPages}"
+               th:href="@{${url}(page=${datas.number}+1)}"
+               th:text="${datas.number+2}"
+            ></a>
+            <a class="item"
+               th:if="${datas.number+2 lt datas.totalPages}"
+               th:href="@{${url}(page=${datas.number}+2)}"
+               th:text="${datas.number+3}"
+            ></a>
+        </div>
+        <a class="item"
+           th:if="${datas.hasNext()}"
+           th:href="@{${url}(page=${datas.number+1})}"
+        >下一页</a>
+        <a class="item"
+           th:if="datas.totalPages == 0"
+           th:href="@{${url}(page=0)}"
+        >尾页</a>
+        <a class="item"
+           th:if="datas.totalPages != 0"
+           th:href="@{${url}(page=${datas.totalPages}-1)}"
+        >尾页</a>
+        <a class="item" th:text="'共'+${datas.totalPages}+'页 / '+${datas.totalElements}+' 条'"></a>
+    </div>
+</div>

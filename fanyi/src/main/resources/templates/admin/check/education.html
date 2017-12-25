@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            译员认证
+        </div>
+        <div class="home secondHeader">
+            <a th:href="@{/admin/certificate}"><i class="ui left angle icon"></i>认证审核</a> / 译员认证
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+            <table class="ui fixed table">
+                <thead>
+                <tr>
+                    <th class="two wide">资质认证信息</th>
+                    <th class="seven wide"></th>
+                    <th class="seven wide"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        教育背景
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="education:${educations}"
+                                 th:text="'证书编号：'+${education.number}+'，'+${education.school}+${education.degree}+${education.major}+${education.startYear}+'~'+${education.graduateYear}"
+                            ></div>
+                        </div>
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        资质证书
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="paper,paperStat:${papers}"
+                                 th:if="${paper.certificateKind}!=null"
+                                 th:text="${paper.certificateKind.name}"
+                            ></div>
+                            <div class="item" th:each="paper,paperStat:${papers}"
+                                 th:if="${paper.certificateKind}==null"
+                                 th:text="${paper.otherCertificate}"
+                            ></div>
+                        </div>
+                    </td>
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        资质证书照片
+                    </td>
+                    <td>
+                        <img class="showImage" th:each="picture,pictureStat:${pictures}"
+                             th:src="${picture.path}"
+                             alt="" style="height: 80px;">
+                    </td>
+                    <td class="right aligned">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        翻译语言
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="price:${prices}"
+                                 th:text="${price.languageGroup.originLanguages.name}
+                                        +'->'+${price.languageGroup.translateLanguages.name}
+                                        +(${price.translateType}=='translate'?'笔译':'口译')
+                                        +${price.price}
+                                        +(${price.priceType}=='word'?'元/千字':'')
+                                        +(${price.priceType}=='page'?'元/页':'')
+                                        +(${price.priceType}=='hour'?'元/小时':'')
+                                        +(${price.priceType}=='day'?'元/天':'')"
+                            ></div>
+                        </div>
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        母语
+                    </td>
+                    <td th:text="${info.motherTongue.name}">
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        翻译年限
+                    </td>
+                    <td th:text="${info.translateYear}+'年'">
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        擅长领域
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="field:${info.skilledFields}"
+                                 th:text="${field.skilledField}"
+                            ></div>
+                        </div>
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="collapsing">
+                        擅长用途
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            <div class="item" th:each="usage:${info.skilledUsages}"
+                                 th:text="${usage.skilledUsage}"
+                            ></div>
+                        </div>
+                    </td>
+
+                    <td class="right aligned collapsing">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        认证结果
+                    </td>
+                    <td th:if="${check.certificateCheck}==0"><i class="ui large blue clock icon"></i>审核中（1～3个工作日）
+                    </td>
+                    <td th:if="${check.certificateCheck}==1"><i class="ui large  green check circle icon"></i>审核通过
+
+                    </td>
+                    <td th:if="${check.certificateCheck}==2"><i class="ui large  red remove circle icon"></i>审核不通过（原因：<span
+                            th:text="${check.message.certificateMessage}"></span>）
+                    </td>
+                    <td class="right aligned"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui segment clearShadow" th:if="${check.certificateCheck}==0">
+                <form id="checkRealNameForm" th:action="@{/admin/certificate/certificate}" class="ui form" method="post">
+                    <div class="field taskComment">
+                        <label for="">审核不通过理由</label>
+                        <div class="ui compact basic button">学历错误</div>
+                        <div class="ui compact basic button">学历不实</div>
+                        <div class="ui compact basic button">资质证书与资质证书照片不符</div>
+                        <div class="ui compact basic button">资质证书照片模糊</div>
+                    </div>
+                    <div class="field">
+                        <label for="">其他</label>
+                        <input type="text" name="reason" placeholder="请输入不通过理由(选填)">
+                    </div>
+                    <input type="hidden" name="reasons">
+                    <input type="hidden" name="id" th:value="${check.id}">
+                    <a class="ui basic blue button submitButton">审核不通过</a>
+                    <a th:href="@{/admin/certificate/certificate/success?id=}+${check.id}" class="ui blue button">审核通过</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

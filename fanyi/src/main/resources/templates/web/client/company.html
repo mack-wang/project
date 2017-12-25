@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="auth"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            企业认证
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui fixed table">
+                <thead>
+                <tr>
+                    <th>企业认证</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="overflow: visible;">
+                        <div class="ui container" style="width: 800px;">
+                            <div style="text-align: center;margin: 20px;">
+                                <div class="ui compact buttons">
+                                    <a class="ui button"><i class="ui blue check circle icon"></i>第一步：实名认证 </a>
+                                    <a class="ui blue button">第二步：企业认证(选填)</a>
+                                </div>
+                            </div>
+                            <form id="companyCertificateForm" th:action="@{/client/certificate}"
+                                  class="ui form"
+                                  method="post">
+                                <div class="ui two column grid">
+
+                                    <div class="two wide column">企业名称</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="company" placeholder="企业名称"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">
+                                        营业执照
+                                    </div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div id="licensePictureContainer" class="ui segment clearShadow"
+                                                 style="padding:4px;">
+                                                <div style="display: inline-block;text-align: center;vertical-align: top;">
+                                                    <div style="width: 100px;height: 140px;position: relative;">
+                                                        <i class="ui remove circle icon certificate"
+                                                           style="position: absolute;right: 8px;top:4px;"></i>
+                                                        <img th:src="@{/img/fanyi/license.jpeg}" alt=""
+                                                             style="width: 90%;height: 90%;"></div>
+                                                    <div class="ui tiny progress certificate">
+                                                        <div class="bar hide"></div>
+                                                        <div class="label">示例图片</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="licensePictureUrl">
+                                        </div>
+
+                                        <div style="text-align: right;">
+                                            <a id="uploadLicensePicture"><i class="ui upload icon"></i>上传营业执照</a>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="two wide column">企业地址</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <div id="areaField" class="ui three item menu clearShadow">
+                                                <div class="ui pointing dropdown link item authProvince">
+                                                    <span class="text">省份</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                                <div class="ui pointing dropdown link item authCity">
+                                                    <span class="text">城市</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                                <div class="ui pointing dropdown link item authArea">
+                                                    <span class="text">区域</span>
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="menu">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">详细地址</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="address" placeholder="具体街道和门牌"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">联系人</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="contactName" th:value="${certificate.name}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column">联系方式</div>
+                                    <div class="fourteen wide column">
+                                        <div class="field">
+                                            <input type="text" name="contactPhone" th:value="${session.user.attribute.phone}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="two wide column"></div>
+                                    <div class="fourteen wide column">
+                                        <button id="companyCertificateSubmit" class="ui blue button">提交</button>
+                                        <!--错误提示-->
+                                        <div th:include="layout/message::message (${message})" th:remove="tag"></div>
+                                    </div>
+                                </div>
+
+                                <input type="file" name="licensePicture" class="hide">
+                                <input type="hidden" name="province">
+                                <input type="hidden" name="city">
+                                <input type="hidden" name="area">
+
+                            </form>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

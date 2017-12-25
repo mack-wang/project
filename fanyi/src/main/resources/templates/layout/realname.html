@@ -1,0 +1,69 @@
+<div th:fragment="realname(certificate,check)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <table class="ui large padded table">
+        <thead>
+        <tr>
+            <th class="two wide">实名认证信息</th>
+            <th class="seven wide"></th>
+            <th class="seven wide"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="collapsing">
+                身份证姓名
+            </td>
+            <td th:text="${certificate.name}">
+            </td>
+            <td class="right aligned collapsing">
+                <a th:if="${check.realNameCheck}!=1" th:href="@{/update/user/realname?field=name}">修改身份证姓名</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                身份证住址
+            </td>
+            <td th:text="${certificate.province.name}+${certificate.city.name}+${certificate.area.name}+${certificate.address}"></td>
+            <td class="right aligned"><a th:if="${check.realNameCheck}!=1" th:href="@{/update/user/realname?field=address}">身份证住址</a></td>
+        </tr>
+        <tr>
+            <td>
+                身份证号码
+            </td>
+            <td th:text="${certificate.idNumber}"></td>
+            <td class="right aligned">
+                <a th:if="${check.realNameCheck}!=1" th:href="@{/update/user/realname?field=idNumber}">修改身份证号码</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                身份证照片
+            </td>
+            <td>
+                <img th:src="${certificate.idCardFront}"
+                     alt="" style="height: 80px;">
+                <img th:src="${certificate.idCardBack}"
+                     alt="" style="height: 80px;">
+            </td>
+            <td class="right aligned">
+                <a th:if="${check.realNameCheck}!=1" th:href="@{/update/user/realname?field=idCardPhoto}">重新上传身份证照片</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                认证结果
+            </td>
+            <td th:if="${check.realNameCheck}==0"><i class="ui large blue clock icon"></i>审核中（1～3个工作日）
+
+            </td>
+            <td th:if="${check.realNameCheck}==1"><i class="ui large  green check circle icon"></i>审核通过
+                <a sec:authorize="!hasRole('ROLE_AUTH_REALNAME')" th:href="@{/refresh/certificate}"><i class="ui large blue refresh icon"></i>刷新认证证书</a>
+            </td>
+            <td th:if="${check.realNameCheck}==2"><i class="ui large  red remove circle icon"></i>审核失败（原因：<span th:text="${check.message.realNameMessage}"></span>）
+            </td>
+            <td class="right aligned">
+                <a th:if="${check.realNameCheck}==2" th:href="@{/resubmit/certificate}">重新提交审核</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

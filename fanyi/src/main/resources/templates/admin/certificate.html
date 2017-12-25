@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(certificates.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            认证审核
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;" th:with="url=${#httpServletRequest.getRequestURL()}">
+                <a th:href="@{${url}}"
+                   class="ui button">全部</a>
+                <a th:classappend="${param.realName}!=null and ${param.realName[0]}==0?'active':''"
+                   th:href="@{${url}(realName=0)}"
+                   class="ui button">实名认证</a>
+                <a th:classappend="${param.certificate}!=null and ${param.certificate[0]}==0?'active':''"
+                   th:href="@{${url}(certificate=0)}"
+                        class="ui button">译员认证</a>
+                <a th:classappend="${param.company}!=null and ${param.company[0]}==0?'active':''"
+                   th:href="@{${url}(company=0)}"
+                        class="ui button">企业认证</a>
+            </div>
+
+
+            <div class="ui action input">
+                <input type="text" placeholder="请输入">
+                <select class="ui compact selection dropdown">
+                    <option selected value="phone">手机号</option>
+                    <option value="username">用户名</option>
+                </select>
+                <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+            </div>
+
+            <table class="ui selectable table padded">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        头像
+                    </th>
+                    <th>昵称</th>
+                    <th>身份</th>
+                    <th>手机</th>
+                    <th>实名认证</th>
+                    <th>译员认证</th>
+                    <th>企业认证</th>
+                    <th>注册时间</th>
+                    <th>认证时间</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="cert,certStat:${certificates}">
+                    <td><img th:src="${cert.user.attribute.avatar}" alt="" class="ui mini image"></td>
+                    <td ><a th:href="@{/profile/user?view=}+${cert.user.username}" th:text="${cert.user.attribute.nickname}"></a></td>
+                    <td th:if="${cert.user.currentRole}=='ROLE_USER'">译员</td>
+                    <td th:if="${cert.user.currentRole}=='ROLE_CLIENT'">客户</td>
+                    <td th:if="${cert.user.currentRole}=='ROLE_ADMIN'">管理员</td>
+                    <td th:text="${cert.user.attribute.phone}"></td>
+                    <td>
+                        <a th:href="@{/admin/certificate/realName?id=}+${cert.id}" th:if="${cert.realNameCheck}==0">未审核</a>
+                        <a th:href="@{/admin/certificate/realName?id=}+${cert.id}" th:if="${cert.realNameCheck}==1">审核通过</a>
+                        <a th:href="@{/admin/certificate/realName?id=}+${cert.id}" th:if="${cert.realNameCheck}==2">审核不通过</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/certificate/certificate?id=}+${cert.id}" th:if="${cert.certificateCheck}==0">未审核</a>
+                        <a th:href="@{/admin/certificate/certificate?id=}+${cert.id}" th:if="${cert.certificateCheck}==1">审核通过</a>
+                        <a th:href="@{/admin/certificate/certificate?id=}+${cert.id}" th:if="${cert.certificateCheck}==2">审核不通过</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/admin/certificate/company?id=}+${cert.id}" th:if="${cert.companyCheck}==0">未审核</a>
+                        <a th:href="@{/admin/certificate/company?id=}+${cert.id}"  th:if="${cert.companyCheck}==1">审核通过</a>
+                        <a th:href="@{/admin/certificate/company?id=}+${cert.id}"  th:if="${cert.companyCheck}==2">审核不通过</a>
+                    </td>
+                    <td th:text="${#dates.format(cert.user.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#dates.format(cert.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                </t     r>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${certificates.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+
+            <div th:include="layout/page::page (${certificates},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

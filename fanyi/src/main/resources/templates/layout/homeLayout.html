@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>翻易官网</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!--优先调用最高版本IE浏览器和webkit浏览器-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="renderer" content="webkit"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1"/>-->
+    <link th:href="@{/semantic/semantic.min.css}" rel="stylesheet"/>
+    <link th:href="@{/modules/layer/theme/default/layer.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/font/fanyi/fanyi.css}" rel="stylesheet"/>
+    <link th:href="@{/css/cropper.css}" rel="stylesheet"/>
+    <link th:href="@{/css/calendar.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.cookie.js}" type="text/javascript"></script>
+    <script th:src="@{/semantic/semantic.min.js}" type="text/javascript"></script>
+    <script th:src="@{/modules/layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/js/cropper.js}" type="text/javascript"></script>
+    <script th:src="@{/js/calendar.js}" type="text/javascript"></script>
+    <script th:src="@{/js/sockjs.js}" type="text/javascript"></script>
+    <script th:src="@{/js/stomp.js}" type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{/wangeditor/wangEditor.min.js}"></script>
+</head>
+
+<body style="height: 100%;position: relative;">
+
+<div class="ui grid">
+    <div class="sixteen wide computer only column">
+        <div class="ui fixed top sticky inverted large borderless menu clearShadow clearRadius">
+            <!--激活相应的菜单-->
+            <div class="ui container indexMenu" style="width: 100%;">
+                <a th:href="@{/index}" class="header item">
+                    <!--<img class="logo" src="">-->
+                    <i class="ui huge fanyi-fanyi icon" style="color:white"></i>
+                </a>
+
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui compact buttons">
+                            <div th:if="${session.user.currentRole}=='ROLE_USER'" th:remove="tag">
+                                <a class="ui blue button">译员</a>
+                                <a th:href="@{/switch/client}" class="ui button">客户</a>
+                            </div>
+                            <div th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:remove="tag">
+                                <a th:href="@{/switch/user}" class="ui button">译员</a>
+                                <a class="ui blue button">客户</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--如果有头像则显示头像，如果没设置头像，则显示默认头像-->
+                    <a th:href="@{/home}" class="item">
+                        <img th:src="${session.user.attribute.avatar}"
+                             alt="" style="width: 40px;border-radius: 50%;">
+                    </a>
+                    <div class="ui pointing link dropdown">
+                        <span th:text="${session.user.attribute.nickname}" class="nickname"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" th:href="@{/task}">发布任务</a>
+                            <a class="item" th:href="@{/catalog}">用户手册</a>
+                            <a class="logout item" th:text="#{logout}"></a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:remove="tag">
+                            <div sec:authorize="hasRole('ROLE_AUTH_REALNAME') and !hasRole('ROLE_AUTH_COMPANY')"
+                                 style="display: block;padding-right: 10px;line-height: 20px;">
+                                <i class="address card icon" style="margin: 0;"></i>实名认证
+                            </div>
+                            <div sec:authorize="hasRole('ROLE_AUTH_COMPANY')"
+                                 style="display: block;padding-right: 10px;">
+                                <i class="address card icon" style="margin: 0;"></i>企业认证
+                            </div>
+                        </div>
+                        <div th:if="${session.user.currentRole}=='ROLE_USER'" th:remove="tag">
+                            <div sec:authorize="hasRole('ROLE_AUTH_REALNAME') and !hasRole('ROLE_AUTH_USER')"
+                                 style="display: block;padding-right: 10px;">
+                                <i class="address card icon" style="margin: 0;"></i>实名认证
+                            </div>
+                            <div sec:authorize="hasRole('ROLE_AUTH_USER')" style="display: block;padding-right: 10px;">
+                                <i class="address card icon" style="margin: 0;"></i>译员认证
+                            </div>
+                        </div>
+                        <div sec:authorize="!hasRole('ROLE_AUTH_REALNAME')">
+                            <i class="address card icon" style="margin: 0;"></i>未认证
+                        </div>
+                    </div>
+                    <a id="getUnread" th:href="@{/chat/unread}"><i class="ui large alarm outline icon"></i><label
+                            class="ui red circular label">0</label></a>|
+                    <div class="ui pointing dropdown link "
+                         style="padding: 0 10px;">
+                        <span th:if="${param.lang}==null" class="text">English</span>
+                        <span th:if="${param.lang}!=null and ${param.lang[0]}=='en_US'" class="text">中文简体</span>
+                        <span th:if="${param.lang}!=null and ${param.lang[0]}=='zh_CN'" class="text">English</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="/?lang=en_US">English</a>
+                            <a class="item" href="/?lang=zh_CN">中文简体</a>
+                        </div>
+                    </div>
+                    <div class="ui pointing dropdown link"
+                         th:if="${session.user.currentRole}!='ROLE_ADMIN'"
+                         style="padding: 0 10px;">
+                        <span class="text">在线客服</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu customerService">
+                        </div>
+                    </div>
+                    <div class="item"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="sixteen wide tablet only mobile only column">
+        <div class="ui fixed top sticky inverted large borderless menu clearShadow clearRadius">
+            <!--激活相应的菜单-->
+            <div class="ui container indexMenu" style="width: 100%;">
+                <a th:href="@{/index}" class="header item">
+                    <!--<img class="logo" src="">-->
+                    <i class="ui huge fanyi-fanyi icon" style="color:white"></i>
+                </a>
+                <div class="ui dropdown item">
+                    菜单 <i class="sidebar icon"></i>
+                    <div class="menu">
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:href="@{/admin/nav}" class="item">
+                            <i class="dashboard icon"></i>
+                            快速导航
+                        </a>
+                        <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/info}" class="item">
+                            <i class="home icon"></i>
+                            我的首页
+                        </a>
+                        <a th:if="${session.user.currentRole}!='ROLE_CLIENT'" th:href="@{/market}" class="item">
+                            <i class="building icon"></i>
+                            翻易大厅
+                        </a>
+                        <a th:href="@{/home}" class="item">
+                            <i class="user icon"></i>
+                            个人信息
+                        </a>
+                        <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/task}" class="item">
+                            <i class="edit icon"></i>
+                            发布任务
+                        </a>
+                        <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/task/process}" class="item">
+                            <i class="tasks icon"></i>
+                            我的任务
+                        </a>
+                        <a th:if="${session.user.currentRole}=='ROLE_USER'" th:href="@{/tender}" class="item">
+                            <i class="tasks icon"></i>
+                            我的任务
+                        </a>
+                        <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/vip}" class="item">
+                            <i class="vimeo icon"></i>
+                            VIP服务
+                        </a>
+                        <a th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:href="@{/admin/trading/record}"
+                           class="item">
+                            <i class="fanyi-coin icon"></i>
+                            所有交易
+                        </a>
+                        <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/balance}" class="item">
+                            <i class="yen icon"></i>
+                            我的钱包
+                        </a>
+                        <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/user/certificate}"
+                           class="item">
+                            <i class="address card icon"></i>
+                            <span th:text="${session.user.currentRole}=='ROLE_USER'?'译员认证':'客户认证'"></span>
+                        </a>
+
+                        <div th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:remove="tag">
+                            <!--管理员才会有的模块-->
+                            <div class="item">
+                                用户管理
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a th:href="@{/admin/user/list}" class="item"><i class="ui user icon"></i>用户列表</a>
+                                    <a th:href="@{/admin/report/illegal}" class="item"><i
+                                            class="ui warning circle icon"></i>举报处理</a>
+                                    <a th:href="@{/admin/question}" class="item"><i class="ui talk icon"></i>留言回复</a>
+                                    <a th:href="@{/admin/certificate}" class="item"><i class="ui protect icon"></i>认证审核</a>
+                                    <a th:href="@{/admin/invoice}" class="item"><i
+                                            class="ui file text outline icon"></i>发票申请</a>
+                                    <a th:href="@{/admin/signature}" class="item"><i class="ui certificate icon"></i>签章申请</a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                网站管理
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a th:href="@{/admin/article}" class="item"><i class="ui add icon"></i>添加文章</a>
+                                    <a th:href="@{/admin/article/list}" class="item"><i
+                                            class="ui address book icon"></i>文章列表</a>
+                                    <a th:href="@{/admin/catalog}" class="item"><i class="ui browser icon"></i>目录列表</a>
+                                    <a th:href="@{/admin/slideImage}" class="item"><i class="ui image icon"></i>首页轮播</a>
+                                    <a th:href="@{/admin/web}" class="item"><i class="ui clone icon"></i>任务广告</a>
+                                    <a th:href="@{/admin/web/wechat}" class="item"><i class="ui wechat icon"></i>微信广告</a>
+                                    <a th:href="@{/admin/customer/service}" class="item"><i class="ui user icon"></i>客服管理</a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                VIP服务
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a th:href="@{/admin/vip}" class="item"><i class="ui add user icon"></i>添加VIP客户</a>
+                                    <a th:href="@{/admin/vip/task}" class="item"><i
+                                            class="ui vimeo icon"></i>添加VIP任务</a>
+                                    <a th:href="@{/admin/vip/task/list}" class="item"><i class="ui list icon"></i>VIP任务列表</a>
+                                    <a th:href="@{/admin/bill}" class="item"><i class="ui payment icon"></i>查看所有账单</a>
+                                </div>
+                            </div>
+                            <div sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="item">
+                                <!--超级管理员才拥有的权限-->
+                                超级管理
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a th:href="@{/admin/super/add/admin}" class="item"><i class="ui add user icon"></i>创建新管理员账号</a>
+                                    <a th:href="@{/admin/super/reset/password}" class="item"><i
+                                            class="ui lock icon"></i>重置账号密码</a>
+                                    <a th:href="@{/admin/super/reset/phone}" class="item"><i class="ui phone icon"></i>重置账号手机</a>
+                                    <a th:href="@{/admin/super/reset/payPassword}" class="item"><i
+                                            class="ui lock icon"></i>重置账号支付密码</a>
+                                </div>
+                            </div>
+                            <!--<div class="ui dropdown item">-->
+                            <!--统计信息-->
+                            <!--<i class="dropdown icon"></i>-->
+                            <!--<div class="menu">-->
+                            <!--<a class="item" target="main"><i class="ui add icon"></i>任务统计</a>-->
+                            <!--<a class="item" target="main"><i class="ui edit icon"></i>财务统计</a>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right menu">
+                    <!--如果有头像则显示头像，如果没设置头像，则显示默认头像-->
+                    <a th:href="@{/home}" class="item">
+                        <img th:src="${session.user.attribute.avatar}"
+                             alt="" style="width: 40px;border-radius: 50%;">
+                        <span class="nickname" th:text="${session.user.attribute.nickname}"
+                              style="margin-left: 14px;"></span>
+                    </a>
+                    <div class="ui pointing dropdown link"
+                         th:if="${session.user.currentRole}!='ROLE_ADMIN'"
+                         style="padding: 0 10px;">
+                        <span class="text">在线客服</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu customerService">
+                        </div>
+                    </div>
+                    <div class="ui dropdown item">
+                        更多<i class="sidebar icon"></i>
+                        <div class="menu">
+                            <a id="getUnread" th:href="@{/chat/unread}" class="item"><i
+                                    class="ui large alarm outline icon"></i><label
+                                    class="ui red circular label">0</label></a>
+                            <a th:if="${session.user.currentRole}=='ROLE_USER'" th:href="@{/switch/client}"
+                               class="item">切换成客户</a>
+                            <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/switch/user}"
+                               class="item">切换成译员</a>
+                            <a class="item" th:href="@{/catalog}">用户手册</a>
+                            <a th:if="${param.lang}==null" class="item" href="/?lang=en_US">English</a>
+                            <a th:if="${param.lang}!=null and ${param.lang[0]}=='zh_CN'" class="item"
+                               href="/?lang=en_US">English</a>
+                            <a th:if="${param.lang}!=null and ${param.lang[0]}=='en_US'" class="item"
+                               href="/?lang=zh_CN">中文简体</a>
+                            <a class="logout item" th:text="#{logout}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--菜单-->
+<div style="padding-top: 60px;height: 100%;">
+    <div class="ui two column grid home" style="height: 100%;margin: 0;min-width: 1280px;">
+        <div class="two wide computer only column">
+            <div id="homeMenu" class="ui vertical menu clearRadius homeMenu clearShadow"
+                 style="width: 100%;height: 100%;">
+                <a th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:href="@{/admin/nav}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='nav'?'active':''"
+                   class="item">
+                    <i class="dashboard icon"></i>
+                    快速导航
+                </a>
+                <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/info}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='info'?'active':''"
+                   class="item">
+                    <i class="home icon"></i>
+                    我的首页
+                </a>
+                <a th:if="${session.user.currentRole}!='ROLE_CLIENT'" th:href="@{/market}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='market'?'active':''"
+                   class="item">
+                    <i class="building icon"></i>
+                    翻易大厅
+                </a>
+                <a th:href="@{/home}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='home'?'active':''"
+                   class="item">
+                    <i class="user icon"></i>
+                    个人信息
+                </a>
+                <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/task}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='task'?'active':''"
+                   class="item">
+                    <i class="edit icon"></i>
+                    发布任务
+                </a>
+                <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/task/process}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='process'?'active':''"
+                   class="item">
+                    <i class="tasks icon"></i>
+                    我的任务
+                </a>
+                <a th:if="${session.user.currentRole}=='ROLE_USER'" th:href="@{/tender}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='tender'?'active':''"
+                   class="item">
+                    <i class="tasks icon"></i>
+                    我的任务
+                </a>
+                <a th:if="${session.user.currentRole}=='ROLE_CLIENT'" th:href="@{/vip}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='vip'?'active':''"
+                   class="item">
+                    <i class="vimeo icon"></i>
+                    VIP服务
+                </a>
+                <a th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:href="@{/admin/trading/record}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='record'?'active':''"
+                   class="item">
+                    <i class="fanyi-coin icon"></i>
+                    所有交易
+                </a>
+                <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/balance}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='balance'?'active':''"
+                   class="item">
+                    <i class="yen icon"></i>
+                    我的钱包
+                </a>
+                <a th:if="${session.user.currentRole}!='ROLE_ADMIN'" th:href="@{/user/certificate}"
+                   th:classappend="${session.menu}!=null and ${session.menu}=='certificate'?'active':''"
+                   class="item">
+                    <i class="address card icon"></i>
+                    <span th:text="${session.user.currentRole}=='ROLE_USER'?'译员认证':'客户认证'"></span>
+                </a>
+
+                <div th:if="${session.user.currentRole}=='ROLE_ADMIN'" th:remove="tag">
+                    <!--管理员才会有的模块-->
+                    <div class="ui dropdown item"
+                         th:classappend="${session.menu}!=null and ${session.menu}=='user'?'myActive':''"
+                    >
+                        用户管理
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a th:href="@{/admin/user/list}" class="item"><i class="ui user icon"></i>用户列表</a>
+                            <a th:href="@{/admin/report/illegal}" class="item"><i class="ui warning circle icon"></i>举报处理</a>
+                            <a th:href="@{/admin/question}" class="item"><i class="ui talk icon"></i>留言回复</a>
+                            <a th:href="@{/admin/certificate}" class="item"><i class="ui protect icon"></i>认证审核</a>
+                            <a th:href="@{/admin/invoice}" class="item"><i
+                                    class="ui file text outline icon"></i>发票申请</a>
+                            <a th:href="@{/admin/signature}" class="item"><i class="ui certificate icon"></i>签章申请</a>
+                        </div>
+                    </div>
+                    <div class="ui dropdown item"
+                         th:classappend="${session.menu}!=null and ${session.menu}=='manager'?'myActive':''"
+                    >
+                        网站管理
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a th:href="@{/admin/article}" class="item"><i class="ui add icon"></i>添加文章</a>
+                            <a th:href="@{/admin/article/list}" class="item"><i
+                                    class="ui address book icon"></i>文章列表</a>
+                            <a th:href="@{/admin/catalog}" class="item"><i class="ui browser icon"></i>目录列表</a>
+                            <a th:href="@{/admin/slideImage}" class="item"><i class="ui image icon"></i>首页轮播</a>
+                            <a th:href="@{/admin/web}" class="item"><i class="ui clone icon"></i>任务广告</a>
+                            <a th:href="@{/admin/web/wechat}" class="item"><i class="ui wechat icon"></i>微信广告</a>
+                            <a th:href="@{/admin/customer/service}" class="item"><i class="ui user icon"></i>客服管理</a>
+                        </div>
+                    </div>
+                    <div class="ui dropdown item"
+                         th:classappend="${session.menu}!=null and ${session.menu}=='adminvip'?'myActive':''"
+                    >
+                        VIP服务
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a th:href="@{/admin/vip}" class="item"><i class="ui add user icon"></i>添加VIP客户</a>
+                            <a th:href="@{/admin/vip/task}" class="item"><i class="ui vimeo icon"></i>添加VIP任务</a>
+                            <a th:href="@{/admin/vip/task/list}" class="item"><i class="ui list icon"></i>VIP任务列表</a>
+                            <a th:href="@{/admin/bill}" class="item"><i class="ui payment icon"></i>查看所有账单</a>
+                        </div>
+                    </div>
+                    <div sec:authorize="hasRole('ROLE_SUPER_ADMIN')" class="ui dropdown item"
+                         th:classappend="${session.menu}!=null and ${session.menu}=='superAdmin'?'myActive':''"
+                    >
+                        <!--超级管理员才拥有的权限-->
+                        超级管理
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a th:href="@{/admin/super/add/admin}" class="item"><i class="ui add user icon"></i>创建新管理员账号</a>
+                            <a th:href="@{/admin/super/reset/password}" class="item"><i class="ui lock icon"></i>重置账号密码</a>
+                            <a th:href="@{/admin/super/reset/phone}" class="item"><i
+                                    class="ui phone icon"></i>重置账号手机</a>
+                            <a th:href="@{/admin/super/reset/payPassword}" class="item"><i class="ui lock icon"></i>重置账号支付密码</a>
+                        </div>
+                    </div>
+                    <!--<div class="ui dropdown item">-->
+                    <!--统计信息-->
+                    <!--<i class="dropdown icon"></i>-->
+                    <!--<div class="menu">-->
+                    <!--<a class="item" target="main"><i class="ui add icon"></i>任务统计</a>-->
+                    <!--<a class="item" target="main"><i class="ui edit icon"></i>财务统计</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="fourteen wide computer only sixteen wide tablet only mobile only column">
+            <div id="homeLayout" th:include="this :: content"
+                 style="overflow: scroll;height: 100%;overflow-x:hidden;background-color: #f5f5f5;"></div>
+        </div>
+    </div>
+</div>
+
+
+<!--继承模板-->
+
+<form id="logoutForm" th:action="@{/logout}" method="post"></form>
+</body>
+<script th:src="@{/js/basic.js}" type="text/javascript"></script>
+<!--先暂时不按需加载，等整个项目做好后再来分js-->
+<!--在有上传需要的地方加载upload文件-->
+<script th:src="@{/js/jquery.ui.widget.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.iframe-transport.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery.fileupload.js}" type="text/javascript"></script>
+<!--专门在这个文件中写上传逻辑-->
+<script th:src="@{/js/upload.js}" type="text/javascript"></script>
+<script th:src="@{/js/web.js}" type="text/javascript"></script>
+
+</html>

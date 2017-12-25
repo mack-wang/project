@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;"
+         th:with="curUrl=${#httpServletRequest.getRequestURL()},
+                  sortParam=${#httpServletRequest.getQueryString()}!=null?'?'+${#httpServletRequest.getQueryString()}:'',
+                  sortParam2=${new java.lang.String(sortParam eq null ? '' : sortParam).replace('page='+(users.number), '')},
+                  sortParam3=${sortParam2.endsWith('&amp;') ? sortParam2.substring(0, sortParam2.length()-1):sortParam2},
+                  url=${curUrl}+${sortParam3}"
+    >
+        <div class="home header">
+            所有用户
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin: 30px;">
+
+            <div class="ui basic buttons" style="margin-bottom: 14px;">
+                <a th:classappend="${param.role}!=null and ${param.role[param.role.length-1]}=='ROLE_USER'?'active':''"
+                   th:href="@{${url}(role='ROLE_USER')}"
+                   class="ui button">译员</a>
+                <a th:classappend="${param.role}!=null and ${param.role[param.role.length-1]}=='ROLE_CLIENT'?'active':''"
+                   th:href="@{${url}(role='ROLE_CLIENT')}"
+                        class="ui button">客户</a>
+                <a th:classappend="${param.role}!=null and ${param.role[param.role.length-1]}=='ROLE_ADMIN'?'active':''"
+                   th:href="@{${url}(role='ROLE_ADMIN')}"
+                        class="ui button">管理员</a>
+                <a th:classappend="${param.vip}!=null and ${param.vip[param.vip.length-1]}==1?'active':''"
+                   th:href="@{${url}(vip=1)}"
+                   class="ui button">vip客户</a>
+            </div>
+
+            <div class="ui menu clearShadow clearRadius clearMargin">
+                <a class="item" th:href="${curUrl}">
+                    综合
+                </a>
+
+                <a class="item"
+                   th:classappend="${param.money}!=null?'active':''"
+                   th:href="@{${url}(money=${param.money}!=null and ${param.money[param.money.length-1]}=='DESC' ?'ASC':'DESC')}">
+                    余额排序<i class="ui sort icon"></i>
+                </a>
+                <a class="item"
+                   th:classappend="${param.score}!=null?'active':''"
+                   th:href="@{${url}(score=${param.score}!=null and ${param.score[param.score.length-1]}=='ASC' ?'DESC':'ASC')}">
+                    信用分数<i class="ui sort icon"></i>
+                </a>
+                <a class="item"
+                   th:classappend="${param.words}!=null?'active':''"
+                   th:href="@{${url}(words=${param.words}!=null and ${param.words[param.words.length-1]}=='DESC' ?'ASC':'DESC')}">
+                    翻译字数<i class="ui sort icon"></i>
+                </a>
+                <a class="item"
+                   th:classappend="${param.taskDone}!=null?'active':''"
+                   th:href="@{${url}(taskDone=${param.taskDone}!=null and ${param.taskDone[param.taskDone.length-1]}=='DESC' ?'ASC':'DESC')}">
+                    任务数<i class="ui sort icon"></i>
+                </a>
+                <a class="item"
+                   th:classappend="${param.createdAt}!=null?'active':''"
+                   th:href="@{${url}(createdAt=${param.createdAt}!=null and ${param.createdAt[param.createdAt.length-1]}=='DESC' ?'ASC':'DESC')}">
+                    创建时间<i class="ui sort icon"></i>
+                </a>
+
+
+                <div class="right menu">
+
+                    <div class="item">
+                        <div class="ui action input">
+                            <input type="text" placeholder="请输入">
+                            <select class="ui compact selection dropdown">
+                                <option selected value="phone">手机号</option>
+                                <option value="email">邮箱</option>
+                                <option value="nickname">昵称</option>
+                                <option value="username">用户名</option>
+                            </select>
+                            <div th:attr="data-value=${curUrl}" id="adminUserListSearch" type="submit" class="ui button">搜索</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="ui selectable table padded">
+                <thead>
+                <tr>
+                    <th class="one wide">
+                        头像
+                    </th>
+                    <th>性别</th>
+                    <th>城市</th>
+                    <th>昵称</th>
+                    <th>身份</th>
+                    <th>手机</th>
+                    <th>邮箱</th>
+                    <th>余额</th>
+                    <th>注册时间</th>
+                    <th>vip客户</th>
+                    <th>查看详情</th>
+                </tr>
+                </thead>
+                <tbody style="background-color: white;">
+                <tr th:each="user,userStat:${users}">
+                    <td><img th:src="${user.attribute.avatar}" alt="" class="ui mini image"></td>
+                    <td th:if="${user.userInfo.sex}==0">女</td>
+                    <td th:if="${user.userInfo.sex}==1">男</td>
+                    <td th:if="${user.userInfo.sex}==null">未填写</td>
+                    <td th:text="${user.userInfo.city}==null?'未填写':${user.userInfo.city.name}"></td>
+                    <td th:text="${user.attribute.nickname}"></td>
+                    <td th:if="${user.currentRole}=='ROLE_USER'">译员</td>
+                    <td th:if="${user.currentRole}=='ROLE_CLIENT'">客户</td>
+                    <td th:if="${user.currentRole}=='ROLE_ADMIN'">管理员</td>
+                    <td th:text="${user.attribute.phone}"></td>
+                    <td th:text="${user.attribute.email}==null?'未绑定':${user.attribute.email}"></td>
+                    <td th:text="${user.account.money}"></td>
+                    <td th:text="${#dates.format(user.createdAt,'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <a th:if="${user.vip}!=null" th:href="@{/admin/profile/vip?view=}+${user.username}">vip客户</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/profile/user?view=}+${user.username}">查看详情</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="ui info message" th:if="${users.totalElements}==0">未搜索到相关结果</div>
+            <div th:include="layout/message::message (${message})"
+                 th:remove="tag"></div>
+
+            <div th:include="layout/page::page (${users},${url})" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

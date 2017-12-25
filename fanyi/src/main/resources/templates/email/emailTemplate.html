@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<body>
+<div th:fragment="content" th:remove="tag">
+    <center>
+        <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="border-collapse: collapse;margin: 0;padding: 0;background-color: #f4f4f4;width: 100% !important;">
+            <tbody><tr>
+                <td align="center" valign="top" style="font-family: inherit;">
+
+                    <table border="0" cellpadding="0" cellspacing="0" id="templatePreheader" style="border-collapse: collapse;margin: 30px 0;">
+                        <tbody><tr>
+                            <td valign="top" class="preheaderContent" style="color: #444444;font-family: inherit;">
+                            </td>
+                        </tr>
+                        </tbody></table>
+
+                    <table border="0" cellpadding="0" cellspacing="0" id="templateContainer" style="margin: 0 24px;border-collapse: collapse;padding: 0px;border: 1px solid #DDDDDD;background-color: #FFFFFF;max-width:600px;width:100%">
+                        <tbody><tr>
+                            <td align="center" valign="top" style="font-family: inherit;">
+
+                                <table border="0" cellpadding="0" cellspacing="0" id="templateBody" width="100%" style="border-collapse: collapse; width:100%;">
+                                    <tbody><tr>
+                                        <td valign="top" class="bodyContent translator" style="padding: 0 48px 48px 48px;text-align: left;font-size: 16px;line-height: 1.5;font-family: inherit;">
+
+
+
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                                                <tbody><tr>
+                                                    <td align="right" style="font-family: inherit;">
+                                                        <img src="https://www.fypool.com/img/fanyi/email-logo1.png" style="max-width: 90px;height: auto;outline: none;border: none;text-decoration: none;text-transform: capitalize;font-weight: 400;font-size: 14px;line-height: 1.2;display:block">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: inherit;">
+                                                        <h1 style="display: block;color: #4D4843;text-align: left;font-weight: 600;font-family: 'Open Sans', Helvetica, Arial, san-serif;line-height: 1.2;margin: 20px 0;font-size: 36px;">欢迎来到 领骄翻易</h1>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-family: inherit;">
+                                                        <div class="std_content00">
+                                                            <p style="margin-bottom: 36px;"><span style="border-bottom:1px dashed #ccc;z-index:1" t="7" onclick="return false;"><span th:text="${username}"></span></span>,您好！</p>
+
+                                                            <p>欢迎来到 领骄翻易！</p>
+
+                                                            <p>您距离加入我们的社区仅有一步之遥。</p>
+
+                                                            <p>要获得 翻易 译员资格，您必须先在翻易个人信息中进行<a href="" style="color: #0070C9;text-decoration: none;" target="_blank">译员认证</a>。</p>
+
+                                                            <p>在译员认证后，可以接<a href="" style="color: #0070C9;text-decoration: none;" target="_blank">翻易大厅</a>中发布的翻译任务</p>
+
+                                                            <a th:href="'https://www.fypool.com/public/email/valid/'+${id}" class="btn" style="color: #fff;text-decoration: none;display: inline-block;margin-top: 20px;padding: 8px 24px;border: 1px solid #0070C9;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;background-color: #0070C9;text-align: center;white-space: nowrap;border-color: #0070C9;" target="_blank">点击激活</a>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody></table>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+
+                            </td>
+                        </tr>
+                        </tbody></table>
+
+                    <table border="0" cellpadding="0" cellspacing="0" id="templateFooter" style="max-width: 600px;border-collapse: collapse;padding: 36px 48px 60px 48px;border-top: 0;background-color: #f4f4f4;">
+                        <tbody><tr>
+                            <td valign="top" class="footerContent" style="color: #A6A3A1;padding: 36px 0 60px 0 !important;font-family: inherit;">
+
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                                    <tbody>
+                                    <tr>
+                                        <td valign="middle" style="font-family: inherit;">
+                                            <div style="text-align: center;font-size: 12px;line-height: 1.5;">
+                                                浙江省杭州市拱墅区1号商务大厦102室 <span style="border-bottom:1px dashed #ccc;z-index:1" t="7" onclick="return false;" data="94401">94401</span>, 中国<br><br><br>
+                                                <a href="" style="color: #A6A3A1;text-decoration: underline;" target="_blank">微博</a> &nbsp;|&nbsp; <a href="" style="color: #A6A3A1;text-decoration: underline;" target="_blank">微信公众号</a> &nbsp;|&nbsp; <a href="" style="color: #A6A3A1;text-decoration: underline;" target="_blank">小程序</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody></table>
+
+                            </td>
+                        </tr>
+                        </tbody></table>
+
+                    <br>
+                </td>
+            </tr>
+            </tbody></table>
+    </center>
+</div>
+</body>
+</html>

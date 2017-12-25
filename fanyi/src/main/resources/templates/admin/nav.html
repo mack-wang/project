@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+    <!--激活相应的菜单-->
+    <div id="activeMenu" data-value="task"></div>
+    <div style="padding-bottom:60px;">
+        <div class="home header">
+            快速导航
+        </div>
+        <div class="ui divider"></div>
+        <div style="margin:30px;">
+            <table class="ui large padded table">
+                <thead>
+                <tr>
+                    <th class="two wide">整体情况</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="collapsing">
+                        <div class="ui  container" style="margin: 50px auto;">
+                            <div class="ui six centered cards navCards">
+                                <div class="blue card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${users}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/user/list}" >7日新增用户<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="green card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${questions}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/question}" >待回复留言<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="red card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${reports}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/report/illegal}" >未处理举报<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="yellow card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${checks}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/certificate}" >待审核认证<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="teal card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${invoices}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/invoice}" >待开发票<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="violet card" style="text-align: center;">
+                                    <div class="content">
+                                        <div class="header" th:text="${signatures}"></div>
+                                        <div class="description">
+                                            <a th:href="@{/admin/signature}" >待盖签章<i class="ui angle right icon"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui info message">
+                                <ul class="ui list">
+                                    <li class="item">清理机器人</li>
+                                    <li class="item">清理垃圾文件总数量：<span th:text="${fileClean[0]}+'个'"></span></li>
+                                    <li class="item">清理垃圾文件总大小：<span th:text="${#numbers.formatDecimal(fileClean[1]/1024/1024,0,2)}+'MB'"></span></li>
+                                    <li class="item">每周日早上4点准时清理</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

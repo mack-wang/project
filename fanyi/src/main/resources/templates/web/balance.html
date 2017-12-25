@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/homeLayout"
+>
+<body>
+<div th:fragment="content">
+
+
+    <!-- Page Contents -->
+    <div class="home header">
+        充值提现
+    </div>
+
+    <div class="homeTab">
+
+        <div class="ui pointing secondary menu clearMargin">
+            <a class="item" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'':'active'" data-tab="first">充值</a>
+            <a class="item" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'active':''" data-tab="second">提现</a>
+        </div>
+        <div class="ui tab" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'':'active'" data-tab="first">
+            <div style="margin:30px;">
+                <table class="ui large padded  table">
+                    <thead>
+                    <tr>
+                        <th>充值 <a class="floatRight" th:href="@{/trading/record}"> <i class="fanyi-coin icon"></i>查看交易记录</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="overflow: visible;">
+                            <div class="ui container" style="width: 800px;">
+                                <div style="margin: 50px 0;">
+                                    <h1 class="ui header">
+                                        账户余额：￥<span th:text="${account.money}"></span>
+                                    </h1>
+                                    <div class="ui divider"></div>
+                                </div>
+                                <form id="chargeForm"
+                                      class="ui form"
+                                      th:action="@{/alipay/pay}"
+                                      method="post">
+                                    <div class="ui two column grid">
+                                        <div class="two wide column">
+                                            支付方式
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="field">
+                                                <div class="ui small images payType">
+                                                    <div data-value="/alipay/pay" class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/alipay.png}"></div>
+                                                    <div data-value="/wechat/pay" class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/wechat.png}"></div>
+                                                    <div data-value="/union/pay" class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/bank.png}"></div>
+                                                </div>
+                                                <input type="hidden" name="payType">
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column">
+                                            充值金额
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="ui tiny images payPrice">
+                                                <div class="ui big basic button" data-value="100">￥100</div>
+                                                <div class="ui big basic button" data-value="500">￥500</div>
+                                                <div class="ui big basic button" data-value="1000">￥1000</div>
+                                                <div class="ui big basic button" data-value="2000">￥2000</div>
+                                                <div class="ui big basic button" data-value="5000">￥5000</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column">
+                                            输入金额
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="four wide field">
+                                                <div class="ui right labeled input">
+                                                    <input  type="text" placeholder="请输入充值金额" name="price">
+                                                    <div class="ui label">
+                                                        元
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column"></div>
+                                        <div class="fourteen wide column">
+                                            <div class="ui blue button submit">充值</div>
+                                            <!--错误提示-->
+                                            <div th:include="layout/message::message (${payMessage})"
+                                                 th:remove="tag"></div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ui tab" th:classappend="${param.tab}!=null and ${param.tab[0]}==2?'active':''" data-tab="second">
+            <div style="margin:30px;">
+                <table class="ui large padded  table">
+                    <thead>
+                    <tr>
+                        <th>提现 <a class="floatRight" th:href="@{/trading/record}"> <i class="fanyi-coin icon"></i>查看交易记录</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="overflow: visible;">
+                            <div class="ui container" style="width: 800px;">
+                                <div style="margin: 50px 0;">
+                                    <h1 class="ui header">
+                                        账户余额：￥<span th:text="${account.money}"></span>
+                                    </h1>
+                                    <div class="ui divider"></div>
+                                </div>
+                                <form id="withdrawForm" th:action="@{/alipay/withdraw}"
+                                      class="ui form"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="ui two column grid">
+                                        <div class="two wide column">
+                                            收款方式
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="ui small images withdrawAction">
+                                                <div data-value="/alipay/withdraw"  class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/alipay.png}"></div>
+                                                <!--<div data-value="/union/withdraw"  class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/bank.png}"></div>-->
+                                                <!--<div data-value="/weixin/withdraw" class="ui basic button"><img class="ui image" th:src="@{/img/fanyi/wechat.png}"></div>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column">
+                                            提现金额
+                                        </div>
+                                        <div class="fourteen wide column ">
+                                            <div class="field">
+                                                <div class="ui tiny images withdrawPrice">
+                                                    <div class="ui big basic button" data-value="100">￥100</div>
+                                                    <div class="ui big basic button" data-value="500">￥500</div>
+                                                    <div class="ui big basic button" data-value="1000">￥1000</div>
+                                                    <div class="ui big basic button" data-value="2000">￥2000</div>
+                                                    <div class="ui big basic button" data-value="5000">￥5000</div>
+                                                    <div class="ui big basic button" th:attr="data-value=${account.money}">全部提现</div>
+                                                </div>
+                                                <input type="hidden" name="payType" value="/alipay/withdraw">
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column">
+                                            输入金额
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="six wide field">
+                                                <div class="ui right labeled input">
+                                                    <input type="text" placeholder="请输入提现金额" name="price">
+                                                    <div class="ui label">
+                                                        元
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column">
+                                            提现账号
+                                        </div>
+                                        <div class="fourteen wide column">
+                                            <div class="six wide field">
+                                                <input type="text" name="account" placeholder="输入提现账号">
+                                            </div>
+                                        </div>
+
+                                        <div class="two wide column"></div>
+                                        <div class="fourteen wide column">
+                                            <input type="hidden" name="password">
+                                            <div class="ui blue button submitButton" th:attr="data-value=${account.money}">提现</div>
+                                            <!--错误提示-->
+                                            <div th:include="layout/message::message (${withdrawMessage})"
+                                                 th:remove="tag"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="payInput" class="hide bigMargin">
+                    <div id="payDetail" style="margin-bottom: 20px;">
+                        <div>余额：￥<span th:text="${account.money}"></span></div>
+                        <div>待支付金额：￥<span>0</span></div>
+                        <div class="hide">余额不足 <a th:href="@{/balance}">点击充值</a></div>
+                    </div>
+                    <input id="beginBtn" type="password" maxlength="1"><!-
+                    -><input type="password" maxlength="1" autocomplete="off"><!-
+                    -><input type="password" maxlength="1" autocomplete="off"><!-
+                    -><input type="password" maxlength="1" autocomplete="off"><!-
+                    -><input type="password" maxlength="1" autocomplete="off"><!-
+                    -><input type="password" maxlength="1" autocomplete="off">
+                    <a id="clearPayPassword" style="display: block">清空密码</a>
+                </div>
+            </div>
+
+        </div>
+     </div>
+
+
+</div>
+</body>
+</html>
