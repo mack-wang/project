@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add-article</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-yuren.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <script
+            src="../assets/js/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="../assets/js/semantic.min.js"></script>
+</head>
+<body class="iframe-body">
+
+<!--页面标题-->
+<div class="ui header p14">添加目录</div>
+<!--页面标题end-->
+
+
+<div class="ui grid">
+
+    <!--添加新目录-->
+    <div class="six wide computer only sixteen wide tablet only mobile only column">
+
+        <div class="ui small header">添加一级目录</div>
+        <div class="ui fluid right action input">
+            <input type="text" placeholder="一级目录">
+            <button class="ui primary button">添加</button>
+        </div>
+        <div class="ui small header">添加二级目录</div>
+        <div class="ui fluid left labeled right action input">
+            <div class="ui dropdown label">
+                <div class="text">一级目录</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">JavaScript</div>
+                    <div class="item">Php</div>
+                    <div class="item">Nodejs</div>
+                </div>
+            </div>
+            <input type="text" placeholder="二级目录">
+            <button class="ui primary button">添加</button>
+        </div>
+    </div>
+    <!--添加新目录end-->
+
+    <!--修改目录-->
+    <div class="ten wide computer only sixteen wide tablet only mobile only column">
+        <table class="ui table">
+            <thead>
+            <tr>
+                <th>一级目录</th>
+                <th>二级目录</th>
+                <th>创建时间</th>
+                <th>修改</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><a href="">JavaScript</a></td>
+                <td><a href="">JQuery</a></td>
+                <td>2017-03-04</td>
+                <td><a href="">edit</a></td>
+            </tr>
+            <tr>
+                <td><a href="">Php</a></td>
+                <td><a href="">Laravel</a></td>
+                <td>2017-03-04</td>
+                <td><a href="">edit</a></td>
+            </tr>
+            <tr>
+                <td><a href="">Nodejs</a></td>
+                <td><a href="">Npm</a></td>
+                <td>2017-03-04</td>
+                <td><a href="">edit</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ui input">
+                        <input type="text" class="p8" value="JavaScript" autofocus>
+                    </div>
+                </td>
+                <td>
+                    <div class="ui input p4">
+                        <input type="text" class="p8" value="Canvas">
+                    </div>
+                </td>
+                <td>2017-03-04</td>
+                <td>
+                    <button class="ui compact primary button">done</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--修改目录end-->
+
+
+</div>
+
+
+</body>
+<script>
+    //启动dropdown
+    $('.ui.dropdown').dropdown();
+
+    //启动手风琴式菜单
+    $('.ui.accordion').accordion();
+
+    //启动标签式菜单
+    $('.menu .item').tab();
+</script>
+</html>

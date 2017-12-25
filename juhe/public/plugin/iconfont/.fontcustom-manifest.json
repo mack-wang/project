@@ -1,0 +1,98 @@
+{
+  "checksum": {
+    "previous": "e380bbadbf85e95d8fe3bc4eebcbdf786ff689a163ce98243d66d8f4f43c9348",
+    "current": "e380bbadbf85e95d8fe3bc4eebcbdf786ff689a163ce98243d66d8f4f43c9348"
+  },
+  "fonts": [
+    "../../font/juhe//juhe.ttf",
+    "../../font/juhe//juhe.svg",
+    "../../font/juhe//juhe.woff",
+    "../../font/juhe//juhe.eot"
+  ],
+  "glyphs": {
+    "drink": {
+      "codepoint": 61696,
+      "source": "src/drink.svg"
+    },
+    "ellipsis": {
+      "codepoint": 61705,
+      "source": "src/ellipsis.svg"
+    },
+    "flour": {
+      "codepoint": 61697,
+      "source": "src/flour.svg"
+    },
+    "globalBuy": {
+      "codepoint": 61698,
+      "source": "src/globalBuy.svg"
+    },
+    "juhe": {
+      "codepoint": 61707,
+      "source": "src/juhe.svg"
+    },
+    "juhe-en": {
+      "codepoint": 61708,
+      "source": "src/juhe-en.svg"
+    },
+    "noodle": {
+      "codepoint": 61699,
+      "source": "src/noodle.svg"
+    },
+    "oil": {
+      "codepoint": 61700,
+      "source": "src/oil.svg"
+    },
+    "popcorn": {
+      "codepoint": 61701,
+      "source": "src/popcorn.svg"
+    },
+    "rice": {
+      "codepoint": 61702,
+      "source": "src/rice.svg"
+    },
+    "seasoner": {
+      "codepoint": 61703,
+      "source": "src/seasoner.svg"
+    },
+    "sweep": {
+      "codepoint": 61706,
+      "source": "src/sweep.svg"
+    },
+    "washing": {
+      "codepoint": 61704,
+      "source": "src/washing.svg"
+    }
+  },
+  "options": {
+    "autowidth": false,
+    "config": false,
+    "css_selector": ".yu-{{glyph}}",
+    "debug": false,
+    "font_ascent": 448,
+    "font_descent": 64,
+    "font_design_size": 16,
+    "font_em": 512,
+    "font_name": "juhe",
+    "force": true,
+    "input": {
+      "templates": "src",
+      "vectors": "src"
+    },
+    "no_hash": true,
+    "output": {
+      "css": "../../font/juhe/",
+      "fonts": "../../font/juhe/",
+      "preview": "../../font/juhe/"
+    },
+    "preprocessor_path": null,
+    "quiet": false,
+    "templates": [
+      "css",
+      "preview"
+    ]
+  },
+  "templates": [
+    "../../font/juhe/juhe.css",
+    "../../font/juhe/juhe-preview.html"
+  ]
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add-article</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-yuren.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <script
+            src="../assets/js/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="../assets/js/semantic.min.js"></script>
+</head>
+<body class="iframe-body">
+
+<!--页面标题-->
+<div class="ui header p14">所有用户</div>
+<!--页面标题end-->
+
+
+<div class="ui one column grid">
+
+
+    <!--筛选和搜索菜单-->
+    <div class="column">
+        <div class="ui fluid four column grid">
+
+
+            <!--目录筛选-->
+            <div class="five wide computer only sixteen wide tablet only mobile only column">
+                <div class="ui fluid two item menu clear-shadow">
+                    <div class="ui dropdown link item">
+                        <span class="text">用户分类</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">游客</div>
+                            <div class="item">用户</div>
+                            <div class="item">会员</div>
+                        </div>
+                    </div>
+                    <div class="ui left labeled icon item">
+                        <i class="yu-filter icon">筛选</i>
+                    </div>
+                </div>
+            </div>
+            <!--目录筛选end-->
+
+            <!--可见筛选-->
+            <div class="five wide computer only sixteen wide tablet only mobile only column">
+                <div class="ui fluid basic buttons">
+                    <button class="ui active button">游客 1320</button>
+                    <button class="ui button">用户 203</button>
+                    <button class="ui button">会员 39</button>
+                </div>
+            </div>
+            <!--可见筛选end-->
+
+            <!--搜索文章或用户-->
+            <div class="four wide computer only sixteen wide tablet only mobile only column">
+                <div class="ui fluid search">
+                    <div class="ui fluid icon input">
+                        <input class="prompt" type="text" placeholder="搜索用户...">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+            <!--搜索文章end-->
+        </div>
+    </div>
+    <!--筛选和搜索菜单end-->
+
+
+    <div class="column">
+        <table class="ui unstackable striped table">
+            <thead>
+            <tr>
+                <th>
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="fun">
+                        <label for="">用户</label>
+                    </div>
+                </th>
+                <th>注册邮箱</th>
+                <th>注册时间</th>
+                <th>充值费用</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="fun">
+                        <label for="">
+                            <div class="ui list">
+                                <div class="item">
+                                    <img class="ui mini top aligned avatar image" src="../assets/img/tom.png" alt="">
+                                    <div class="content">
+                                        <div class="header">会员 tom</div>
+                                        <div>24分钟前</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </td>
+                <td><a href="">641212003@qq.com</a></td>
+                <td><a href="">2017-03-04 20:08</a></td>
+                <td><a href="">￥40</a></td>
+                <td>
+                    <div>
+                        <a href="">编辑</a>
+                        <a href="">删除</a>
+                        <a href="">标签</a>
+                    </div>
+                </td>
+            </tr>
+
+
+
+            </tbody>
+        </table>
+        <!--批量操作-->
+        <div class="two wide computer only sixteen wide tablet only mobile only column">
+            <div class="ui buttons">
+                <div class="ui button p14">批量操作</div>
+                <div class="ui floating dropdown icon button">
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item"><i class="delete icon"></i> 删除选中</div>
+                        <div class="item"><i class="hide icon"></i> 取消发布</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--批量操作end-->
+    </div>
+</div>
+
+
+<script>
+    //启动dropdown
+    $('.ui.dropdown').dropdown();
+
+    //启动手风琴式菜单
+    $('.ui.accordion').accordion();
+
+    //启动标签式菜单
+    $('.menu .item').tab();
+</script>
+</body>
+</html>

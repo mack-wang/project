@@ -1,0 +1,666 @@
+/*原子类集中管理*/
+.p0m0 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.p0 {
+    padding: 0 !important;
+}
+
+.p4 {
+    padding: 4px !important;
+}
+
+.p8 {
+    padding: 8px !important;
+}
+
+.p10 {
+    padding: 10px !important;
+}
+
+.p14 {
+    padding: 14px !important;
+}
+
+.pb100 {
+    padding-bottom: 100px !important;
+}
+
+.pt0 {
+    padding-top: 0 !important;
+}
+
+.pt10 {
+    padding-top: 10px !important;
+}
+
+.pt20 {
+    padding-top: 20px !important;
+}
+
+.pt40 {
+    padding-top: 40px !important;
+}
+
+.pb8 {
+    padding-bottom: 8px !important;
+}
+
+.pr8 {
+    padding: 0 8px 0 0 !important;
+}
+
+.pr14 {
+    padding-right: 14px;
+}
+
+.ph4 {
+    padding: 0 4px !important;
+}
+
+.ph14 {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+}
+
+.pv16 {
+    padding: 14px 0 !important;
+}
+
+.pv50 {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+
+.mr-1 {
+    margin-right: -1px;
+}
+
+.m0 {
+    margin: 0 !important;
+}
+
+.m8 {
+    margin: 8px !important;
+}
+
+.m28 {
+    margin: 28px !important;
+}
+
+.mt0 {
+    margin-top: 0 !important;
+}
+
+.ml10 {
+    margin-left: 10px !important;
+}
+
+.ml14 {
+    margin-left: 14px !important;
+}
+
+.ml20 {
+    margin-left: 20px !important;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+.mb2 {
+    margin-bottom: 1px !important;
+}
+
+.mb4 {
+    margin-bottom: 4px !important;
+}
+
+.mb20 {
+    margin-bottom: 20px !important;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt200 {
+    margin-top: 200px !important;
+}
+
+.mv4 {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+}
+
+.mv8 {
+    margin: 8px 0 !important;
+}
+
+.f12 {
+    font-size: 12px !important;
+}
+
+.f14 {
+    font-size: 14px !important;
+}
+
+.f16 {
+    font-size: 16px !important;
+}
+
+.fl {
+    float: left !important;
+}
+
+.fr {
+    float: right;
+}
+
+.wh8 {
+    width: 2px !important;
+    height: 2px !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.clear-radio {
+    border-radius: 0 !important;
+}
+
+.clear-shadow {
+    box-shadow: none !important;
+}
+
+.border-clear {
+    border: none !important;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.relative {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.yu-hidden {
+    display: none;
+}
+
+/*原子类集中管理end*/
+
+.nav > .item {
+    padding: 0 10px !important;
+}
+
+div.ui.inverted.accordion > div.title:hover {
+    background: #2D2E2F;
+}
+
+div.ui.inverted.accordion > div.active.title {
+    background: #2D2E2F;
+}
+
+div.ui.inverted.accordion > div.title > i:first-child {
+    margin-left: 10px;
+}
+
+.ui.grid {
+    margin: 0;
+}
+
+.myred {
+    color: red !important;
+}
+
+.iframe-body {
+    background-color: #F5F5F5;
+}
+
+.content-edit {
+    max-width: inherit;
+    width: 100%;
+    height: 500px;
+    outline: none;
+    text-indent: 0 !important;
+}
+
+.border-right-none {
+    border-right: none !important;
+}
+
+.ui.menu.item.ml-1 {
+    margin-left: -1px !important;
+}
+
+.lighter {
+    font-weight: lighter !important;
+}
+
+.resource-img > a {
+    padding: 14px !important;
+}
+
+/*.results {*/
+/*width: 400px !important;*/
+/*}*/
+
+div.celled.list > a.item {
+    margin: 0 !important;
+}
+
+div.celled.list > a.item > label {
+    float: right;
+    padding-right: 20px;
+}
+
+.content.p0 > .header {
+    padding: 20px;
+}
+
+.content.p0 > .meta > .info {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.pin-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.pin-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.full.height {
+    overflow: hidden;
+    height: 100%;
+}
+
+.hljs {
+    background-color: inherit !important;
+}
+
+.helloworld > .hljs {
+    background-color: inherit !important;
+}
+
+.ui.accordion > .content > div {
+    display: block !important;
+    padding: 2px;
+}
+
+/*.ui.dimmer.modals{
+    background-color: rgba(0,0,0,0)!important;
+}*/
+
+.left.dropdown.active {
+    background-color: #009A44 !important;
+    color: white !important;
+}
+
+.header {
+    font-family: "Microsoft YaHei" !important;
+}
+
+#slide-image {
+    transition: all 2s;
+    -webkit-transition: all 2s;
+}
+
+#slide-image > ul {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#slide-image > ul > li {
+    width: 100%;
+    float: left;
+    list-style: none;
+    overflow: hidden;
+}
+
+.line > div {
+    color: gray;
+}
+
+.ui.grid.feeds {
+    background-color: #E7E7E7;
+}
+
+.ui.grid.feeds > .column {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.ui.grid.feeds > .column > .segment {
+    padding: 0 6px !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.ui.grid.feeds > .column > .attached.button {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-top: -1px !important;
+}
+
+.mt8 {
+    margin-top: 8px !important;
+}
+
+a.feeds.button {
+    height: 56px;
+    line-height: 56px;
+    padding-right: 18px;
+    color: #009A44;
+}
+
+.mt-1 {
+    margin-top: -1px !important;
+}
+
+.progress.exp {
+    width: 33%;
+    display: inline-block;
+    margin: 2px 0 2px 8px !important;
+}
+
+.feed.grass > .event > .content > .meta {
+    margin: 16px 0 0 16px !important;
+    color: #505050;
+    font-size: 14px;
+}
+
+.feed.grass > .event > .label {
+    width: 50px;
+    padding-top: 4px;
+    margin-right: 20px;
+}
+
+.column.feeds > .segment > .grid > .column > .image {
+    margin: 8px 2px;
+    width: 110px;
+    height: 110px;
+}
+
+.column.feeds > .segment > .grid > .column {
+    font-size: 12px;
+    color: gray;
+}
+
+.column.feeds > .segment > .grid > .column > .content > div > span {
+    color: #009A44;
+}
+
+.column.feeds > a.button {
+    background-color: #f9f9f9;
+    color: #009A44;
+    font-weight: lighter;
+}
+
+.column.feeds > .segment > .grid > .column > .content > .summary {
+    font-size: 14px;
+    color: #505050;
+}
+
+.column.feeds > .segment > .grid > .column > .content > .summary > .label {
+    font-size: 11px;
+    padding: 4px;
+}
+
+.personal > .event > .label {
+    width: 45px !important;
+    padding-top: 6px;
+}
+
+.personal > .event > .content {
+    color: #505050;
+    margin-top: 4px;
+}
+
+.personal > .event > .content > .meta {
+    display: block !important;
+    margin-top: 2px !important;
+    font-size: 14px !important;
+}
+
+.column.flow > a.button {
+    background-color: #f9f9f9;
+    color: #009A44;
+    font-weight: lighter;
+}
+
+.column.flow > .segment > .feed > .event > .label > img {
+    width: 26px !important;
+    border-radius: 4px !important;
+    margin-top: 6px !important;
+}
+
+.column.flow > .segment > div > img {
+    width: 100%;
+}
+
+a.absolute.bottom.button {
+    width: 100%;
+    height: 50px;
+    line-height: 28px;
+    position: fixed;
+    border-radius: 0 !important;
+    bottom: 0;
+}
+
+button.absolute.bottom.button {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    border-radius: 0 !important;
+    bottom: 0;
+}
+
+.simple.page {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.simple.page > .menu {
+    box-shadow: none !important;
+}
+
+.apply.menu > .item {
+    padding: 4px !important;
+}
+
+.apply.menu > .item > div {
+    text-align: left;
+}
+
+.strong.text {
+    color: #009A44;
+    font-size: 16px;
+}
+
+.lighter.text {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.time {
+    display: inline-block;
+    width: 16px;
+    height: 20px;
+    font-size: 12px;
+    background-color: white;
+    border-radius: 4px;
+    color: #009A44;
+    line-height: 20px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.time2 {
+    display: inline-block;
+    width: 16px;
+    height: 20px;
+    font-size: 12px;
+    background-color: #009A44;
+    border-radius: 4px;
+    color: white;
+    line-height: 20px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.apply-success.cards > .card > .extra {
+    padding: 1px !important;
+    text-align: center;
+}
+
+.ui.active.progress .bar {
+    min-width: 0 !important;
+}
+
+.ui.progress .bar {
+    min-width: 0 !important;
+}
+
+img.cigarette {
+    width: 64px;
+    margin: 8px auto !important;
+}
+
+img.seal {
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+    width: 100px;
+    opacity: 0.5;
+}
+
+img.full_width {
+    width: 100%;
+}
+
+img.ui.image.slide {
+    width: 100%;
+}
+
+.prize-describe {
+    padding: 6px 20px !important;
+    font-size: 12px;
+    background-color: white;
+}
+
+.prize-describe > .column {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.warning-tips {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.applied {
+    background-color: #009A44 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+#kill-apply {
+    background-color: #db2828;
+    color: white;
+    font-weight: bold;
+}
+
+.grass-bg {
+    width: 100%;
+    height: 60%;
+    background-size: 100% 100%;
+}
+
+.grass-bg > .task:nth-child(1) {
+    width: 80px !important;
+    position: absolute;
+    left: 10%;
+    top: 5%;
+}
+
+.grass-bg > .task:nth-child(2) {
+    width: 80px !important;
+    position: absolute;
+    left: 30%;
+    top: 10%;
+}
+
+.grass-bg > .task:nth-child(3) {
+    width: 80px !important;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+}
+
+.grass-bg > .task:nth-child(4) {
+    width: 80px !important;
+    position: absolute;
+    left: 70%;
+    top: 10%;
+}
+
+.task > img {
+    width: 40px !important;
+}
+
+.task > a {
+    display: block;
+}
+
+.task > div {
+    font-size: 12px;
+}
+
+/*为文章中的图片设置100%的响应式宽度*/
+.fullwidth {
+    width: 100%;
+}
+
+.ui.form.bigLabel label {
+    font-size: 14px;
+}
+
+.feeds.button.adjust {
+    height: 31px;
+    line-height: 31px;
+}
+
+.green-text {
+    color: #009A44 !important;
+}
+
+.red-text {
+    color: #db2828 !important;
+}
+
+.navigation > div > a > div {
+    color: #505050;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.weather a {
+    color: #bbb;
+    margin: 8px;
+}

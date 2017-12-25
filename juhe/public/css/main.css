@@ -1,0 +1,85 @@
+.swiper-pagination-bullet-active {
+    background-color: #cdcdcd;
+}
+
+.ui.labeled.icon.menu .item > .icon:not(.dropdown) {
+    margin: 0 !important;
+}
+
+.app.menu > .item {
+    padding: 6px 0 !important;
+}
+
+.app.menu a.item:hover {
+    background: white !important;
+    color: #db2828;
+}
+
+.red-menu {
+    background: white !important;
+    color: #db2828 !important;
+}
+
+/*首页导航*/
+.grid.nav {
+    margin: 0 0.5em !important;
+}
+
+.grid.nav > .column > a > div {
+    font-size: 0.8em;
+    color: gray;
+}
+
+.grid.nav > .column {
+    padding: 5px !important;
+}
+
+.column.divider {
+    height: 8px !important;
+    padding: 0 !important;
+    background-color: #EEEEEE;
+}
+
+.row.divider {
+    height: 8px !important;
+    padding: 0 !important;
+    background-color: #EEEEEE;
+}
+
+.light.text {
+    color: gray;
+    font-size: 12px;
+}
+
+.product.menu {
+    width: inherit;
+}
+
+.product.grid > .row {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.connect > .card {
+    border-radius: 0 !important;
+}
+
+.ui.grid > .column:not {
+    padding-right: 0 !important;
+}
+
+.home.menu > a {
+    padding: auto 14px !important;
+}
+
+.fullwidth {
+    width: 100% !important;
+}
+
+.ui.vertical.menu.home {
+    width: 100% !important;
+}
+
+.headlineNode {
+    display: none;
+}

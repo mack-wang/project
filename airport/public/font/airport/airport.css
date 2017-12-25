@@ -1,0 +1,50 @@
+/*
+  Icon Font: airport
+*/
+
+@font-face {
+  font-family: "airport";
+  src: url("./airport.eot");
+  src: url("./airport.eot?#iefix") format("embedded-opentype"),
+       url("./airport.woff2") format("woff2"),
+       url("./airport.woff") format("woff"),
+       url("./airport.ttf") format("truetype"),
+       url("./airport.svg#airport") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "airport";
+    src: url("./airport.svg#airport") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.yu-apply:before,
+.yu-guide:before,
+.yu-insurance:before,
+.yu-lottery:before,
+.yu-weather:before {
+  display: inline-block;
+  font-family: "airport";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.yu-apply:before { content: "\f100"; }
+.yu-guide:before { content: "\f101"; }
+.yu-insurance:before { content: "\f102"; }
+.yu-lottery:before { content: "\f103"; }
+.yu-weather:before { content: "\f106"; }

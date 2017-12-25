@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add-article</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-yuren.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <script
+            src="../assets/js/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="../assets/js/semantic.min.js"></script>
+</head>
+<body class="iframe-body">
+
+<!--页面标题-->
+<div class="ui header p14">添加文章</div>
+<!--页面标题end-->
+
+
+<div class="ui centered grid">
+    <!--添加文章-->
+    <div class="twelve wide computer sixteen wide mobile column">
+        <form action="" class="ui form">
+            <div class="field">
+                <input type="text" placeholder="添加文章标题">
+            </div>
+        </form>
+
+        <div class="ui top attached tabular menu">
+            <a class="item active" data-tab="doc">教程</a>
+            <a class="item" data-tab="code">源码</a>
+            <a class="item" data-tab="example">示例</a>
+        </div>
+        <div class="ui bottom attached tab segment active content-edit" data-tab="doc" contenteditable="true">
+
+        </div>
+        <div class="ui bottom attached tab segment content-edit" data-tab="code">
+
+        </div>
+        <div class="ui bottom attached tab segment content-edit" data-tab="example">
+
+        </div>
+    </div>
+    <!--添加文章end-->
+
+    <!--添加文章属性-->
+    <div class="four wide computer sixteen wide mobile column">
+
+        <!--目录模块-->
+        <div class="ui top attached header">
+            目录
+            <a href="" class="fr"><i class="yu-add"></i>添加</a>
+        </div>
+        <div class="ui attached segment">
+            <div class="ui accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    选择目录
+                </div>
+                <div class="content">
+                    <div class="styled accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            JavaScript
+                        </div>
+                        <div class="content">
+                            <div class="ui vertically form ml20">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="fun">
+                                        <label>JQuery</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="fun">
+                                        <label>Canvas</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="fun">
+                                        <label>ES6</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Php
+                        </div>
+                        <div class="content">
+                            <div class="ui vertically form ml20">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="fun">
+                                        <label>Laravel</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Nodejs
+                        </div>
+                        <div class="content">
+                            <div class="ui vertically form ml20">
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="fun">
+                                        <label>Npm</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui bottom attached segment">
+            当前目录：
+            <div class="ui breadcrumb">
+                <a href="" class="section">JavaScript</a>
+                <div class="divider">|</div>
+                <a class="section">JQuery</a>
+            </div>
+        </div>
+        <!--目录模块end-->
+
+
+        <!--发布模块-->
+        <div class="ui top attached header">
+            发布
+
+        </div>
+        <div class="ui attached segment">
+            <label>状态：<span id="">草稿</span></label>
+            <div class="ui divider"></div>
+            <div>可见性：</div>
+            <div class="ui form pt10">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" name="public" checked="checked">
+                    <label>公开</label>
+                </div>
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" name="public">
+                    <label>会员</label>
+                </div>
+            </div>
+        </div>
+        <div class="ui  bottom attached three item menu ml-1">
+            <div class="item">
+                <a>存为草稿</a>
+            </div>
+            <div class="item">
+                <a>预览</a>
+            </div>
+            <div class="item">
+                <button class="ui primary button">发布</button>
+            </div>
+        </div>
+        <!--发布模块end-->
+
+        <!--标签模块-->
+        <div class="ui top attached header">
+            标签
+        </div>
+        <div class="ui bottom  attached segment">
+            <div class="ui input ">
+                <input type="text" placeholder="以英文逗号分隔" style="width: 160px;">
+            </div>
+            <a href="" class="ml10">添加</a>
+        </div>
+        <!--标签模块end-->
+
+    </div>
+    <!--添加文章属性end-->
+</div>
+
+
+<script>
+    //启动dropdown
+    $('.ui.dropdown').dropdown();
+
+    //启动手风琴式菜单
+    $('.ui.accordion').accordion();
+
+    //启动标签式菜单
+    $('.menu .item').tab();
+</script>
+</body>
+</html>

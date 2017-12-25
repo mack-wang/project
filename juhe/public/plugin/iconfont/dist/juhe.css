@@ -1,0 +1,57 @@
+/*
+  Icon Font: juhe
+*/
+
+@font-face {
+  font-family: "juhe";
+  src: url("./juhe.eot");
+  src: url("./juhe.eot?#iefix") format("embedded-opentype"),
+       url("./juhe.woff") format("woff"),
+       url("./juhe.ttf") format("truetype"),
+       url("./juhe.svg#juhe") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "juhe";
+    src: url("./juhe.svg#juhe") format("svg");
+  }
+}
+
+[data-icon]:before { content: attr(data-icon); }
+
+[data-icon]:before,
+.drink:before,
+.flour:before,
+.globalBuy:before,
+.noodle:before,
+.oil:before,
+.popcorn:before,
+.rice:before,
+.seasoner:before,
+.washing:before {
+  display: inline-block;
+  font-family: "juhe";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.drink:before { content: "\f100"; }
+.flour:before { content: "\f101"; }
+.globalBuy:before { content: "\f102"; }
+.noodle:before { content: "\f103"; }
+.oil:before { content: "\f104"; }
+.popcorn:before { content: "\f105"; }
+.rice:before { content: "\f106"; }
+.seasoner:before { content: "\f107"; }
+.washing:before { content: "\f108"; }
